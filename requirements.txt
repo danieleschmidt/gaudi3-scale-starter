@@ -1,0 +1,21 @@
+# Core ML/AI Dependencies
+torch>=2.3.0
+pytorch-lightning>=2.2.0
+transformers>=4.36.0
+datasets>=2.15.0
+
+# Experiment Tracking & Monitoring
+wandb>=0.16.0
+tensorboard>=2.16.0
+
+# CLI & Configuration
+click>=8.1.0
+typer>=0.9.0
+pydantic>=2.5.0
+pyyaml>=6.0.1
+rich>=13.7.0
+
+# Optional: Habana HPU Support (install separately if available)
+# habana-torch-plugin>=1.16.0
+# habana-torch-dataloader>=1.16.0
+# synapse-ai>=1.16.0

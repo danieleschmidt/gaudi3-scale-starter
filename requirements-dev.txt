@@ -1,0 +1,27 @@
+# Include base requirements
+-r requirements.txt
+
+# Development & Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+pytest-asyncio>=0.21.0
+
+# Code Quality & Formatting
+black>=23.11.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.7.0
+
+# Security & Pre-commit
+pre-commit>=3.6.0
+bandit>=1.7.5
+safety>=2.3.0
+
+# Infrastructure as Code
+python-terraform>=0.10.1
+boto3>=1.34.0
+
+# Monitoring & Metrics
+prometheus-client>=0.19.0
+psutil>=5.9.6
