@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  gaudi-trainer:
+    build:
+      context: .
+      target: production
+    image: gaudi3-scale:latest
+    container_name: gaudi3-trainer
+    
+    # HPU device access
+    devices:
+      - "/dev/accel:/dev/accel"
+    
+    environment:
+      - PYTHONUNBUFFERED=1
+      - HABANA_LOGS=/app/logs
+      - WANDB_PROJECT=gaudi3-scale
+    
+    volumes:
+      - ./data:/app/data:ro
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ./configs:/app/configs:ro
+    
+    networks:
+      - gaudi-network
+    
+    restart: unless-stopped
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 32G
+        reservations:
+          memory: 16G
+  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: gaudi3-prometheus
+    
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    
+    ports:
+      - "9090:9090"
+    
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    
+    networks:
+      - gaudi-network
+    
+    restart: unless-stopped
+  
+  grafana:
+    image: grafana/grafana:latest
+    container_name: gaudi3-grafana
+    
+    ports:
+      - "3000:3000"
+    
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=gaudi3admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    
+    networks:
+      - gaudi-network
+    
+    restart: unless-stopped
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  gaudi-network:
+    driver: bridge
