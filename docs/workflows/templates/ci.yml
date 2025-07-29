@@ -1,0 +1,133 @@
+# CI Pipeline for Gaudi 3 Scale Starter
+# Copy this file to .github/workflows/ci.yml
+
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          
+      - name: Check formatting with Black
+        run: black --check .
+        
+      - name: Check import sorting with isort
+        run: isort --check-only .
+        
+      - name: Lint with flake8
+        run: flake8 src/ tests/
+        
+      - name: Type check with mypy
+        run: mypy src/
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          pip install -e .
+          
+      - name: Run tests with coverage
+        run: |
+          pytest --cov=gaudi3_scale --cov-report=xml --cov-report=html
+          
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.xml
+          fail_ci_if_error: true
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          
+      - name: Run Bandit security scan
+        run: bandit -r src/ -f json -o bandit-report.json
+        continue-on-error: true
+        
+      - name: Run Safety dependency scan
+        run: safety check --json --output safety-report.json
+        continue-on-error: true
+        
+      - name: GitGuardian scan
+        uses: GitGuardian/ggshield-action@v1.25.0
+        with:
+          api-key: ${{ secrets.GITGUARDIAN_API_KEY }}
+          args: secret scan path . --recursive --show-secrets
+
+  terraform:
+    name: Terraform Validate
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.modified, 'terraform/') || github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.0
+          
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive terraform/
+        
+      - name: Terraform Init
+        run: |
+          cd terraform/aws
+          terraform init -backend=false
+          
+      - name: Terraform Validate
+        run: |
+          cd terraform/aws
+          terraform validate
+          
+      - name: Terraform Plan (Dry Run)
+        run: |
+          cd terraform/aws
+          terraform plan -var="cluster_size=1" -var="instance_type=t3.micro"
