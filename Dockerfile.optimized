@@ -1,0 +1,105 @@
+# Multi-stage Dockerfile optimized for Gaudi 3 HPU performance
+# Implements advanced container optimization for production workloads
+
+# Build stage - Development dependencies
+FROM vault.habana.ai/gaudi-docker/1.16.0/ubuntu22.04/habana-torch:latest AS builder
+
+# Build arguments for optimization
+ARG HABANA_VERSION=1.16.0
+ARG PYTHON_VERSION=3.10
+ARG TORCH_VERSION=2.3.0
+ARG PYTORCH_LIGHTNING_VERSION=2.2.0
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create non-root user for security
+RUN groupadd -r gaudi && useradd -r -g gaudi gaudi
+
+# Set up Python environment
+WORKDIR /workspace
+COPY requirements*.txt pyproject.toml ./
+
+# Install Python dependencies with optimization flags
+RUN pip install --no-cache-dir \
+    --extra-index-url https://download.pytorch.org/whl/cpu \
+    --trusted-host download.pytorch.org \
+    -r requirements.txt \
+    -r requirements-dev.txt
+
+# Production stage - Runtime optimization
+FROM vault.habana.ai/gaudi-docker/1.16.0/ubuntu22.04/habana-torch:latest AS production
+
+# Security labels
+LABEL org.opencontainers.image.title="Gaudi 3 Scale Starter" \
+      org.opencontainers.image.description="Production-optimized container for Intel Gaudi 3 HPU training" \
+      org.opencontainers.image.vendor="Terragon Labs" \
+      org.opencontainers.image.security.scan="enabled" \
+      org.opencontainers.image.source="https://github.com/yourusername/gaudi3-scale-starter"
+
+# Copy Python environment from builder
+COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
+
+# Create non-root user
+RUN groupadd -r gaudi && useradd -r -g gaudi -d /workspace gaudi
+
+# Install runtime dependencies only
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Set up workspace
+WORKDIR /workspace
+RUN chown gaudi:gaudi /workspace
+
+# Copy application code
+COPY --chown=gaudi:gaudi src/ ./src/
+COPY --chown=gaudi:gaudi scripts/ ./scripts/
+COPY --chown=gaudi:gaudi pyproject.toml ./
+
+# Habana environment optimizations
+ENV PT_HPU_LAZY_MODE=1 \
+    PT_HPU_ENABLE_LAZY_COMPILATION=1 \
+    PT_HPU_GRAPH_COMPILER_OPT_LEVEL=3 \
+    PT_HPU_MAX_COMPOUND_OP_SIZE=256 \
+    PT_HPU_ENABLE_SYNAPSE_LAYOUT_OPT=1 \
+    PT_HPU_ENABLE_WEIGHT_CPU_PERMUTE=1 \
+    PT_HPU_POOL_STRATEGY=OPTIMIZE_UTILIZATION
+
+# Performance optimization environment
+ENV PYTHONPATH=/workspace/src \
+    PYTHONUNBUFFERED=1 \
+    TORCH_CUDA_ARCH_LIST="" \
+    HABANA_LOGS=/tmp/habana_logs \
+    HABANA_SCAL_BIN_PATH=/opt/habanalabs/engines_fw \
+    HABANA_PLUGINS_LIB_PATH=/opt/habanalabs/habana_plugins
+
+# Security hardening
+ENV HOME=/workspace \
+    USER=gaudi \
+    UID=1000 \
+    GID=1000
+
+# Switch to non-root user
+USER gaudi
+
+# Health check for container monitoring
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD python -c "import habana_frameworks.torch as htorch; print(f'HPUs available: {htorch.hpu.device_count()}')" || exit 1
+
+# Expose monitoring ports
+EXPOSE 8000 8080
+
+# Default command with optimization
+CMD ["python", "-m", "gaudi3_scale.cli", "train", "--config", "/workspace/config/production.yaml"]
+
+# Multi-architecture support
+# Use buildx for cross-platform builds:
+# docker buildx build --platform linux/amd64,linux/arm64 -t gaudi3-scale:latest .
