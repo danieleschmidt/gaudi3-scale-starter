@@ -1,0 +1,161 @@
+# Ruff configuration for high-performance Python linting
+# Replacement for flake8, isort, and more - significantly faster
+
+# Target Python 3.10+ compatibility
+target-version = "py310"
+line-length = 88
+indent-width = 4
+
+# Enable advanced rule sets for production code
+select = [
+    # pycodestyle
+    "E",  # Error
+    "W",  # Warning
+    # Pyflakes
+    "F",  # Pyflakes
+    # pyupgrade
+    "UP", # pyupgrade
+    # flake8-bugbear
+    "B",  # flake8-bugbear
+    # flake8-simplify
+    "SIM", # flake8-simplify
+    # isort
+    "I",  # isort
+    # McCabe complexity
+    "C90", # mccabe
+    # flake8-comprehensions
+    "C4", # flake8-comprehensions
+    # flake8-debugger
+    "T10", # flake8-debugger
+    # flake8-print
+    "T20", # flake8-print
+    # flake8-pytest-style
+    "PT", # flake8-pytest-style
+    # flake8-return
+    "RET", # flake8-return
+    # flake8-unused-arguments
+    "ARG", # flake8-unused-arguments
+    # flake8-use-pathlib
+    "PTH", # flake8-use-pathlib
+    # pandas-vet
+    "PD", # pandas-vet
+    # NumPy-specific rules
+    "NPY", # NumPy
+    # Airflow
+    "AIR", # Airflow
+    # Performance
+    "PERF", # Perflint
+    # Logging
+    "LOG", # flake8-logging
+    # Security
+    "S", # flake8-bandit
+    # Type checking
+    "TCH", # flake8-type-checking
+    # Documentation
+    "D", # pydocstyle
+]
+
+# Ignore specific rules that may be too aggressive for ML/AI code
+ignore = [
+    "D100", # Missing docstring in public module
+    "D104", # Missing docstring in public package
+    "D107", # Missing docstring in __init__
+    "D203", # 1 blank line required before class docstring
+    "D213", # Multi-line docstring summary should start at the second line
+    "D401", # First line should be in imperative mood
+    "S101", # Use of assert detected (common in ML code)
+    "S301", # pickle can be insecure (ML models often use pickle)
+    "S403", # Consider possible security implications (subprocess)
+    "S404", # Consider possible security implications (subprocess)
+    "S603", # subprocess call: check for execution of untrusted input
+    "S607", # Starting a process with a partial executable path
+    "PD901", # df is a bad variable name (common in pandas)
+    "B008", # Do not perform function calls in argument defaults
+    "RET504", # Unnecessary variable assignment before return
+    "C90", # Too complex - let McCabe handle this separately
+    "ARG002", # Unused method argument (common in ML frameworks)
+]
+
+# Files to exclude from linting
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "migrations",
+    "alembic/versions",
+]
+
+# Per-file ignores
+[per-file-ignores]
+"__init__.py" = ["F401", "F403", "I001"]
+"tests/**" = ["S101", "D100", "D103", "ARG001", "ARG002"]
+"scripts/**" = ["T201", "S603", "S607"]
+"benchmarks/**" = ["T201", "S101"]
+"docs/**" = ["D100", "D103"]
+
+[mccabe]
+# Maximum cyclomatic complexity
+max-complexity = 15
+
+[isort]
+# isort configuration integrated with ruff
+known-first-party = ["gaudi3_scale"]
+force-single-line = false
+multi-line-output = 3
+include-trailing-comma = true
+force-grid-wrap = 0
+use-parentheses = true
+ensure-newline-before-comments = true
+
+[pydocstyle]
+# Docstring style
+convention = "google"
+
+[flake8-type-checking]
+# Type checking imports optimization
+strict = true
+exempt-modules = ["typing", "typing_extensions"]
+
+[flake8-pytest-style]
+# Pytest style configuration
+fixture-parentheses = false
+mark-parentheses = false
+parametrize-names-type = "tuple"
+parametrize-values-type = "tuple"
+parametrize-values-row-type = "tuple"
+
+[flake8-bugbear]
+# Additional bugbear checks for ML code
+extend-immutable-calls = ["torch.tensor", "np.array", "pd.DataFrame"]
+
+# Format configuration
+[format]
+# Use double quotes for strings
+quote-style = "double"
+# Use spaces around operators
+indent-style = "space"
+# Respect existing trailing commas
+skip-magic-trailing-comma = false
+# Normalize line endings
+line-ending = "auto"
+# Docstring formatting
+docstring-code-format = true
+docstring-code-line-length = 72

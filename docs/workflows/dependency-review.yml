@@ -1,0 +1,311 @@
+name: Dependency Review
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'requirements*.txt'
+      - 'pyproject.toml'
+      - 'Dockerfile'
+      - 'docker-compose.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          # Fail the action if vulnerabilities are found
+          fail-on-severity: moderate
+          # Allow GPL and LGPL licenses for ML libraries
+          allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, GPL-3.0, LGPL-2.1, LGPL-3.0
+          # Deny problematic licenses
+          deny-licenses: AGPL-1.0, AGPL-3.0, GPL-2.0
+          # Comment on PR with results
+          comment-summary-in-pr: always
+          # Create summary for job
+          summary-format: table
+
+  vulnerability-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install safety pip-audit
+
+      - name: Run Safety check
+        run: |
+          safety check --json --output safety-report.json || true
+          safety check --full-report
+
+      - name: Run pip-audit
+        run: |
+          pip-audit --format=json --output=pip-audit-report.json || true
+          pip-audit --format=cyclonedx-json --output=sbom.json || true
+          pip-audit
+
+      - name: Upload vulnerability reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: vulnerability-reports
+          path: |
+            safety-report.json
+            pip-audit-report.json
+            sbom.json
+
+  license-compliance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install pip-licenses
+        run: pip install pip-licenses
+
+      - name: Install project dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Generate license report
+        run: |
+          pip-licenses --format=json --output-file=licenses.json
+          pip-licenses --format=html --output-file=licenses.html
+          pip-licenses --format=markdown --output-file=licenses.md
+
+      - name: Check for GPL licenses
+        run: |
+          # Check for potentially problematic licenses
+          if pip-licenses | grep -E "(GPL-2.0|AGPL)"; then
+            echo "⚠️ Found potentially problematic licenses. Please review:"
+            pip-licenses | grep -E "(GPL-2.0|AGPL)"
+            echo "Consider alternatives or ensure compliance with project license policy."
+          else
+            echo "✅ No problematic licenses found"
+          fi
+
+      - name: Upload license reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: license-reports
+          path: |
+            licenses.json
+            licenses.html
+            licenses.md
+
+  dependency-update-analysis:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout base branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.base_ref }}
+          path: base
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          path: pr
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install analysis tools
+        run: |
+          pip install --upgrade pip
+          pip install pipdeptree packaging
+
+      - name: Analyze dependency changes
+        run: |
+          cd base
+          pip install -r requirements.txt -r requirements-dev.txt 2>/dev/null || true
+          pipdeptree --json > ../base-deps.json
+          
+          cd ../pr
+          pip install -r requirements.txt -r requirements-dev.txt 2>/dev/null || true
+          pipdeptree --json > ../pr-deps.json
+
+      - name: Generate dependency comparison
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            try {
+              const baseDeps = JSON.parse(fs.readFileSync('base-deps.json', 'utf8'));
+              const prDeps = JSON.parse(fs.readFileSync('pr-deps.json', 'utf8'));
+              
+              const baseMap = new Map(baseDeps.map(pkg => [pkg.package.package_name, pkg.package.installed_version]));
+              const prMap = new Map(prDeps.map(pkg => [pkg.package.package_name, pkg.package.installed_version]));
+              
+              let changes = [];
+              let added = [];
+              let updated = [];
+              let removed = [];
+              
+              // Find added and updated packages
+              for (const [name, version] of prMap) {
+                if (!baseMap.has(name)) {
+                  added.push(`+ ${name} ${version}`);
+                } else if (baseMap.get(name) !== version) {
+                  updated.push(`↗ ${name} ${baseMap.get(name)} → ${version}`);
+                }
+              }
+              
+              // Find removed packages
+              for (const [name, version] of baseMap) {
+                if (!prMap.has(name)) {
+                  removed.push(`- ${name} ${version}`);
+                }
+              }
+              
+              if (added.length || updated.length || removed.length) {
+                let comment = "## 📦 Dependency Changes\n\n";
+                
+                if (added.length) {
+                  comment += "### ➕ Added Dependencies\n";
+                  comment += added.join('\n') + '\n\n';
+                }
+                
+                if (updated.length) {
+                  comment += "### ⬆️ Updated Dependencies\n";
+                  comment += updated.join('\n') + '\n\n';
+                }
+                
+                if (removed.length) {
+                  comment += "### ➖ Removed Dependencies\n";
+                  comment += removed.join('\n') + '\n\n';
+                }
+                
+                comment += "**Please ensure:**\n";
+                comment += "- [ ] All dependency changes are intentional\n";
+                comment += "- [ ] Security vulnerabilities have been reviewed\n";
+                comment += "- [ ] License compatibility has been verified\n";
+                comment += "- [ ] Breaking changes are documented\n";
+                comment += "- [ ] Performance impact has been considered\n";
+                
+                await github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: comment
+                });
+              }
+            } catch (error) {
+              console.log('Could not analyze dependency changes:', error.message);
+            }
+
+  performance-impact:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for performance-sensitive changes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            
+            const performanceSensitive = [
+              'requirements.txt',
+              'requirements-dev.txt',
+              'pyproject.toml'
+            ];
+            
+            const criticalPackages = [
+              'torch',
+              'pytorch-lightning',
+              'transformers',
+              'numpy',
+              'habana'
+            ];
+            
+            let hasPerformanceImpact = false;
+            let affectedFiles = [];
+            
+            for (const file of files) {
+              if (performanceSensitive.includes(file.filename)) {
+                hasPerformanceImpact = true;
+                affectedFiles.push(file.filename);
+                
+                // Check if critical packages are affected
+                if (file.patch) {
+                  for (const pkg of criticalPackages) {
+                    if (file.patch.includes(pkg)) {
+                      hasPerformanceImpact = true;
+                      break;
+                    }
+                  }
+                }
+              }
+            }
+            
+            if (hasPerformanceImpact) {
+              const comment = `
+            ## ⚡ Performance Impact Warning
+            
+            This PR modifies dependency files that may affect performance:
+            ${affectedFiles.map(f => `- ${f}`).join('\n')}
+            
+            **Recommended Actions:**
+            - [ ] Run performance benchmarks before merging
+            - [ ] Test with different model sizes and batch sizes
+            - [ ] Verify HPU utilization remains optimal
+            - [ ] Check memory usage patterns
+            - [ ] Validate distributed training performance
+            
+            **Critical packages that may be affected:**
+            ${criticalPackages.map(pkg => `- ${pkg}`).join('\n')}
+            
+            Please ensure performance regression tests pass before merging.
+            `;
+              
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+              
+              // Add performance label
+              await github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['performance-impact']
+              });
+            }
