@@ -1,0 +1,66 @@
+# Code ownership and review requirements for Gaudi3 Scale Starter
+# This file defines who should review specific parts of the codebase
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global default owners
+* @danieleschmidt
+
+# Core library code
+/src/gaudi3_scale/ @danieleschmidt
+/src/gaudi3_scale/accelerator.py @danieleschmidt
+/src/gaudi3_scale/optimizer.py @danieleschmidt  
+/src/gaudi3_scale/trainer.py @danieleschmidt
+
+# Configuration and build files
+pyproject.toml @danieleschmidt
+requirements*.txt @danieleschmidt
+Dockerfile @danieleschmidt
+docker-compose.yml @danieleschmidt
+Makefile @danieleschmidt
+
+# Testing infrastructure
+/tests/ @danieleschmidt
+pytest.ini @danieleschmidt
+/tests/conftest.py @danieleschmidt
+
+# Security-sensitive files
+.pre-commit-config.yaml @danieleschmidt
+.secrets.baseline @danieleschmidt
+.gitignore @danieleschmidt
+SECURITY.md @danieleschmidt
+/docs/security/ @danieleschmidt
+
+# Documentation
+*.md @danieleschmidt
+/docs/ @danieleschmidt
+/docs/architecture/ @danieleschmidt
+/docs/operations/ @danieleschmidt
+
+# Infrastructure and deployment
+/terraform/ @danieleschmidt
+/monitoring/ @danieleschmidt
+/scripts/ @danieleschmidt
+
+# CI/CD and automation
+/.github/ @danieleschmidt
+/.github/workflows/ @danieleschmidt
+/.github/ISSUE_TEMPLATE/ @danieleschmidt
+
+# Performance-critical components
+/benchmarks/ @danieleschmidt
+/tests/performance/ @danieleschmidt
+
+# Container and deployment configurations
+Dockerfile @danieleschmidt
+docker-compose.yml @danieleschmidt
+/k8s/ @danieleschmidt
+
+# Monitoring and observability
+/monitoring/ @danieleschmidt
+prometheus.yml @danieleschmidt
+/monitoring/grafana/ @danieleschmidt
+
+# Development environment
+.editorconfig @danieleschmidt
+ruff.toml @danieleschmidt
+/scripts/setup_dev_env.sh @danieleschmidt

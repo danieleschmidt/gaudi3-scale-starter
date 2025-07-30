@@ -1,0 +1,156 @@
+name: 🐌 Performance Regression
+description: Report a performance regression in training, inference, or system operations
+title: "[PERF] "
+labels: ["performance", "bug", "needs-investigation"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a performance regression! Please provide detailed information to help us investigate.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have searched existing issues for duplicates
+          required: true
+        - label: I have included performance metrics and comparison data
+          required: true
+        - label: I have tested with the latest version
+          required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which component is experiencing the performance regression?
+      options:
+        - Training Pipeline
+        - Inference Engine
+        - Data Loading
+        - Model Loading/Saving
+        - HPU Optimization
+        - Memory Management
+        - Distributed Training
+        - Monitoring/Logging
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this performance regression?
+      options:
+        - Critical (>50% performance loss)
+        - Major (20-50% performance loss)
+        - Moderate (10-20% performance loss)
+        - Minor (<10% performance loss)
+    validations:
+      required: true
+
+  - type: textarea
+    id: performance_data
+    attributes:
+      label: Performance Metrics
+      description: Provide specific performance measurements
+      placeholder: |
+        **Before (baseline)**:
+        - Training throughput: 1,847 tokens/sec
+        - Memory usage: 32GB HBM
+        - Time per epoch: 45 minutes
+        
+        **After (regression)**:
+        - Training throughput: 1,200 tokens/sec
+        - Memory usage: 35GB HBM  
+        - Time per epoch: 65 minutes
+        
+        **Performance loss**: 35% slower training
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: System configuration and versions
+      placeholder: |
+        - Gaudi3 Scale version: 0.1.0
+        - Python version: 3.10.12
+        - PyTorch version: 2.3.0
+        - Habana driver: 1.16.0
+        - Hardware: 8x Gaudi 3 HPUs
+        - OS: Ubuntu 22.04
+        - Container: habana-torch:latest
+      render: yaml
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: Detailed steps to reproduce the performance regression
+      placeholder: |
+        1. Set up environment with configurations...
+        2. Run training command: `gaudi3-train --model llama-70b --batch-size 32`
+        3. Monitor performance metrics using...
+        4. Compare with baseline results from...
+    validations:
+      required: true
+
+  - type: textarea
+    id: profiling
+    attributes:
+      label: Profiling Data
+      description: Include profiling results, traces, or monitoring data
+      placeholder: |
+        Please attach:
+        - Habana profiler traces (*.json)
+        - Memory usage graphs
+        - HPU utilization logs
+        - Grafana dashboard screenshots
+        - Any relevant monitoring data
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected Performance
+      description: What performance metrics were you expecting?
+      placeholder: |
+        Based on benchmarks and previous versions, expected:
+        - Training throughput: ~1,850 tokens/sec
+        - Memory usage: <33GB HBM
+        - Time per epoch: ~45 minutes
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional_context
+    attributes:
+      label: Additional Context
+      description: Any other context about the performance regression
+      placeholder: |
+        - When did you first notice the regression?
+        - Any recent changes to configuration?
+        - Network or storage performance issues?
+        - Similar issues in other environments?
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: investigation
+    attributes:
+      label: Investigation Assistance
+      description: Can you help with investigation?
+      options:
+        - label: I can provide additional profiling data
+        - label: I can test potential fixes
+        - label: I can share detailed configuration files
+        - label: I have access to the affected environment for debugging

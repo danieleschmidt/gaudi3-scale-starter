@@ -1,0 +1,278 @@
+name: Auto Assign Issues and PRs
+
+on:
+  issues:
+    types: [opened]
+  pull_request:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  auto-assign:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-assign issues
+        if: github.event_name == 'issues'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(label => label.name);
+            
+            // Auto-assign based on labels
+            let assignees = [];
+            
+            if (labels.includes('security') || labels.includes('vulnerability')) {
+              assignees.push('danieleschmidt');
+            }
+            
+            if (labels.includes('performance') || labels.includes('optimization')) {
+              assignees.push('danieleschmidt');
+            }
+            
+            if (labels.includes('documentation')) {
+              assignees.push('danieleschmidt');
+            }
+            
+            if (labels.includes('bug') || labels.includes('enhancement')) {
+              assignees.push('danieleschmidt');
+            }
+            
+            // Default assignment if no specific labels
+            if (assignees.length === 0) {
+              assignees.push('danieleschmidt');
+            }
+            
+            // Remove duplicates
+            assignees = [...new Set(assignees)];
+            
+            await github.rest.issues.addAssignees({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              assignees: assignees
+            });
+            
+            // Add appropriate project labels based on content
+            const title = issue.title.toLowerCase();
+            const body = issue.body?.toLowerCase() || '';
+            
+            let newLabels = [];
+            
+            if (title.includes('performance') || body.includes('slow') || body.includes('throughput')) {
+              newLabels.push('performance');
+            }
+            
+            if (title.includes('memory') || body.includes('memory leak') || body.includes('oom')) {
+              newLabels.push('memory');
+            }
+            
+            if (title.includes('gaudi') || title.includes('hpu') || body.includes('habana')) {
+              newLabels.push('hardware-specific');
+            }
+            
+            if (title.includes('distributed') || body.includes('multi-node') || body.includes('scaling')) {
+              newLabels.push('distributed-training');
+            }
+            
+            if (newLabels.length > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                labels: newLabels
+              });
+            }
+
+      - name: Auto-assign pull requests
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const title = pr.title.toLowerCase();
+            const body = pr.body?.toLowerCase() || '';
+            
+            // Auto-assign reviewers based on changed files
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            let reviewers = new Set();
+            let labels = [];
+            
+            for (const file of files) {
+              const filename = file.filename;
+              
+              // Core library changes
+              if (filename.startsWith('src/gaudi3_scale/')) {
+                reviewers.add('danieleschmidt');
+                labels.push('core');
+              }
+              
+              // Security-sensitive files
+              if (filename.includes('security') || 
+                  filename === '.pre-commit-config.yaml' ||
+                  filename === 'SECURITY.md') {
+                reviewers.add('danieleschmidt');
+                labels.push('security');
+              }
+              
+              // Documentation changes
+              if (filename.endsWith('.md') || filename.startsWith('docs/')) {
+                reviewers.add('danieleschmidt');
+                labels.push('documentation');
+              }
+              
+              // Infrastructure changes
+              if (filename.includes('terraform') || 
+                  filename.includes('docker') || 
+                  filename.includes('k8s')) {
+                reviewers.add('danieleschmidt');
+                labels.push('infrastructure');
+              }
+              
+              // Testing changes
+              if (filename.startsWith('tests/') || filename.includes('test_')) {
+                labels.push('testing');
+              }
+              
+              // Performance-related changes
+              if (filename.includes('benchmark') || 
+                  filename.includes('performance') ||
+                  filename.startsWith('tests/performance/')) {
+                reviewers.add('danieleschmidt');
+                labels.push('performance');
+              }
+            }
+            
+            // Additional labels based on PR title/description
+            if (title.includes('fix') || title.includes('bug')) {
+              labels.push('bug');
+            }
+            
+            if (title.includes('feat') || title.includes('feature') || title.includes('add')) {
+              labels.push('enhancement');
+            }
+            
+            if (title.includes('perf') || title.includes('performance') || title.includes('optimize')) {
+              labels.push('performance');
+            }
+            
+            if (title.includes('security') || body.includes('vulnerability')) {
+              labels.push('security');
+            }
+            
+            if (title.includes('break') || body.includes('breaking change')) {
+              labels.push('breaking-change');
+            }
+            
+            // Assign reviewers (excluding the PR author)
+            const reviewerList = Array.from(reviewers).filter(r => r !== pr.user.login);
+            
+            if (reviewerList.length > 0) {
+              try {
+                await github.rest.pulls.requestReviewers({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number,
+                  reviewers: reviewerList
+                });
+              } catch (error) {
+                console.log('Failed to assign reviewers:', error.message);
+              }
+            }
+            
+            // Add labels
+            if (labels.length > 0) {
+              const uniqueLabels = [...new Set(labels)];
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: uniqueLabels
+              });
+            }
+            
+            // Add size label based on changes
+            const additions = pr.additions || 0;
+            const deletions = pr.deletions || 0;
+            const totalChanges = additions + deletions;
+            
+            let sizeLabel;
+            if (totalChanges < 10) {
+              sizeLabel = 'size/XS';
+            } else if (totalChanges < 30) {
+              sizeLabel = 'size/S';
+            } else if (totalChanges < 100) {
+              sizeLabel = 'size/M';
+            } else if (totalChanges < 500) {
+              sizeLabel = 'size/L';
+            } else {
+              sizeLabel = 'size/XL';
+            }
+            
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              labels: [sizeLabel]
+            });
+
+      - name: Welcome first-time contributors
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            
+            // Check if this is the user's first contribution
+            const { data: contributions } = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              commit_sha: pr.head.sha
+            });
+            
+            const prsByUser = await github.rest.search.issuesAndPullRequests({
+              q: `repo:${context.repo.owner}/${context.repo.repo} author:${pr.user.login} type:pr`
+            });
+            
+            if (prsByUser.data.total_count === 1) {
+              const welcomeMessage = `
+            🎉 Thank you for your first contribution to Gaudi3 Scale Starter!
+            
+            Here's what happens next:
+            
+            1. **Automated Checks**: Our CI pipeline will run automated tests, security scans, and code quality checks
+            2. **Review Process**: A maintainer will review your changes and provide feedback
+            3. **Testing**: Please ensure all tests pass and add new tests if needed
+            4. **Documentation**: Update documentation if your changes affect user-facing functionality
+            
+            **Getting Help:**
+            - Check our [Contributing Guide](CONTRIBUTING.md) for detailed guidelines
+            - Join our community discussions for questions
+            - Review the [Development Setup](docs/guides/quickstart.md) if you need help with local development
+            
+            We appreciate your contribution to the Intel Gaudi 3 ecosystem! 🚀
+            `;
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: welcomeMessage
+              });
+              
+              // Add first-time contributor label
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: ['first-contribution']
+              });
+            }
