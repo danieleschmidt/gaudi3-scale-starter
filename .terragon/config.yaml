@@ -1,0 +1,53 @@
+scoring:
+  weights:
+    maturing:
+      wsjf: 0.6
+      ice: 0.1
+      technicalDebt: 0.2
+      security: 0.1
+  
+  thresholds:
+    minScore: 15
+    maxRisk: 0.7
+    securityBoost: 2.0
+    complianceBoost: 1.8
+
+discovery:
+  sources:
+    - gitHistory
+    - staticAnalysis
+    - issueTrackers
+    - vulnerabilityDatabases
+    - performanceMonitoring
+    - codeComments
+  
+  tools:
+    staticAnalysis:
+      - ruff
+      - mypy
+      - bandit
+      - flake8
+    security:
+      - bandit
+      - safety
+      - gitguardian
+      - detect-secrets
+    performance:
+      - pytest-benchmark
+      - memory-profiler
+
+execution:
+  maxConcurrentTasks: 1
+  testRequirements:
+    minCoverage: 80
+    performanceRegression: 5
+  rollbackTriggers:
+    - testFailure
+    - buildFailure
+    - securityViolation
+
+repository:
+  maturity: "maturing"
+  primaryLanguage: "python"
+  framework: "pytorch-lightning"
+  domain: "ml-infrastructure"

@@ -1,0 +1,184 @@
+{
+  "report_date": "2025-08-01T15:34:04.961746",
+  "executive_summary": {
+    "total_monthly_savings_potential": 11856.0,
+    "total_annual_savings_potential": 142272.0,
+    "optimization_count": 7,
+    "quick_wins_count": 3,
+    "average_savings_percentage": 54.528571428571425
+  },
+  "optimization_categories": {
+    "infrastructure": {
+      "count": 5,
+      "potential_monthly_savings": 11376.0,
+      "top_optimization": "Implement spot instances for training"
+    },
+    "software": {
+      "count": 2,
+      "potential_monthly_savings": 480.0,
+      "top_optimization": "Consolidate monitoring tools"
+    }
+  },
+  "implementation_roadmap": {
+    "quick_wins": [
+      {
+        "id": "STORAGE-001",
+        "title": "Optimize dataset storage",
+        "monthly_savings": 960.0,
+        "effort_hours": 2.0,
+        "priority_score": 89.1
+      },
+      {
+        "id": "NET-001",
+        "title": "Optimize data transfer costs",
+        "monthly_savings": 480.0,
+        "effort_hours": 3.0,
+        "priority_score": 78.4
+      },
+      {
+        "id": "SW-002",
+        "title": "Optimize CI/CD runner usage",
+        "monthly_savings": 180.0,
+        "effort_hours": 3.0,
+        "priority_score": 81.6
+      }
+    ],
+    "medium_effort": [
+      {
+        "id": "INFRA-002",
+        "title": "Implement spot instances for training",
+        "monthly_savings": 6048.0,
+        "effort_hours": 6.0,
+        "priority_score": 92.3
+      },
+      {
+        "id": "INFRA-001",
+        "title": "Right-size Gaudi 3 instances",
+        "monthly_savings": 2160.0,
+        "effort_hours": 4.0,
+        "priority_score": 85.5
+      },
+      {
+        "id": "SW-001",
+        "title": "Consolidate monitoring tools",
+        "monthly_savings": 300.0,
+        "effort_hours": 5.0,
+        "priority_score": 74.2
+      }
+    ],
+    "high_effort": [
+      {
+        "id": "SCHED-001",
+        "title": "Implement training job scheduling",
+        "monthly_savings": 1728.0,
+        "effort_hours": 8.0,
+        "priority_score": 72.8
+      }
+    ]
+  },
+  "risk_analysis": {
+    "low_risk_savings": 3780.0,
+    "medium_risk_savings": 8076.0,
+    "high_risk_savings": 0
+  },
+  "detailed_optimizations": [
+    {
+      "id": "INFRA-002",
+      "title": "Implement spot instances for training",
+      "description": "Use spot instances for non-critical training workloads",
+      "category": "compute",
+      "current_monthly_cost": 8640.0,
+      "optimized_monthly_cost": 2592.0,
+      "monthly_savings": 6048.0,
+      "savings_percentage": 70.0,
+      "implementation_effort_hours": 6.0,
+      "risk_level": "medium",
+      "priority_score": 92.3,
+      "roi_per_hour": 1008.0
+    },
+    {
+      "id": "STORAGE-001",
+      "title": "Optimize dataset storage",
+      "description": "Move infrequently accessed datasets to cheaper storage tiers",
+      "category": "storage",
+      "current_monthly_cost": 1200.0,
+      "optimized_monthly_cost": 240.0,
+      "monthly_savings": 960.0,
+      "savings_percentage": 80.0,
+      "implementation_effort_hours": 2.0,
+      "risk_level": "low",
+      "priority_score": 89.1,
+      "roi_per_hour": 480.0
+    },
+    {
+      "id": "INFRA-001",
+      "title": "Right-size Gaudi 3 instances",
+      "description": "Analyze HPU utilization and downsize underutilized instances",
+      "category": "compute",
+      "current_monthly_cost": 8640.0,
+      "optimized_monthly_cost": 6480.0,
+      "monthly_savings": 2160.0,
+      "savings_percentage": 25.0,
+      "implementation_effort_hours": 4.0,
+      "risk_level": "low",
+      "priority_score": 85.5,
+      "roi_per_hour": 540.0
+    },
+    {
+      "id": "NET-001",
+      "title": "Optimize data transfer costs",
+      "description": "Implement data compression and regional data placement",
+      "category": "networking",
+      "current_monthly_cost": 800.0,
+      "optimized_monthly_cost": 320.0,
+      "monthly_savings": 480.0,
+      "savings_percentage": 60.0,
+      "implementation_effort_hours": 3.0,
+      "risk_level": "low",
+      "priority_score": 78.4,
+      "roi_per_hour": 160.0
+    },
+    {
+      "id": "SCHED-001",
+      "title": "Implement training job scheduling",
+      "description": "Schedule training during off-peak hours for lower rates",
+      "category": "scheduling",
+      "current_monthly_cost": 8640.0,
+      "optimized_monthly_cost": 6912.0,
+      "monthly_savings": 1728.0,
+      "savings_percentage": 20.0,
+      "implementation_effort_hours": 8.0,
+      "risk_level": "medium",
+      "priority_score": 72.8,
+      "roi_per_hour": 216.0
+    },
+    {
+      "id": "SW-001",
+      "title": "Consolidate monitoring tools",
+      "description": "Replace multiple monitoring services with unified solution",
+      "category": "software",
+      "current_monthly_cost": 450.0,
+      "optimized_monthly_cost": 150.0,
+      "monthly_savings": 300.0,
+      "savings_percentage": 66.7,
+      "implementation_effort_hours": 5.0,
+      "risk_level": "medium",
+      "priority_score": 74.2,
+      "roi_per_hour": 60.0
+    },
+    {
+      "id": "SW-002",
+      "title": "Optimize CI/CD runner usage",
+      "description": "Use self-hosted runners for longer builds",
+      "category": "software",
+      "current_monthly_cost": 300.0,
+      "optimized_monthly_cost": 120.0,
+      "monthly_savings": 180.0,
+      "savings_percentage": 60.0,
+      "implementation_effort_hours": 3.0,
+      "risk_level": "low",
+      "priority_score": 81.6,
+      "roi_per_hour": 60.0
+    }
+  ]
+}

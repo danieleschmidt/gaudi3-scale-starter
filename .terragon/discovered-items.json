@@ -1,0 +1,38 @@
+{
+  "discovery_timestamp": "2025-08-01T15:34:05.046481",
+  "new_items": [
+    {
+      "id": "STORAGE-001",
+      "title": "Optimize dataset storage",
+      "category": "cost-optimization",
+      "priority": "high",
+      "estimated_value": 11520.0,
+      "effort_hours": 2.0
+    },
+    {
+      "id": "NET-001",
+      "title": "Optimize data transfer costs",
+      "category": "cost-optimization",
+      "priority": "medium",
+      "estimated_value": 5760.0,
+      "effort_hours": 3.0
+    },
+    {
+      "id": "SW-002",
+      "title": "Optimize CI/CD runner usage",
+      "category": "cost-optimization",
+      "priority": "medium",
+      "estimated_value": 2160.0,
+      "effort_hours": 3.0
+    },
+    {
+      "id": "PERF-004",
+      "title": "System performance regression detected. Consider resource scaling or optimization.",
+      "category": "performance",
+      "priority": "high",
+      "estimated_value": 5000,
+      "effort_hours": 4
+    }
+  ],
+  "total_estimated_annual_value": 24440.0
+}

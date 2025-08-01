@@ -1,0 +1,153 @@
+{
+  "report_timestamp": "2025-08-01T15:34:05.033263",
+  "performance_summary": {
+    "overall_health": "warning",
+    "total_metrics_collected": 10,
+    "regressions_detected": 2,
+    "categories_monitored": 5
+  },
+  "category_scores": {
+    "system": 100.0,
+    "ml_training": 100.0,
+    "ml_inference": 90.85424479018455,
+    "ml_hardware": 100.0,
+    "ml_quality": 99.7918736493146
+  },
+  "current_metrics": [
+    {
+      "name": "cpu_utilization",
+      "value": 50.03316950798035,
+      "unit": "percent",
+      "category": "system",
+      "baseline": 65.0,
+      "performance_delta": -23.02589306464562
+    },
+    {
+      "name": "memory_usage_percent",
+      "value": 43.03318452835083,
+      "unit": "percent",
+      "category": "system",
+      "baseline": 45.0,
+      "performance_delta": -4.370701048109266
+    },
+    {
+      "name": "memory_available_gb",
+      "value": 4.458761901855468,
+      "unit": "GB",
+      "category": "system",
+      "baseline": null,
+      "performance_delta": null
+    },
+    {
+      "name": "disk_io_read_mb_s",
+      "value": 225.0663390159607,
+      "unit": "MB/s",
+      "category": "system",
+      "baseline": 150.0,
+      "performance_delta": 50.04422601064046
+    },
+    {
+      "name": "disk_io_write_mb_s",
+      "value": 170.04975426197052,
+      "unit": "MB/s",
+      "category": "system",
+      "baseline": 120.0,
+      "performance_delta": 41.7081285516421
+    },
+    {
+      "name": "training_throughput_samples_s",
+      "value": 1290.0663990974426,
+      "unit": "samples/s",
+      "category": "ml_training",
+      "baseline": 1200.0,
+      "performance_delta": 7.505533258120218
+    },
+    {
+      "name": "inference_latency_ms",
+      "value": 27.516600966453552,
+      "unit": "ms",
+      "category": "ml_inference",
+      "baseline": 25.0,
+      "performance_delta": 10.066403865814209
+    },
+    {
+      "name": "hpu_utilization",
+      "value": 87.03320407867432,
+      "unit": "percent",
+      "category": "ml_hardware",
+      "baseline": 85.0,
+      "performance_delta": 2.392004798440372
+    },
+    {
+      "name": "model_accuracy",
+      "value": 94.3033205986023,
+      "unit": "percent",
+      "category": "ml_quality",
+      "baseline": 94.5,
+      "performance_delta": -0.20812635068539917
+    },
+    {
+      "name": "hpu_memory_usage",
+      "value": 83.53320789337158,
+      "unit": "percent",
+      "category": "ml_hardware",
+      "baseline": null,
+      "performance_delta": null
+    }
+  ],
+  "performance_regressions": [
+    {
+      "metric_name": "cpu_utilization",
+      "current_value": 50.03316950798035,
+      "baseline_value": 65.0,
+      "change_percent": -23.02589306464562,
+      "severity": "high",
+      "category": "system",
+      "timestamp": "2025-08-01T15:34:05.033151"
+    },
+    {
+      "metric_name": "inference_latency_ms",
+      "current_value": 27.516600966453552,
+      "baseline_value": 25.0,
+      "change_percent": 10.066403865814209,
+      "severity": "medium",
+      "category": "ml_inference",
+      "timestamp": "2025-08-01T15:34:05.033197"
+    }
+  ],
+  "recommendations": [
+    {
+      "type": "system_optimization",
+      "priority": "high",
+      "description": "System performance regression detected. Consider resource scaling or optimization.",
+      "estimated_impact": "15-25% performance improvement"
+    },
+    {
+      "type": "inference_optimization",
+      "priority": "medium",
+      "description": "Inference latency increased. Consider model optimization or caching strategies.",
+      "estimated_impact": "5-15% latency reduction"
+    }
+  ],
+  "benchmarking_targets": {
+    "gaudi3_vs_h100": {
+      "throughput_ratio": 0.96,
+      "cost_efficiency": 2.7,
+      "energy_efficiency": 1.8
+    },
+    "scaling_efficiency": {
+      "single_hpu": 1.0,
+      "8_hpu": 7.6,
+      "64_hpu": 58.2
+    }
+  },
+  "monitoring_configuration": {
+    "collection_interval_seconds": 60,
+    "retention_days": 30,
+    "alert_thresholds": {
+      "performance_regression": 5.0,
+      "memory_usage": 90.0,
+      "disk_usage": 85.0
+    }
+  }
+}
