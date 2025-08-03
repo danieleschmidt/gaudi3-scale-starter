@@ -1,0 +1,164 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+docs/
+*.md
+CHANGELOG.md
+LICENSE
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Development tools
+.pre-commit-config.yaml
+.flake8
+.bandit
+ruff.toml
+mypy.ini
+pytest.ini
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Build tools
+Makefile
+setup.py
+pyproject.toml
+requirements-dev.txt
+
+# Scripts
+scripts/
+tools/
+
+# Testing data
+tests/
+test_data/
+fixtures/
+
+# Monitoring configs
+monitoring/
+grafana/
+prometheus/
+
+# Terraform
+terraform/
+*.tf
+*.tfstate
+*.tfplan
+
+# Kubernetes
+k8s/
+kubernetes/
+*.yaml
+*.yml
+
+# Model files (too large for container)
+models/
+checkpoints/
+*.bin
+*.safetensors
+*.ckpt
+*.pth
+
+# Data
+data/
+datasets/
+*.csv
+*.json
+*.parquet
+
+# Notebooks
+*.ipynb
+jupyter/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Editor configs
+.editorconfig
+
+# Package manager
+poetry.lock
+Pipfile
+Pipfile.lock
+package-lock.json
+yarn.lock

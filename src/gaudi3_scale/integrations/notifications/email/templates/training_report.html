@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Report - {{ model_name }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f5f7fa;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .status-banner {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .status-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .model-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+        }
+        
+        .model-info h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            color: #6c757d;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h3 {
+            color: #495057;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .timeline-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .timeline-time {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 14px;
+        }
+        
+        .timeline-event {
+            margin-top: 5px;
+            color: #495057;
+        }
+        
+        .error-details {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .error-details h4 {
+            color: #c53030;
+            margin-top: 0;
+        }
+        
+        .error-details pre {
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .footer-brand {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-tagline {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        
+        .resource-links {
+            margin: 20px 0;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 5px;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        
+        .resource-link:hover {
+            background: #5a67d8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 Gaudi 3 Scale Training Report</h1>
+            <div class="subtitle">Intel Gaudi 3 HPU Infrastructure</div>
+        </div>
+        
+        <div class="content">
+            <!-- Status Banner -->
+            <div class="status-banner status-{{ status_class }}">
+                {{ status_icon }} {{ status_message }}
+            </div>
+            
+            <!-- Model Information -->
+            <div class="model-info">
+                <h3>📊 Model Information</h3>
+                <p><strong>Model Name:</strong> {{ model_name }}</p>
+                <p><strong>Training Started:</strong> {{ start_time }}</p>
+                <p><strong>Training Ended:</strong> {{ end_time }}</p>
+                <p><strong>Duration:</strong> {{ duration }}</p>
+                <p><strong>Git Commit:</strong> {{ git_commit or 'N/A' }}</p>
+            </div>
+            
+            <!-- Performance Metrics -->
+            {% if metrics %}
+            <div class="section">
+                <h3>📈 Performance Metrics</h3>
+                <div class="metrics-grid">
+                    {% for metric_name, metric_value in metrics.items() %}
+                    <div class="metric-card">
+                        <div class="metric-value">{{ metric_value }}</div>
+                        <div class="metric-label">{{ metric_name.replace('_', ' ').title() }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Hardware Utilization -->
+            {% if hardware_metrics %}
+            <div class="section">
+                <h3>🖥️ Hardware Utilization</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">{{ hardware_metrics.get('hpu_utilization', 'N/A') }}%</div>
+                        <div class="metric-label">HPU Utilization</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">{{ hardware_metrics.get('memory_usage', 'N/A') }}GB</div>
+                        <div class="metric-label">Memory Usage</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">{{ hardware_metrics.get('power_consumption', 'N/A') }}W</div>
+                        <div class="metric-label">Power Consumption</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">{{ hardware_metrics.get('throughput', 'N/A') }}</div>
+                        <div class="metric-label">Throughput (tokens/s)</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Training Timeline -->
+            {% if timeline %}
+            <div class="section">
+                <h3>⏱️ Training Timeline</h3>
+                <div class="timeline">
+                    {% for event in timeline %}
+                    <div class="timeline-item">
+                        <div class="timeline-time">{{ event.timestamp }}</div>
+                        <div class="timeline-event">{{ event.description }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Error Details (if any) -->
+            {% if error_message %}
+            <div class="section">
+                <h3>⚠️ Error Details</h3>
+                <div class="error-details">
+                    <h4>Training Error</h4>
+                    <pre>{{ error_message }}</pre>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Resource Links -->
+            <div class="section">
+                <h3>🔗 Resources</h3>
+                <div class="resource-links">
+                    {% if wandb_url %}
+                    <a href="{{ wandb_url }}" class="resource-link">📊 View in Weights & Biases</a>
+                    {% endif %}
+                    {% if tensorboard_url %}
+                    <a href="{{ tensorboard_url }}" class="resource-link">📈 View in TensorBoard</a>
+                    {% endif %}
+                    {% if model_artifacts %}
+                    <a href="{{ model_artifacts }}" class="resource-link">💾 Download Model</a>
+                    {% endif %}
+                    {% if logs_url %}
+                    <a href="{{ logs_url }}" class="resource-link">📝 View Logs</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-brand">Gaudi 3 Scale Training Platform</div>
+            <div class="footer-tagline">Production Infrastructure for Intel Gaudi 3 HPU Clusters</div>
+        </div>
+    </div>
+</body>
+</html>
