@@ -411,9 +411,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 ```bibtex
 @software{gaudi3_scale_starter,
   title={Gaudi 3 Scale Starter: Production Infrastructure for Intel HPUs},
-  author={Your Name},
+  author={Daniel Schmidt},
   year={2025},
-  url={https://github.com/yourusername/gaudi3-scale-starter}
+  url={https://github.com/danieleschmidt/gaudi3-scale-starter}
 }
 ```
 
