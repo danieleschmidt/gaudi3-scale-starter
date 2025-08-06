@@ -1,13 +1,26 @@
-"""Custom exception classes for Gaudi 3 Scale.
+"""Custom exception classes for Gaudi 3 Scale with Quantum State Monitoring.
 
 This module defines a comprehensive hierarchy of custom exceptions for
 different types of errors and failure modes in the Gaudi 3 Scale system.
 These exceptions provide structured error handling with context and
-recovery suggestions.
+recovery suggestions, enhanced with quantum state monitoring for
+advanced error tracking and correlation analysis.
 """
 
-from typing import Any, Dict, List, Optional, Union
+import time
+import cmath
+import numpy as np
+from typing import Any, Dict, List, Optional, Union, Set
 from enum import Enum
+
+
+class QuantumErrorState(Enum):
+    """Quantum error states for enhanced error tracking."""
+    COHERENT = "coherent"           # Normal operation
+    DECOHERENT = "decoherent"      # Quantum decoherence detected
+    ENTANGLED = "entangled"        # Error entangled with other systems
+    SUPERPOSITION = "superposition" # Error in quantum superposition
+    COLLAPSED = "collapsed"        # Error state collapsed to classical
 
 
 class ErrorCode(Enum):
@@ -71,6 +84,123 @@ class ErrorCode(Enum):
     UNKNOWN_ERROR = 9000
     INTERNAL_ERROR = 9001
     UNEXPECTED_STATE = 9002
+    
+    # Quantum-Enhanced Error Codes (8000-8099)
+    QUANTUM_DECOHERENCE_ERROR = 8000
+    QUANTUM_ENTANGLEMENT_ERROR = 8001
+    QUANTUM_STATE_COLLAPSE_ERROR = 8002
+    QUANTUM_CIRCUIT_ERROR = 8003
+    QUANTUM_MEASUREMENT_ERROR = 8004
+    TASK_PLANNING_ERROR = 8010
+    RESOURCE_ALLOCATION_ERROR = 8011
+    ANNEALING_OPTIMIZATION_ERROR = 8012
+    ENTANGLEMENT_COORDINATOR_ERROR = 8013
+
+
+class QuantumEnhancedError(Exception):
+    """Quantum-enhanced error with state monitoring and entanglement tracking."""
+    
+    def __init__(self,
+                 message: str,
+                 quantum_state: QuantumErrorState = QuantumErrorState.COHERENT,
+                 amplitude: complex = complex(1.0, 0.0),
+                 phase: float = 0.0,
+                 entangled_errors: Set[str] = None,
+                 decoherence_rate: float = 0.01,
+                 timestamp: float = None):
+        """Initialize quantum-enhanced error.
+        
+        Args:
+            message: Error message
+            quantum_state: Current quantum error state
+            amplitude: Quantum amplitude of error state
+            phase: Quantum phase of error state
+            entangled_errors: Set of entangled error IDs
+            decoherence_rate: Rate of quantum decoherence
+            timestamp: Error occurrence timestamp
+        """
+        super().__init__(message)
+        self.quantum_state = quantum_state
+        self.amplitude = amplitude
+        self.phase = phase
+        self.entangled_errors = entangled_errors or set()
+        self.decoherence_rate = decoherence_rate
+        self.timestamp = timestamp or time.time()
+        self.error_id = f"qerr_{int(self.timestamp * 1000000)}"  # Unique error ID
+        
+    @property
+    def probability_amplitude(self) -> float:
+        """Calculate probability amplitude |ψ|²."""
+        return abs(self.amplitude) ** 2
+    
+    @property
+    def coherence_time_remaining(self) -> float:
+        """Calculate remaining coherence time."""
+        elapsed = time.time() - self.timestamp
+        return max(0.0, (1.0 / self.decoherence_rate) - elapsed)
+    
+    @property
+    def is_coherent(self) -> bool:
+        """Check if error state is still coherent."""
+        return self.coherence_time_remaining > 0
+    
+    def apply_quantum_evolution(self, time_delta: float):
+        """Apply quantum evolution to error state."""
+        if self.quantum_state == QuantumErrorState.COHERENT:
+            # Apply decoherence
+            decoherence_factor = np.exp(-self.decoherence_rate * time_delta)
+            self.amplitude *= decoherence_factor
+            
+            if abs(self.amplitude) < 0.1:
+                self.quantum_state = QuantumErrorState.DECOHERENT
+        
+        elif self.quantum_state == QuantumErrorState.SUPERPOSITION:
+            # Phase evolution in superposition
+            self.phase += 0.1 * time_delta
+            self.amplitude *= complex(np.cos(self.phase), np.sin(self.phase))
+    
+    def entangle_with_error(self, other_error: 'QuantumEnhancedError'):
+        """Create quantum entanglement with another error."""
+        self.entangled_errors.add(other_error.error_id)
+        other_error.entangled_errors.add(self.error_id)
+        
+        # Both errors enter entangled state
+        self.quantum_state = QuantumErrorState.ENTANGLED
+        other_error.quantum_state = QuantumErrorState.ENTANGLED
+        
+        # Create Bell state correlation
+        entanglement_phase = np.pi / 4
+        self.phase += entanglement_phase
+        other_error.phase -= entanglement_phase
+    
+    def collapse_quantum_state(self) -> bool:
+        """Collapse quantum error state to classical."""
+        measurement_outcome = np.random.random() < self.probability_amplitude
+        
+        self.quantum_state = QuantumErrorState.COLLAPSED
+        self.amplitude = complex(1.0, 0.0) if measurement_outcome else complex(0.0, 0.0)
+        
+        return measurement_outcome
+    
+    def to_quantum_dict(self) -> Dict[str, Any]:
+        """Convert to dictionary with quantum state information."""
+        return {
+            "error_id": self.error_id,
+            "message": str(self),
+            "quantum_state": self.quantum_state.value,
+            "amplitude": {
+                "real": self.amplitude.real,
+                "imag": self.amplitude.imag,
+                "magnitude": abs(self.amplitude)
+            },
+            "phase": self.phase,
+            "probability_amplitude": self.probability_amplitude,
+            "entangled_errors": list(self.entangled_errors),
+            "coherence_time_remaining": self.coherence_time_remaining,
+            "is_coherent": self.is_coherent,
+            "timestamp": self.timestamp,
+            "decoherence_rate": self.decoherence_rate
+        }
 
 
 class Gaudi3ScaleError(Exception):
@@ -929,3 +1059,169 @@ def wrap_exception(
             "Contact support if issue persists"
         ]
     )
+
+
+# Quantum-Enhanced Exception Classes
+
+class QuantumCircuitError(QuantumEnhancedError):
+    """Quantum circuit simulation errors."""
+    
+    def __init__(self, message: str, circuit_qubits: int = None, **kwargs):
+        context = {"circuit_qubits": circuit_qubits} if circuit_qubits else {}
+        kwargs.setdefault("quantum_state", QuantumErrorState.SUPERPOSITION)
+        super().__init__(message, **kwargs)
+        self.context = context
+
+
+class TaskPlanningError(QuantumEnhancedError):
+    """Quantum task planning errors."""
+    
+    def __init__(self, message: str, task_count: int = None, **kwargs):
+        context = {"task_count": task_count} if task_count else {}
+        kwargs.setdefault("quantum_state", QuantumErrorState.COHERENT)
+        super().__init__(message, **kwargs)
+        self.context = context
+
+
+class ResourceAllocationError(QuantumEnhancedError):
+    """Quantum resource allocation errors."""
+    
+    def __init__(self, message: str, resource_type: str = None, **kwargs):
+        context = {"resource_type": resource_type} if resource_type else {}
+        kwargs.setdefault("quantum_state", QuantumErrorState.DECOHERENT)
+        super().__init__(message, **kwargs)
+        self.context = context
+
+
+class QuantumOptimizationError(QuantumEnhancedError):
+    """Quantum annealing optimization errors."""
+    
+    def __init__(self, message: str, iteration: int = None, temperature: float = None, **kwargs):
+        context = {}
+        if iteration is not None:
+            context["iteration"] = iteration
+        if temperature is not None:
+            context["temperature"] = temperature
+        kwargs.setdefault("quantum_state", QuantumErrorState.SUPERPOSITION)
+        super().__init__(message, **kwargs)
+        self.context = context
+
+
+class EntanglementError(QuantumEnhancedError):
+    """Quantum entanglement coordination errors."""
+    
+    def __init__(self, message: str, entity_count: int = None, **kwargs):
+        context = {"entity_count": entity_count} if entity_count else {}
+        kwargs.setdefault("quantum_state", QuantumErrorState.ENTANGLED)
+        super().__init__(message, **kwargs)
+        self.context = context
+
+
+class QuantumDecoherenceError(QuantumEnhancedError):
+    """Quantum decoherence detection error."""
+    
+    def __init__(self, message: str, decoherence_time: float = None, **kwargs):
+        context = {"decoherence_time": decoherence_time} if decoherence_time else {}
+        kwargs.setdefault("quantum_state", QuantumErrorState.DECOHERENT)
+        super().__init__(message, **kwargs)
+        self.context = context
+
+
+# Quantum Error Manager for system-wide error monitoring
+
+class QuantumErrorManager:
+    """Manager for tracking and analyzing quantum-enhanced errors."""
+    
+    def __init__(self):
+        self.active_errors: Dict[str, QuantumEnhancedError] = {}
+        self.error_history: List[Dict[str, Any]] = []
+        self.entanglement_graph: Dict[str, Set[str]] = {}
+    
+    def register_error(self, error: QuantumEnhancedError):
+        """Register a new quantum error in the system."""
+        self.active_errors[error.error_id] = error
+        
+        # Add to history
+        self.error_history.append(error.to_quantum_dict())
+        
+        # Update entanglement graph
+        if error.error_id not in self.entanglement_graph:
+            self.entanglement_graph[error.error_id] = set()
+    
+    def entangle_errors(self, error1_id: str, error2_id: str):
+        """Create entanglement between two errors."""
+        if error1_id in self.active_errors and error2_id in self.active_errors:
+            error1 = self.active_errors[error1_id]
+            error2 = self.active_errors[error2_id]
+            
+            error1.entangle_with_error(error2)
+            
+            # Update entanglement graph
+            self.entanglement_graph[error1_id].add(error2_id)
+            self.entanglement_graph[error2_id].add(error1_id)
+    
+    def evolve_error_states(self, time_delta: float = 1.0):
+        """Apply quantum evolution to all active errors."""
+        for error in self.active_errors.values():
+            error.apply_quantum_evolution(time_delta)
+            
+            # Remove decoherent errors
+            if error.quantum_state == QuantumErrorState.DECOHERENT and not error.is_coherent:
+                self._cleanup_error(error.error_id)
+    
+    def _cleanup_error(self, error_id: str):
+        """Remove error from active tracking."""
+        if error_id in self.active_errors:
+            del self.active_errors[error_id]
+        
+        # Remove from entanglement graph
+        if error_id in self.entanglement_graph:
+            # Remove connections
+            for connected_id in self.entanglement_graph[error_id]:
+                if connected_id in self.entanglement_graph:
+                    self.entanglement_graph[connected_id].discard(error_id)
+            del self.entanglement_graph[error_id]
+    
+    def get_error_analytics(self) -> Dict[str, Any]:
+        """Get analytics on quantum error patterns."""
+        total_errors = len(self.active_errors)
+        
+        if total_errors == 0:
+            return {"total_active_errors": 0, "quantum_coherence": 1.0}
+        
+        # Analyze quantum states
+        state_distribution = {}
+        coherent_errors = 0
+        total_amplitude = 0.0
+        
+        for error in self.active_errors.values():
+            state = error.quantum_state.value
+            state_distribution[state] = state_distribution.get(state, 0) + 1
+            
+            if error.is_coherent:
+                coherent_errors += 1
+            
+            total_amplitude += error.probability_amplitude
+        
+        # Calculate system-wide quantum coherence
+        quantum_coherence = coherent_errors / total_errors if total_errors > 0 else 1.0
+        
+        # Entanglement metrics
+        total_entanglements = sum(len(connections) for connections in self.entanglement_graph.values()) // 2
+        max_possible_entanglements = total_errors * (total_errors - 1) // 2
+        entanglement_density = total_entanglements / max(1, max_possible_entanglements)
+        
+        return {
+            "total_active_errors": total_errors,
+            "coherent_errors": coherent_errors,
+            "quantum_coherence": quantum_coherence,
+            "state_distribution": state_distribution,
+            "total_entanglements": total_entanglements,
+            "entanglement_density": entanglement_density,
+            "average_amplitude": total_amplitude / total_errors if total_errors > 0 else 0.0,
+            "error_history_size": len(self.error_history)
+        }
+
+
+# Global quantum error manager instance
+_quantum_error_manager = QuantumErrorManager()

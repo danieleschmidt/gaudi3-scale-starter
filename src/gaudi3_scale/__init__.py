@@ -151,6 +151,14 @@ except ImportError as e:
     logger.debug(f"Integrations module import failed: {e}")
     integrations = None
 
+# Quantum-inspired components (Generation 3 - Quantum Enhancement)
+try:
+    from . import quantum
+    _optional_modules['quantum'] = quantum
+except ImportError as e:
+    logger.debug(f"Quantum module import failed: {e}")
+    quantum = None
+
 # Common exception classes for convenience
 from .exceptions import (
     Gaudi3ScaleError,
@@ -160,7 +168,17 @@ from .exceptions import (
     HPUMemoryError,
     TrainingError,
     ConfigurationError,
-    ValidationError
+    ValidationError,
+    # Quantum-enhanced exceptions
+    QuantumEnhancedError,
+    QuantumCircuitError,
+    TaskPlanningError,
+    ResourceAllocationError,
+    QuantumOptimizationError,
+    EntanglementError,
+    QuantumDecoherenceError,
+    QuantumErrorManager,
+    _quantum_error_manager
 )
 
 # Common validation functions
