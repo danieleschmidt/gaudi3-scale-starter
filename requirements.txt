@@ -7,6 +7,7 @@ datasets>=2.15.0
 # Experiment Tracking & Monitoring
 wandb>=0.16.0
 tensorboard>=2.16.0
+prometheus-client>=0.19.0
 
 # CLI & Configuration
 click>=8.1.0
@@ -15,7 +16,30 @@ pydantic>=2.5.0
 pyyaml>=6.0.1
 rich>=13.7.0
 
+# Enhanced Reliability & Production Features (Generation 2)
+jsonschema>=4.20.0
+structlog>=24.1.0
+python-json-logger>=2.0.7
+psutil>=5.9.0
+requests>=2.31.0
+
+# Distributed Deployment Features (Generation 3)
+aiohttp>=3.9.0
+aiofiles>=23.2.1
+websockets>=12.0
+aioboto3>=12.3.0
+cryptography>=41.0.0
+zstandard>=0.22.0
+lz4>=4.3.0
+
 # Optional: Habana HPU Support (install separately if available)
 # habana-torch-plugin>=1.16.0
 # habana-torch-dataloader>=1.16.0
 # synapse-ai>=1.16.0
+
+# Development and Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+black>=23.12.0
+ruff>=0.1.9

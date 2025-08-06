@@ -1,0 +1,276 @@
+# Production RBAC Configuration for Gaudi 3 Scale
+# This file defines Role-Based Access Control for production environments
+
+---
+# Namespace for security resources
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: gaudi3-scale-security
+  labels:
+    name: gaudi3-scale-security
+    security: "true"
+
+---
+# Production Admin Role - Full cluster access
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gaudi3-scale-admin
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+
+---
+# Production Operator Role - Deployment and maintenance operations
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gaudi3-scale-operator
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+rules:
+# Core resources
+- apiGroups: [""]
+  resources: ["pods", "services", "configmaps", "secrets", "persistentvolumeclaims"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["pods/log", "pods/exec"]
+  verbs: ["get", "list", "create"]
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["get", "list", "watch"]
+
+# Apps
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+# Autoscaling
+- apiGroups: ["autoscaling"]
+  resources: ["horizontalpodautoscalers"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+# Networking
+- apiGroups: ["networking.k8s.io"]
+  resources: ["ingresses", "networkpolicies"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
+# Metrics and monitoring
+- apiGroups: ["metrics.k8s.io"]
+  resources: ["pods", "nodes"]
+  verbs: ["get", "list"]
+
+# Custom resources
+- apiGroups: ["gaudi3scale.io"]
+  resources: ["*"]
+  verbs: ["*"]
+
+---
+# Developer Role - Limited access for development tasks
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: gaudi3-scale
+  name: gaudi3-scale-developer
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+rules:
+# Pod management
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods/exec"]
+  verbs: ["create"]
+
+# Service access
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "list", "watch"]
+
+# ConfigMap and Secret read-only
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list"]
+
+# Deployments read-only
+- apiGroups: ["apps"]
+  resources: ["deployments", "replicasets"]
+  verbs: ["get", "list", "watch"]
+
+---
+# Read-only Role for monitoring and observability
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gaudi3-scale-readonly
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+rules:
+# Core resources read-only
+- apiGroups: [""]
+  resources: ["*"]
+  verbs: ["get", "list", "watch"]
+
+# Apps read-only
+- apiGroups: ["apps"]
+  resources: ["*"]
+  verbs: ["get", "list", "watch"]
+
+# Metrics access
+- apiGroups: ["metrics.k8s.io"]
+  resources: ["*"]
+  verbs: ["get", "list"]
+
+# Custom metrics
+- apiGroups: ["custom.metrics.k8s.io"]
+  resources: ["*"]
+  verbs: ["get", "list"]
+
+---
+# Service Account for Gaudi 3 Scale applications
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gaudi3-scale-app
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: serviceaccount
+automountServiceAccountToken: true
+
+---
+# Service Account for monitoring components
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gaudi3-scale-monitoring
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: monitoring
+automountServiceAccountToken: true
+
+---
+# Service Account for CI/CD operations
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gaudi3-scale-cicd
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: cicd
+automountServiceAccountToken: false
+
+---
+# Production Admin RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: gaudi3-scale-admin-binding
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+subjects:
+- kind: User
+  name: admin@gaudi3scale.com
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: gaudi3-scale-admins
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: gaudi3-scale-admin
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Production Operator RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: gaudi3-scale-operator-binding
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+subjects:
+- kind: User
+  name: operator@gaudi3scale.com
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: gaudi3-scale-operators
+  apiGroup: rbac.authorization.k8s.io
+- kind: ServiceAccount
+  name: gaudi3-scale-cicd
+  namespace: gaudi3-scale
+roleRef:
+  kind: ClusterRole
+  name: gaudi3-scale-operator
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Developer RoleBinding (namespace-scoped)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: gaudi3-scale-developer-binding
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+subjects:
+- kind: Group
+  name: gaudi3-scale-developers
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: gaudi3-scale-developer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Application ServiceAccount binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: gaudi3-scale-app-binding
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+subjects:
+- kind: ServiceAccount
+  name: gaudi3-scale-app
+  namespace: gaudi3-scale
+roleRef:
+  kind: Role
+  name: gaudi3-scale-developer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Monitoring ServiceAccount binding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: gaudi3-scale-monitoring-binding
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: rbac
+subjects:
+- kind: ServiceAccount
+  name: gaudi3-scale-monitoring
+  namespace: gaudi3-scale
+roleRef:
+  kind: ClusterRole
+  name: gaudi3-scale-readonly
+  apiGroup: rbac.authorization.k8s.io

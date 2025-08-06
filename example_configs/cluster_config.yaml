@@ -1,0 +1,86 @@
+# Example Cluster Configuration for Gaudi 3 Scale Starter
+# This file demonstrates the YAML configuration format for the gaudi3-deploy command
+
+# Cluster Identification
+cluster_name: "gaudi3-production-cluster"
+provider: "aws"
+region: "us-west-2"
+
+# Node Configuration
+nodes:
+  - name: "gaudi3-production-cluster-node-1"
+    instance_type: "dl2q.24xlarge"
+    hpu_count: 8
+    memory_gb: 96
+    storage_gb: 100
+    network_bandwidth_gbps: 25
+  - name: "gaudi3-production-cluster-node-2"
+    instance_type: "dl2q.24xlarge"
+    hpu_count: 8
+    memory_gb: 96
+    storage_gb: 100
+    network_bandwidth_gbps: 25
+  - name: "gaudi3-production-cluster-node-3"
+    instance_type: "dl2q.24xlarge"
+    hpu_count: 8
+    memory_gb: 96
+    storage_gb: 100
+    network_bandwidth_gbps: 25
+  - name: "gaudi3-production-cluster-node-4"
+    instance_type: "dl2q.24xlarge"
+    hpu_count: 8
+    memory_gb: 96
+    storage_gb: 100
+    network_bandwidth_gbps: 25
+
+# Cluster Features
+enable_monitoring: true
+enable_spot_instances: false
+min_nodes: 2
+max_nodes: 16
+
+# Storage Configuration
+storage:
+  data_volume_size_gb: 1000
+  backup_enabled: true
+  encryption_enabled: true
+
+# Network Configuration
+network:
+  enable_efa: true
+  vpc_cidr: "10.0.0.0/16"
+  enable_public_ips: false
+
+# Security Configuration
+security:
+  enable_encryption_at_rest: true
+  enable_encryption_in_transit: true
+  ssh_key_name: "gaudi3-cluster-key"
+
+# Monitoring Configuration
+monitoring:
+  enable_prometheus: true
+  enable_grafana: true
+  retention_days: 30
+  alert_email: "admin@example.com"
+
+# Cost Management
+cost_optimization:
+  enable_auto_scaling: true
+  scale_down_threshold: 0.3
+  scale_up_threshold: 0.8
+  idle_timeout_minutes: 30
+
+# Resource Tags
+tags:
+  Environment: "production"
+  Project: "gaudi3-scale"
+  Owner: "ml-team"
+  CostCenter: "ai-research"
+
+# Deployment Configuration
+deployment:
+  terraform_backend: "s3"
+  terraform_state_bucket: "gaudi3-terraform-state"
+  deployment_timeout_minutes: 45
+  enable_rollback: true

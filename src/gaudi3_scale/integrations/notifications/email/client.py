@@ -5,333 +5,342 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Union
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, EmailStr
+from ....optional_deps import PYDANTIC, OptionalDependencyError, warn_missing_dependency
+
+# Import pydantic conditionally
+if PYDANTIC:
+    try:
+        from pydantic import BaseModel, ConfigDict, EmailStr
+    except ImportError:
+        # Handle case where pydantic is available but email-validator is not
+        from pydantic import BaseModel, ConfigDict
+        EmailStr = str
+        warn_missing_dependency('email-validator', 'Email validation', 
+                               'Basic string validation will be used instead')
+else:
+    # Fallback base classes when pydantic is not available
+    class BaseModel:
+        def __init__(self, **data):
+            for key, value in data.items():
+                setattr(self, key, value)
+        
+        def dict(self):
+            return {k: v for k, v in self.__dict__.items() if not k.startswith('_')}
+    
+    class ConfigDict(dict):
+        pass
+    
+    EmailStr = str
 
 logger = logging.getLogger(__name__)
 
 
 class EmailConfig(BaseModel):
     """Email configuration settings."""
-    model_config = ConfigDict(extra='forbid')
     
+    def __init__(self, **data):
+        if PYDANTIC:
+            # Use pydantic validation if available
+            super().__init__(**data)
+        else:
+            # Manual validation for required fields
+            required_fields = ['smtp_server', 'username', 'password', 'from_address']
+            for field in required_fields:
+                if field not in data:
+                    raise ValueError(f"Required field '{field}' is missing")
+            
+            # Set defaults
+            data.setdefault('smtp_port', 587)
+            data.setdefault('use_tls', True)
+            data.setdefault('from_name', 'Gaudi 3 Scale')
+            
+            super().__init__(**data)
+    
+    # Define attributes for type hints and IDE support
     smtp_server: str
     smtp_port: int = 587
     username: str
     password: str
     use_tls: bool = True
-    from_address: EmailStr
+    from_address: str  # Would be EmailStr if pydantic with email-validator is available
     from_name: str = "Gaudi 3 Scale"
 
 
 class TrainingNotification(BaseModel):
     """Training notification data."""
-    model_config = ConfigDict(extra='forbid')
     
-    event_type: str  # started, completed, failed, checkpoint
-    model_name: str
-    timestamp: datetime
-    details: Dict[str, Any]
-    metrics: Optional[Dict[str, float]] = None
-    error_message: Optional[str] = None
+    def __init__(self, **data):
+        if PYDANTIC:
+            super().__init__(**data)
+        else:
+            # Manual validation for required fields
+            required_fields = ['subject', 'recipient']
+            for field in required_fields:
+                if field not in data:
+                    raise ValueError(f"Required field '{field}' is missing")
+            
+            # Set defaults
+            data.setdefault('timestamp', datetime.utcnow())
+            
+            super().__init__(**data)
+    
+    subject: str
+    recipient: str  # Would be EmailStr if pydantic with email-validator is available
+    message: str = ""
+    training_job_id: Optional[str] = None
+    status: str = "unknown"
+    timestamp: datetime = datetime.utcnow()
 
 
 class EmailClient:
-    """Email client for sending training notifications.
+    """Email client for sending training notifications."""
     
-    Provides functionality to send structured email notifications
-    about training events, status updates, and alerts.
-    """
-    
-    def __init__(self, config: EmailConfig):
+    def __init__(self, config):
         """Initialize email client.
         
         Args:
-            config: Email configuration settings
+            config: Email configuration (EmailConfig instance or dict)
         """
-        self.config = config
-    
-    def _create_connection(self) -> smtplib.SMTP:
-        """Create SMTP connection.
+        if isinstance(config, dict):
+            self.config = EmailConfig(**config)
+        else:
+            self.config = config
         
-        Returns:
-            SMTP connection object
-            
-        Raises:
-            smtplib.SMTPException: If connection fails
-        """
-        try:
-            if self.config.use_tls:
-                server = smtplib.SMTP(self.config.smtp_server, self.config.smtp_port)
-                server.starttls(context=ssl.create_default_context())
-            else:
-                server = smtplib.SMTP_SSL(self.config.smtp_server, self.config.smtp_port)
-            
-            server.login(self.config.username, self.config.password)
-            return server
-        except Exception as e:
-            logger.error(f"Failed to create SMTP connection: {e}")
-            raise
+        self.logger = logger.getChild(self.__class__.__name__)
     
-    def send_email(self, to_addresses: List[str], subject: str, 
-                   html_body: str, text_body: Optional[str] = None) -> bool:
-        """Send email to recipients.
+    def send_notification(self, notification) -> bool:
+        """Send training notification email.
         
         Args:
-            to_addresses: List of recipient email addresses
-            subject: Email subject
-            html_body: HTML email body
-            text_body: Plain text email body (optional)
+            notification: Notification data (TrainingNotification instance or dict)
             
         Returns:
-            True if email was sent successfully
+            True if email sent successfully, False otherwise
         """
+        if isinstance(notification, dict):
+            notification = TrainingNotification(**notification)
+        
         try:
-            message = MIMEMultipart("alternative")
-            message["Subject"] = subject
-            message["From"] = f"{self.config.from_name} <{self.config.from_address}>"
-            message["To"] = ", ".join(to_addresses)
+            # Create email message
+            msg = MIMEMultipart('alternative')
+            msg['Subject'] = notification.subject
+            msg['From'] = f"{self.config.from_name} <{self.config.from_address}>"
+            msg['To'] = notification.recipient
             
-            # Add text version if provided
-            if text_body:
-                text_part = MIMEText(text_body, "plain")
-                message.attach(text_part)
+            # Create HTML and text versions
+            text_content = self._create_text_content(notification)
+            html_content = self._create_html_content(notification)
             
-            # Add HTML version
-            html_part = MIMEText(html_body, "html")
-            message.attach(html_part)
+            # Add text and HTML parts
+            text_part = MIMEText(text_content, 'plain', 'utf-8')
+            html_part = MIMEText(html_content, 'html', 'utf-8')
+            
+            msg.attach(text_part)
+            msg.attach(html_part)
             
             # Send email
-            with self._create_connection() as server:
-                server.sendmail(self.config.from_address, to_addresses, message.as_string())
+            return self._send_email(msg)
             
-            logger.info(f"Email sent successfully to {len(to_addresses)} recipients")
-            return True
         except Exception as e:
-            logger.error(f"Failed to send email: {e}")
+            self.logger.error(f"Failed to send notification: {e}")
             return False
     
-    def send_training_notification(self, notification: TrainingNotification, 
-                                 to_addresses: List[str]) -> bool:
-        """Send training event notification.
+    def send_training_started(self, job_id: str, recipient: str, job_config: Dict[str, Any]) -> bool:
+        """Send training started notification.
         
         Args:
-            notification: Training notification data
-            to_addresses: List of recipient email addresses
+            job_id: Training job ID
+            recipient: Email recipient
+            job_config: Training job configuration
             
         Returns:
-            True if notification was sent successfully
+            True if email sent successfully
         """
-        subject = self._create_subject(notification)
-        html_body = self._create_html_body(notification)
-        text_body = self._create_text_body(notification)
+        notification = TrainingNotification(
+            subject=f"Training Job Started - {job_id}",
+            recipient=recipient,
+            message=f"Training job {job_id} has been started successfully.",
+            training_job_id=job_id,
+            status="started",
+            timestamp=datetime.utcnow()
+        )
         
-        return self.send_email(to_addresses, subject, html_body, text_body)
+        return self.send_notification(notification)
     
-    def _create_subject(self, notification: TrainingNotification) -> str:
-        """Create email subject for training notification.
+    def send_training_completed(self, job_id: str, recipient: str, results: Dict[str, Any]) -> bool:
+        """Send training completed notification.
         
         Args:
-            notification: Training notification data
+            job_id: Training job ID
+            recipient: Email recipient
+            results: Training results summary
             
         Returns:
-            Email subject string
+            True if email sent successfully
         """
-        status_emoji = {
-            "started": "🚀",
-            "completed": "✅",
-            "failed": "❌",
-            "checkpoint": "💾"
-        }
+        notification = TrainingNotification(
+            subject=f"Training Job Completed - {job_id}",
+            recipient=recipient,
+            message=f"Training job {job_id} has completed successfully.",
+            training_job_id=job_id,
+            status="completed",
+            timestamp=datetime.utcnow()
+        )
         
-        emoji = status_emoji.get(notification.event_type, "📊")
-        status = notification.event_type.title()
-        
-        return f"{emoji} Training {status}: {notification.model_name}"
+        return self.send_notification(notification)
     
-    def _create_html_body(self, notification: TrainingNotification) -> str:
-        """Create HTML email body for training notification.
+    def send_training_failed(self, job_id: str, recipient: str, error: str) -> bool:
+        """Send training failed notification.
         
         Args:
-            notification: Training notification data
+            job_id: Training job ID
+            recipient: Email recipient
+            error: Error message
             
         Returns:
-            HTML email body
+            True if email sent successfully
         """
-        style = """
-        <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-            .content { padding: 20px; background: #f9f9f9; }
-            .metrics { background: white; padding: 15px; border-radius: 8px; margin: 15px 0; }
-            .metric { display: inline-block; margin: 0 15px 10px 0; padding: 8px 12px; background: #e8f4fd; border-radius: 4px; }
-            .error { background: #fff5f5; border-left: 4px solid #e53e3e; padding: 15px; margin: 15px 0; }
-            .footer { background: #2d3748; color: white; padding: 15px; text-align: center; border-radius: 0 0 8px 8px; }
-            .timestamp { color: #666; font-size: 0.9em; }
-        </style>
-        """
+        notification = TrainingNotification(
+            subject=f"Training Job Failed - {job_id}",
+            recipient=recipient,
+            message=f"Training job {job_id} has failed: {error}",
+            training_job_id=job_id,
+            status="failed",
+            timestamp=datetime.utcnow()
+        )
         
-        # Status-specific content
-        if notification.event_type == "started":
-            status_color = "#3182ce"
-            status_message = "Training has started successfully"
-        elif notification.event_type == "completed":
-            status_color = "#38a169"
-            status_message = "Training completed successfully"
-        elif notification.event_type == "failed":
-            status_color = "#e53e3e"
-            status_message = "Training failed"
-        else:  # checkpoint
-            status_color = "#805ad5"
-            status_message = "Training checkpoint saved"
+        return self.send_notification(notification)
+    
+    def _create_text_content(self, notification: TrainingNotification) -> str:
+        """Create plain text email content."""
+        content = f"""
+Gaudi 3 Scale Training Notification
+==================================
+
+Subject: {notification.subject}
+Status: {notification.status.upper()}
+Time: {notification.timestamp.strftime('%Y-%m-%d %H:%M:%S UTC')}
+
+{notification.message}
+
+"""
+        
+        if notification.training_job_id:
+            content += f"Training Job ID: {notification.training_job_id}\n\n"
+        
+        content += """
+This is an automated notification from Gaudi 3 Scale.
+"""
+        
+        return content
+    
+    def _create_html_content(self, notification: TrainingNotification) -> str:
+        """Create HTML email content."""
+        status_color = {
+            'started': '#2196F3',
+            'completed': '#4CAF50', 
+            'failed': '#F44336',
+            'unknown': '#757575'
+        }.get(notification.status, '#757575')
         
         html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <title>Training Notification</title>
-            {style}
-        </head>
-        <body>
-            <div class="header" style="background-color: {status_color};">
-                <h2>🔥 Gaudi 3 Scale Training Update</h2>
-                <p>{status_message}</p>
-            </div>
-            
-            <div class="content">
-                <h3>Model: {notification.model_name}</h3>
-                <p class="timestamp">Timestamp: {notification.timestamp.strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
-                
-                <div class="metrics">
-                    <h4>Training Details</h4>
-        """
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Gaudi 3 Scale Notification</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+        .header {{ background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; }}
+        .status {{ display: inline-block; padding: 6px 12px; border-radius: 4px; color: white; background-color: {status_color}; font-weight: bold; }}
+        .content {{ background-color: #ffffff; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; }}
+        .footer {{ margin-top: 20px; font-size: 12px; color: #6c757d; text-align: center; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Gaudi 3 Scale Training Notification</h1>
+            <p><span class="status">{notification.status.upper()}</span></p>
+        </div>
         
-        # Add training details
-        for key, value in notification.details.items():
-            html += f"<div class=\"metric\"><strong>{key.replace('_', ' ').title()}:</strong> {value}</div>"
+        <div class="content">
+            <h2>{notification.subject}</h2>
+            <p><strong>Time:</strong> {notification.timestamp.strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
+"""
         
-        # Add metrics if available
-        if notification.metrics:
-            html += "<h4>Performance Metrics</h4>"
-            for metric, value in notification.metrics.items():
-                if isinstance(value, float):
-                    formatted_value = f"{value:.4f}"
-                else:
-                    formatted_value = str(value)
-                html += f"<div class=\"metric\"><strong>{metric.replace('_', ' ').title()}:</strong> {formatted_value}</div>"
+        if notification.training_job_id:
+            html += f"<p><strong>Training Job ID:</strong> {notification.training_job_id}</p>"
         
-        html += "</div>"
+        html += f"""
+            <p>{notification.message}</p>
+        </div>
         
-        # Add error message if present
-        if notification.error_message:
-            html += f"""
-                <div class="error">
-                    <h4>Error Details</h4>
-                    <pre>{notification.error_message}</pre>
-                </div>
-            """
-        
-        html += """
-            </div>
-            
-            <div class="footer">
-                <p>This notification was sent by Gaudi 3 Scale Training Platform</p>
-                <p>Intel Gaudi 3 HPU Infrastructure for Production ML Training</p>
-            </div>
-        </body>
-        </html>
-        """
+        <div class="footer">
+            <p>This is an automated notification from Gaudi 3 Scale.</p>
+        </div>
+    </div>
+</body>
+</html>
+"""
         
         return html
     
-    def _create_text_body(self, notification: TrainingNotification) -> str:
-        """Create plain text email body for training notification.
+    def _send_email(self, msg: MIMEMultipart) -> bool:
+        """Send email using SMTP.
         
         Args:
-            notification: Training notification data
+            msg: Email message to send
             
         Returns:
-            Plain text email body
+            True if sent successfully
         """
-        text = f"""
-GAUDI 3 SCALE TRAINING NOTIFICATION
-==================================
-
-Event: {notification.event_type.upper()}
-Model: {notification.model_name}
-Timestamp: {notification.timestamp.strftime('%Y-%m-%d %H:%M:%S UTC')}
-
-Training Details:
-"""
-        
-        for key, value in notification.details.items():
-            text += f"  {key.replace('_', ' ').title()}: {value}\n"
-        
-        if notification.metrics:
-            text += "\nPerformance Metrics:\n"
-            for metric, value in notification.metrics.items():
-                if isinstance(value, float):
-                    formatted_value = f"{value:.4f}"
-                else:
-                    formatted_value = str(value)
-                text += f"  {metric.replace('_', ' ').title()}: {formatted_value}\n"
-        
-        if notification.error_message:
-            text += f"\nError Details:\n{notification.error_message}\n"
-        
-        text += """
----
-This notification was sent by Gaudi 3 Scale Training Platform
-Intel Gaudi 3 HPU Infrastructure for Production ML Training
-"""
-        
-        return text
+        try:
+            # Create SMTP connection
+            if self.config.use_tls:
+                context = ssl.create_default_context()
+                server = smtplib.SMTP(self.config.smtp_server, self.config.smtp_port)
+                server.starttls(context=context)
+            else:
+                server = smtplib.SMTP(self.config.smtp_server, self.config.smtp_port)
+            
+            # Login and send
+            server.login(self.config.username, self.config.password)
+            text = msg.as_string()
+            server.sendmail(self.config.from_address, msg['To'], text)
+            server.quit()
+            
+            self.logger.info(f"Email sent successfully to {msg['To']}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Failed to send email: {e}")
+            return False
     
-    def send_training_summary(self, model_name: str, training_stats: Dict[str, Any], 
-                            to_addresses: List[str]) -> bool:
-        """Send training summary report.
+    def test_connection(self) -> bool:
+        """Test SMTP connection.
         
-        Args:
-            model_name: Name of the trained model
-            training_stats: Complete training statistics
-            to_addresses: List of recipient email addresses
-            
         Returns:
-            True if summary was sent successfully
+            True if connection successful
         """
-        subject = f"📊 Training Summary: {model_name}"
-        
-        html_body = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
-                .summary {{ background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }}
-                .stat {{ background: white; padding: 15px; margin: 10px; border-radius: 8px; display: inline-block; min-width: 200px; }}
-            </style>
-        </head>
-        <body>
-            <h2>🎯 Training Summary Report</h2>
-            <h3>Model: {model_name}</h3>
+        try:
+            if self.config.use_tls:
+                context = ssl.create_default_context()
+                server = smtplib.SMTP(self.config.smtp_server, self.config.smtp_port)
+                server.starttls(context=context)
+            else:
+                server = smtplib.SMTP(self.config.smtp_server, self.config.smtp_port)
             
-            <div class="summary">
-                <h4>Training Statistics</h4>
-        """
-        
-        for key, value in training_stats.items():
-            html_body += f"<div class=\"stat\"><strong>{key.replace('_', ' ').title()}:</strong> {value}</div>"
-        
-        html_body += """
-            </div>
+            server.login(self.config.username, self.config.password)
+            server.quit()
             
-            <p>Training completed successfully on Intel Gaudi 3 HPUs.</p>
-            <p><em>Gaudi 3 Scale Training Platform</em></p>
-        </body>
-        </html>
-        """
-        
-        return self.send_email(to_addresses, subject, html_body)
+            self.logger.info("SMTP connection test successful")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"SMTP connection test failed: {e}")
+            return False

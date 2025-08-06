@@ -1,0 +1,73 @@
+# Example Benchmark Configuration for Gaudi 3 Scale Starter
+# This file demonstrates the YAML configuration format for the gaudi3-benchmark command
+
+# Model Configuration
+model: "llama-7b"
+devices: 8
+precision: "bf16-mixed"
+sequence_length: 2048
+
+# Benchmark Parameters
+warmup_steps: 10
+benchmark_steps: 100
+batch_sizes: [8, 16, 32, 64]
+
+# Advanced Profiling
+memory_profile: true
+network_benchmark: true
+save_detailed: true
+
+# Comparison Configuration
+compare_baseline: "h100"
+baseline_configs:
+  h100:
+    cost_per_hour: 98.32
+    expected_performance_ratio: 1.4
+  a100:
+    cost_per_hour: 52.88
+    expected_performance_ratio: 1.0
+  v100:
+    cost_per_hour: 28.50
+    expected_performance_ratio: 0.6
+
+# Output Configuration
+output_file: "benchmark_results.json"
+generate_report: true
+report_format: "html"
+
+# Model-specific Settings
+model_configs:
+  llama-7b:
+    optimal_batch_size: 64
+    expected_memory_per_token: 0.001
+    base_throughput: 850
+  llama-70b:
+    optimal_batch_size: 16
+    expected_memory_per_token: 0.01
+    base_throughput: 125
+  bert-large:
+    optimal_batch_size: 128
+    expected_memory_per_token: 0.0005
+    base_throughput: 2800
+
+# Performance Thresholds
+thresholds:
+  min_hpu_utilization: 0.7
+  min_throughput_ratio: 0.8
+  max_memory_usage_ratio: 0.9
+  max_latency_ms: 100
+
+# Test Scenarios
+scenarios:
+  - name: "training_simulation"
+    description: "Simulate training workload"
+    batch_sizes: [32, 64]
+    steps: 200
+  - name: "inference_simulation"
+    description: "Simulate inference workload"
+    batch_sizes: [1, 4, 8]
+    steps: 100
+  - name: "throughput_test"
+    description: "Maximum throughput test"
+    batch_sizes: [128, 256]
+    steps: 50

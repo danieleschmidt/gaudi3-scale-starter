@@ -1,0 +1,31 @@
+apiVersion: v2
+name: gaudi3-scale
+description: A Helm chart for Gaudi 3 Scale - Production Infrastructure for Intel Gaudi 3 HPU Clusters
+type: application
+version: 0.4.0
+appVersion: "0.4.0"
+kubeVersion: ">=1.19.0-0"
+
+home: https://github.com/yourusername/gaudi3-scale-starter
+sources:
+  - https://github.com/yourusername/gaudi3-scale-starter
+
+maintainers:
+  - name: Daniel Schmidt
+    email: daniel@example.com
+    url: https://github.com/danieleschmidt
+
+keywords:
+  - machine-learning
+  - hpu
+  - gaudi
+  - habana
+  - intel
+  - pytorch
+  - training
+  - inference
+  - ai
+
+annotations:
+  category: MachineLearning
+  licenses: MIT
