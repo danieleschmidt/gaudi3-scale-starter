@@ -1,0 +1,342 @@
+# Network Policies for Gaudi 3 Scale Production Environment
+# These policies implement network segmentation and micro-segmentation
+
+---
+# Default deny all ingress traffic
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+
+---
+# Allow DNS resolution
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to: []
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+
+---
+# API service network policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gaudi3-scale-api-policy
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: gaudi3-scale
+      app.kubernetes.io/component: api
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow ingress from ingress controller
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8000
+  # Allow ingress from monitoring
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 8080
+  # Allow ingress from same namespace for service mesh
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: gaudi3-scale
+    ports:
+    - protocol: TCP
+      port: 8000
+    - protocol: TCP
+      port: 8080
+  egress:
+  # Allow egress to database
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: database
+    ports:
+    - protocol: TCP
+      port: 5432
+  # Allow egress to Redis
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: cache
+    ports:
+    - protocol: TCP
+      port: 6379
+  # Allow egress to trainer services
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: trainer
+    ports:
+    - protocol: TCP
+      port: 8080
+  # Allow HTTPS egress for external APIs
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+
+---
+# Training service network policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gaudi3-scale-trainer-policy
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: gaudi3-scale
+      app.kubernetes.io/component: trainer
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow ingress from API service
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: api
+    ports:
+    - protocol: TCP
+      port: 8080
+  # Allow ingress from monitoring
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    - podSelector:
+        matchLabels:
+          app: prometheus
+    ports:
+    - protocol: TCP
+      port: 8080
+  # Allow ingress from other trainer pods for distributed training
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: trainer
+    ports:
+    - protocol: TCP
+      port: 29500  # PyTorch distributed training port
+  egress:
+  # Allow egress to shared storage
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 2049  # NFS
+    - protocol: TCP
+      port: 111   # RPC
+  # Allow egress to model registries
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+  # Allow egress to other trainer pods
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: trainer
+    ports:
+    - protocol: TCP
+      port: 29500
+
+---
+# Monitoring ingress policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-monitoring-ingress
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  # Allow Prometheus to scrape metrics
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 8080
+    - protocol: TCP
+      port: 9100  # Node exporter
+    - protocol: TCP
+      port: 9200  # HPU exporter
+
+---
+# External egress policy for specific services
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-egress
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: gaudi3-scale
+  policyTypes:
+  - Egress
+  egress:
+  # Allow HTTPS for external APIs (Weights & Biases, Hugging Face, etc.)
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+  # Allow HTTP for package installations (should be HTTPS in production)
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 80
+
+---
+# Ingress controller access policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-controller
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: gaudi3-scale
+      app.kubernetes.io/component: api
+  policyTypes:
+  - Ingress
+  ingress:
+  # Allow from ingress namespace
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8000
+
+---
+# Database egress policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-database-egress
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: gaudi3-scale
+      app.kubernetes.io/component: api
+  policyTypes:
+  - Egress
+  egress:
+  # PostgreSQL
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 5432
+  # Redis
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 6379
+
+---
+# HPU communication policy for distributed training
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-hpu-communication
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: security
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: gaudi3-scale
+      app.kubernetes.io/component: trainer
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow HPU-to-HPU communication
+  - from:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: trainer
+    ports:
+    - protocol: TCP
+      port: 29500
+    - protocol: TCP
+      port: 29501
+  egress:
+  # Allow HPU-to-HPU communication
+  - to:
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/component: trainer
+    ports:
+    - protocol: TCP
+      port: 29500
+    - protocol: TCP
+      port: 29501

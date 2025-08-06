@@ -1,0 +1,272 @@
+# Default values for gaudi3-scale Helm chart
+# This is a YAML-formatted file.
+
+# Global settings
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: "fast-ssd"
+  namespace: "gaudi3-scale"
+
+# Image configuration
+image:
+  registry: ghcr.io
+  repository: yourusername/gaudi3-scale-starter
+  tag: "latest"
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+# Application configuration
+app:
+  name: gaudi3-scale
+  version: "0.4.0"
+  environment: production
+  logLevel: INFO
+  
+# API service configuration
+api:
+  enabled: true
+  replicaCount: 3
+  port: 8000
+  metricsPort: 8080
+  
+  # Service configuration
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 8000
+    annotations: {}
+    
+  # Ingress configuration
+  ingress:
+    enabled: false
+    className: ""
+    annotations: {}
+    hosts:
+      - host: gaudi3-scale.local
+        paths:
+          - path: /
+            pathType: Prefix
+    tls: []
+  
+  # Autoscaling configuration
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 70
+    targetMemoryUtilizationPercentage: 80
+    
+  # Resources configuration
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+      ephemeral-storage: 1Gi
+    limits:
+      cpu: 2000m
+      memory: 4Gi
+      ephemeral-storage: 5Gi
+
+# Training service configuration  
+trainer:
+  enabled: true
+  replicaCount: 1
+  metricsPort: 8080
+  
+  # HPU configuration
+  hpu:
+    deviceCount: 1
+    lazyMode: true
+    enableLazyCompilation: true
+    graphCompilerOptLevel: 3
+    
+  # Resources configuration
+  resources:
+    requests:
+      cpu: 4000m
+      memory: 16Gi
+      ephemeral-storage: 10Gi
+      "gaudi.habana.ai/gaudi": 1
+    limits:
+      cpu: 8000m
+      memory: 32Gi
+      ephemeral-storage: 50Gi
+      "gaudi.habana.ai/gaudi": 1
+      
+  # Node selection
+  nodeSelector:
+    "gaudi.habana.ai/gaudi": "true"
+    
+  tolerations:
+    - key: "gaudi.habana.ai/gaudi"
+      operator: "Exists"
+      effect: "NoSchedule"
+
+# Storage configuration
+storage:
+  data:
+    enabled: true
+    size: 500Gi
+    storageClass: "fast-ssd"
+    accessMode: ReadWriteMany
+    
+  models:
+    enabled: true
+    size: 1Ti
+    storageClass: "fast-ssd"
+    accessMode: ReadWriteMany
+    
+  checkpoints:
+    enabled: true
+    size: 2Ti
+    storageClass: "fast-ssd"
+    accessMode: ReadWriteMany
+
+# Database configuration
+database:
+  enabled: false  # External database recommended for production
+  type: postgresql
+  host: ""
+  port: 5432
+  name: gaudi3_scale
+  user: gaudi3
+  existingSecret: ""
+  existingSecretPasswordKey: ""
+
+# Redis configuration
+redis:
+  enabled: false  # External Redis recommended for production
+  host: ""
+  port: 6379
+  database: 0
+  existingSecret: ""
+  existingSecretPasswordKey: ""
+
+# Security configuration
+security:
+  enabled: true
+  
+  # Pod security context
+  podSecurityContext:
+    runAsNonRoot: true
+    runAsUser: 10001
+    runAsGroup: 10001
+    fsGroup: 10001
+    seccompProfile:
+      type: RuntimeDefault
+      
+  # Container security context
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop:
+      - ALL
+      
+  # Network policies
+  networkPolicy:
+    enabled: false
+    
+  # Pod security policy
+  podSecurityPolicy:
+    enabled: false
+
+# Monitoring configuration
+monitoring:
+  enabled: true
+  
+  prometheus:
+    enabled: true
+    scrape: true
+    port: 8080
+    path: /metrics
+    interval: 30s
+    
+  grafana:
+    enabled: false  # Use external Grafana
+    
+  serviceMonitor:
+    enabled: true
+    namespace: monitoring
+    interval: 30s
+    scrapeTimeout: 10s
+
+# ConfigMap data
+config:
+  app:
+    logging:
+      level: INFO
+      format: json
+    training:
+      default_batch_size: 32
+      max_epochs: 100
+      checkpoint_interval: 10
+    scaling:
+      min_replicas: 1
+      max_replicas: 10
+      target_cpu_utilization: 70
+      target_memory_utilization: 80
+      
+  hpu:
+    habana:
+      lazy_mode: true
+      enable_lazy_compilation: true
+      graph_compiler_opt_level: 3
+      max_compound_op_size: 256
+      enable_synapse_layout_opt: true
+      enable_weight_cpu_permute: true
+      pool_strategy: "OPTIMIZE_UTILIZATION"
+
+# Secrets (values to be overridden in production)
+secrets:
+  databaseUrl: ""
+  databaseUser: ""
+  databasePassword: ""
+  redisUrl: ""
+  redisPassword: ""
+  secretKey: ""
+  jwtSecret: ""
+  wandbApiKey: ""
+  slackWebhookUrl: ""
+  githubToken: ""
+
+# Service Account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Pod disruption budget
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+  maxUnavailable: ""
+
+# Affinity and anti-affinity
+affinity:
+  podAntiAffinity:
+    enabled: true
+    type: preferred  # or required
+    weight: 100
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Additional labels
+labels: {}
+
+# Additional annotations
+annotations: {}
+
+# Environment variables
+env: {}
+
+# Additional volumes
+volumes: []
+
+# Additional volume mounts
+volumeMounts: []

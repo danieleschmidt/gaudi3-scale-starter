@@ -1,0 +1,253 @@
+# Production Alert Rules for Gaudi 3 Scale
+groups:
+- name: gaudi3-scale-api
+  rules:
+  - alert: APIHighErrorRate
+    expr: rate(http_requests_total{job="gaudi3-scale-api",status=~"5.."}[5m]) > 0.05
+    for: 5m
+    labels:
+      severity: critical
+      service: api
+    annotations:
+      summary: "High API error rate detected"
+      description: "API error rate is {{ $value | humanizePercentage }} for the last 5 minutes"
+
+  - alert: APIHighLatency
+    expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="gaudi3-scale-api"}[5m])) > 2
+    for: 10m
+    labels:
+      severity: warning
+      service: api
+    annotations:
+      summary: "High API latency detected"
+      description: "95th percentile latency is {{ $value }}s for the last 10 minutes"
+
+  - alert: APIDown
+    expr: up{job="gaudi3-scale-api"} == 0
+    for: 2m
+    labels:
+      severity: critical
+      service: api
+    annotations:
+      summary: "API service is down"
+      description: "API service has been down for more than 2 minutes"
+
+  - alert: APILowThroughput
+    expr: rate(http_requests_total{job="gaudi3-scale-api"}[10m]) < 0.1
+    for: 15m
+    labels:
+      severity: warning
+      service: api
+    annotations:
+      summary: "Low API throughput"
+      description: "API request rate is {{ $value }} requests/second for the last 15 minutes"
+
+- name: gaudi3-scale-training
+  rules:
+  - alert: TrainingJobFailed
+    expr: increase(training_jobs_failed_total[10m]) > 0
+    for: 0m
+    labels:
+      severity: critical
+      service: training
+    annotations:
+      summary: "Training job failed"
+      description: "{{ $value }} training job(s) failed in the last 10 minutes"
+
+  - alert: TrainingJobStuck
+    expr: time() - training_job_last_update_timestamp > 3600
+    for: 5m
+    labels:
+      severity: warning
+      service: training
+    annotations:
+      summary: "Training job appears stuck"
+      description: "Training job has not updated for {{ $value | humanizeDuration }}"
+
+  - alert: HPUUtilizationLow
+    expr: avg(hpu_utilization_percent) < 50
+    for: 30m
+    labels:
+      severity: warning
+      service: training
+    annotations:
+      summary: "Low HPU utilization"
+      description: "Average HPU utilization is {{ $value | humanizePercentage }} for the last 30 minutes"
+
+  - alert: HPUMemoryHigh
+    expr: (hpu_memory_used_bytes / hpu_memory_total_bytes) * 100 > 90
+    for: 10m
+    labels:
+      severity: critical
+      service: training
+    annotations:
+      summary: "High HPU memory usage"
+      description: "HPU memory usage is {{ $value | humanizePercentage }} on {{ $labels.instance }}"
+
+  - alert: TrainingThroughputLow
+    expr: rate(training_samples_processed_total[10m]) < 100
+    for: 20m
+    labels:
+      severity: warning
+      service: training
+    annotations:
+      summary: "Low training throughput"
+      description: "Training throughput is {{ $value }} samples/second for the last 20 minutes"
+
+- name: infrastructure
+  rules:
+  - alert: KubernetesNodeDown
+    expr: up{job="kubernetes-nodes"} == 0
+    for: 5m
+    labels:
+      severity: critical
+      component: infrastructure
+    annotations:
+      summary: "Kubernetes node is down"
+      description: "Node {{ $labels.instance }} has been down for more than 5 minutes"
+
+  - alert: KubernetesNodeHighCPU
+    expr: (100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)) > 85
+    for: 15m
+    labels:
+      severity: warning
+      component: infrastructure
+    annotations:
+      summary: "High CPU usage on Kubernetes node"
+      description: "CPU usage is {{ $value | humanizePercentage }} on node {{ $labels.instance }}"
+
+  - alert: KubernetesNodeHighMemory
+    expr: ((node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes) * 100 > 90
+    for: 10m
+    labels:
+      severity: critical
+      component: infrastructure
+    annotations:
+      summary: "High memory usage on Kubernetes node"
+      description: "Memory usage is {{ $value | humanizePercentage }} on node {{ $labels.instance }}"
+
+  - alert: KubernetesNodeDiskSpaceLow
+    expr: ((node_filesystem_size_bytes{mountpoint="/"} - node_filesystem_free_bytes{mountpoint="/"}) / node_filesystem_size_bytes{mountpoint="/"}) * 100 > 85
+    for: 10m
+    labels:
+      severity: warning
+      component: infrastructure
+    annotations:
+      summary: "Low disk space on Kubernetes node"
+      description: "Disk usage is {{ $value | humanizePercentage }} on node {{ $labels.instance }}"
+
+  - alert: PodCrashLooping
+    expr: rate(kube_pod_container_status_restarts_total[15m]) > 0
+    for: 5m
+    labels:
+      severity: warning
+      component: infrastructure
+    annotations:
+      summary: "Pod is crash looping"
+      description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is crash looping"
+
+  - alert: PodPending
+    expr: kube_pod_status_phase{phase="Pending"} > 0
+    for: 10m
+    labels:
+      severity: warning
+      component: infrastructure
+    annotations:
+      summary: "Pod stuck in pending state"
+      description: "Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has been pending for more than 10 minutes"
+
+- name: storage
+  rules:
+  - alert: PersistentVolumeUsageHigh
+    expr: ((kubelet_volume_stats_capacity_bytes - kubelet_volume_stats_available_bytes) / kubelet_volume_stats_capacity_bytes) * 100 > 85
+    for: 10m
+    labels:
+      severity: warning
+      component: storage
+    annotations:
+      summary: "High persistent volume usage"
+      description: "PV usage is {{ $value | humanizePercentage }} for {{ $labels.persistentvolumeclaim }}"
+
+  - alert: DatabaseConnectionsHigh
+    expr: postgresql_connections > 80
+    for: 10m
+    labels:
+      severity: warning
+      component: database
+    annotations:
+      summary: "High database connections"
+      description: "Database has {{ $value }} active connections"
+
+  - alert: RedisMemoryHigh
+    expr: (redis_memory_used_bytes / redis_memory_max_bytes) * 100 > 90
+    for: 10m
+    labels:
+      severity: critical
+      component: cache
+    annotations:
+      summary: "High Redis memory usage"
+      description: "Redis memory usage is {{ $value | humanizePercentage }}"
+
+- name: business-metrics
+  rules:
+  - alert: ModelAccuracyDrop
+    expr: model_accuracy < 0.85
+    for: 30m
+    labels:
+      severity: warning
+      component: ml-model
+    annotations:
+      summary: "Model accuracy has dropped"
+      description: "Model accuracy is {{ $value | humanizePercentage }}, below threshold of 85%"
+
+  - alert: DataPipelineStalled
+    expr: time() - data_pipeline_last_processed_timestamp > 7200
+    for: 10m
+    labels:
+      severity: critical
+      component: data-pipeline
+    annotations:
+      summary: "Data pipeline has stalled"
+      description: "Data pipeline has not processed data for {{ $value | humanizeDuration }}"
+
+  - alert: HighInferenceLatency
+    expr: histogram_quantile(0.95, rate(inference_duration_seconds_bucket[10m])) > 1.0
+    for: 15m
+    labels:
+      severity: warning
+      component: inference
+    annotations:
+      summary: "High inference latency"
+      description: "95th percentile inference latency is {{ $value }}s"
+
+- name: security
+  rules:
+  - alert: UnauthorizedAPIAccess
+    expr: increase(http_requests_total{status="401"}[5m]) > 10
+    for: 2m
+    labels:
+      severity: warning
+      component: security
+    annotations:
+      summary: "High number of unauthorized API requests"
+      description: "{{ $value }} unauthorized requests in the last 5 minutes"
+
+  - alert: SuspiciousActivity
+    expr: increase(security_events_total{type="suspicious"}[10m]) > 5
+    for: 0m
+    labels:
+      severity: critical
+      component: security
+    annotations:
+      summary: "Suspicious security activity detected"
+      description: "{{ $value }} suspicious security events in the last 10 minutes"
+
+  - alert: CertificateExpiringSoon
+    expr: (x509_cert_not_after - time()) / 86400 < 7
+    for: 24h
+    labels:
+      severity: warning
+      component: security
+    annotations:
+      summary: "Certificate expiring soon"
+      description: "Certificate {{ $labels.instance }} expires in {{ $value }} days"

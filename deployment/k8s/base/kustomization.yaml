@@ -1,0 +1,31 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+metadata:
+  name: gaudi3-scale-base
+  namespace: gaudi3-scale
+
+namespace: gaudi3-scale
+
+resources:
+- namespace.yaml
+- serviceaccount.yaml
+- configmap.yaml
+- secret.yaml
+- pvc.yaml
+- deployment.yaml
+- service.yaml
+- hpa.yaml
+
+commonLabels:
+  app.kubernetes.io/name: gaudi3-scale
+  app.kubernetes.io/instance: production
+  app.kubernetes.io/part-of: gaudi3-scale-platform
+
+commonAnnotations:
+  app.kubernetes.io/version: "0.4.0"
+  app.kubernetes.io/managed-by: kustomize
+
+images:
+- name: ghcr.io/yourusername/gaudi3-scale-starter
+  newTag: latest

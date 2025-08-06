@@ -1,0 +1,70 @@
+# Example Training Configuration for Gaudi 3 Scale Starter
+# This file demonstrates the YAML configuration format for the gaudi3-train command
+
+# Model Configuration
+model_config:
+  model_name: "llama-7b"
+  model_type: "llama"
+  model_size: "7B"
+  pretrained_path: null
+  gradient_checkpointing: true
+  use_cache: false
+  low_cpu_mem_usage: true
+
+# Dataset Configuration  
+dataset_config:
+  dataset_name: "alpaca"
+  dataset_type: "huggingface"
+  max_length: 2048
+  padding: "max_length"
+  truncation: true
+  streaming: false
+  num_proc: 8
+  train_split: "train"
+  validation_split: "validation"
+
+# Training Parameters
+batch_size: 32
+max_epochs: 3
+learning_rate: 6e-4
+weight_decay: 0.1
+warmup_steps: 100
+lr_scheduler_type: "cosine"
+
+# Precision and Optimization
+precision: "bf16-mixed"
+optimizer_type: "fused_adamw"
+
+# Gaudi-specific Optimizations
+use_habana_dataloader: true
+use_lazy_mode: true
+use_hpu_graphs: true
+enable_async_grad_copy: true
+
+# Distributed Training
+distributed_backend: "hccl"
+find_unused_parameters: false
+
+# Gradient Management
+gradient_accumulation_steps: 4
+gradient_clip_val: 1.0
+gradient_clip_algorithm: "norm"
+
+# Checkpointing
+save_strategy: "steps"
+save_steps: 500
+save_total_limit: 3
+
+# Evaluation
+eval_strategy: "steps"
+eval_steps: 500
+per_device_eval_batch_size: 16
+
+# Logging and Monitoring
+logging_steps: 10
+report_to: ["wandb"]
+wandb_project: "gaudi3-scale-training"
+
+# Output and Storage
+output_dir: "./output/llama-7b-training"
+logging_dir: "./logs"

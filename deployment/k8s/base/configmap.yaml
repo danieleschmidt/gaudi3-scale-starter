@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gaudi3-scale-config
+  namespace: gaudi3-scale
+  labels:
+    app.kubernetes.io/name: gaudi3-scale
+    app.kubernetes.io/component: config
+data:
+  # Application configuration
+  app.yaml: |
+    logging:
+      level: INFO
+      format: json
+    
+    training:
+      default_batch_size: 32
+      max_epochs: 100
+      checkpoint_interval: 10
+    
+    scaling:
+      min_replicas: 1
+      max_replicas: 10
+      target_cpu_utilization: 70
+      target_memory_utilization: 80
+    
+    monitoring:
+      metrics_port: 8080
+      health_check_port: 8000
+      prometheus_scrape: true
+    
+    cache:
+      type: redis
+      ttl: 3600
+      max_size: "1GB"
+    
+    database:
+      pool_size: 20
+      max_overflow: 30
+      pool_timeout: 30
+      pool_recycle: 3600
+  
+  # HPU configuration
+  hpu.yaml: |
+    habana:
+      lazy_mode: true
+      enable_lazy_compilation: true
+      graph_compiler_opt_level: 3
+      max_compound_op_size: 256
+      enable_synapse_layout_opt: true
+      enable_weight_cpu_permute: true
+      pool_strategy: "OPTIMIZE_UTILIZATION"
+    
+    pytorch:
+      eager_collective_ops: true
+      enable_recipe_cache: true
+      enable_dynamic_shape: false
+    
+    system:
+      omp_num_threads: 0  # Auto-detect
+      malloc_trim_threshold: 100000
+      malloc_mmap_threshold: 131072
+  
+  # Security configuration
+  security.yaml: |
+    authentication:
+      enabled: true
+      token_expiry: 3600
+      refresh_token_expiry: 86400
+    
+    rate_limiting:
+      enabled: true
+      requests_per_minute: 1000
+      burst_size: 100
+    
+    encryption:
+      algorithm: "AES-256-GCM"
+      key_rotation_days: 90
+    
+    audit:
+      enabled: true
+      retention_days: 365
+      log_level: INFO

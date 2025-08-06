@@ -23,28 +23,41 @@ error() {
     exit 1
 }
 
-# Container Registry Configuration
-REGISTRY="${CONTAINER_REGISTRY:-ghcr.io}"
-IMAGE_NAME="${IMAGE_NAME:-gaudi3-scale-starter}"
-TAG="${TAG:-latest}"
-
-# Performance Optimization
-optimize_container_performance() {
-    log "Optimizing container performance for Gaudi 3 HPUs..."
+# Container runtime optimization for production
+optimize_runtime_performance() {
+    log "Optimizing runtime performance for Gaudi 3 HPUs..."
     
-    # Build optimized image with performance flags
-    docker build \
-        --build-arg HABANA_VERSION=1.16.0 \
-        --build-arg PYTHON_VERSION=3.10 \
-        --build-arg TORCH_VERSION=2.3.0 \
-        --build-arg PYTORCH_LIGHTNING_VERSION=2.2.0 \
-        --target production \
-        --platform linux/amd64 \
-        -t "${REGISTRY}/${IMAGE_NAME}:${TAG}" \
-        -t "${REGISTRY}/${IMAGE_NAME}:$(git rev-parse --short HEAD)" \
-        -f Dockerfile.optimized .
+    # System information
+    log "System Information:"
+    echo "  CPU cores: $(nproc)"
+    echo "  Memory: $(free -h | grep Mem | awk '{print $2}')"
+    echo "  Disk space: $(df -h / | tail -1 | awk '{print $4}')"
     
-    log "Container performance optimization completed"
+    # Memory optimization
+    if [ -w /proc/sys/vm/swappiness ]; then
+        echo 1 > /proc/sys/vm/swappiness
+        log "Set swappiness to 1"
+    else
+        warn "Cannot modify swappiness (running as non-root)"
+    fi
+    
+    # Set memory-related environment variables
+    export MALLOC_TRIM_THRESHOLD_=100000
+    export MALLOC_MMAP_THRESHOLD_=131072
+    
+    # HPU optimization
+    export HPU_VISIBLE_DEVICES=${HPU_VISIBLE_DEVICES:-0}
+    export PT_HPU_POOL_STRATEGY=OPTIMIZE_UTILIZATION
+    export PT_HPU_EAGER_COLLECTIVE_OPS=${PT_HPU_EAGER_COLLECTIVE_OPS:-1}
+    export PT_HPU_ENABLE_RECIPE_CACHE=${PT_HPU_ENABLE_RECIPE_CACHE:-1}
+    
+    # Python optimization
+    export PYTHONOPTIMIZE=2
+    export PYTHONDONTWRITEBYTECODE=1
+    export PYTHONUNBUFFERED=1
+    export OMP_NUM_THREADS=${OMP_NUM_THREADS:-$(nproc)}
+    
+    log "Runtime performance optimization completed"
 }
 
 # Security Hardening

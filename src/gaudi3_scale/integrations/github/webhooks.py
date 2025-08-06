@@ -6,7 +6,26 @@ import json
 import logging
 from typing import Dict, Any, Optional, Callable
 
-from fastapi import HTTPException, Header, Request
+from ...optional_deps import FASTAPI, OptionalDependencyError, require_optional_dep
+
+# Import FastAPI components conditionally
+if FASTAPI:
+    from fastapi import HTTPException, Header, Request
+else:
+    # Create stub classes for when FastAPI is not available
+    class HTTPException(Exception):
+        def __init__(self, status_code: int, detail: str):
+            self.status_code = status_code
+            self.detail = detail
+            super().__init__(detail)
+    
+    class Header:
+        def __init__(self, default=None, **kwargs):
+            self.default = default
+    
+    class Request:
+        async def body(self):
+            raise OptionalDependencyError('fastapi', 'GitHub webhook request handling')
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +83,7 @@ class GitHubWebhookHandler:
         self.handlers[event_type] = handler
         logger.info(f"Registered handler for {event_type} events")
     
+    @require_optional_dep('fastapi', 'GitHub webhook handling')
     async def handle_webhook(
         self,
         request: Request,

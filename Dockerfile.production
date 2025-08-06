@@ -1,0 +1,139 @@
+# Multi-stage production Dockerfile for Gaudi 3 Scale
+# Optimized for security, performance, and minimal attack surface
+
+# Base image with Habana runtime
+FROM vault.habana.ai/gaudi-docker/1.16.0/ubuntu22.04/habana-torch:latest as base
+
+# Set build arguments
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
+ARG UID=10001
+
+# Labels for metadata
+LABEL maintainer="daniel@example.com" \
+      org.opencontainers.image.title="Gaudi 3 Scale Production" \
+      org.opencontainers.image.description="Production Infrastructure for Intel Gaudi 3 HPU Clusters" \
+      org.opencontainers.image.url="https://github.com/yourusername/gaudi3-scale-starter" \
+      org.opencontainers.image.source="https://github.com/yourusername/gaudi3-scale-starter" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      org.opencontainers.image.licenses="MIT"
+
+# Set environment variables for Habana optimizations
+ENV PT_HPU_LAZY_MODE=1 \
+    PT_HPU_ENABLE_LAZY_COMPILATION=1 \
+    PT_HPU_GRAPH_COMPILER_OPT_LEVEL=3 \
+    PT_HPU_MAX_COMPOUND_OP_SIZE=256 \
+    PT_HPU_ENABLE_SYNAPSE_LAYOUT_OPT=1 \
+    PT_HPU_ENABLE_WEIGHT_CPU_PERMUTE=1 \
+    PT_HPU_POOL_STRATEGY=OPTIMIZE_UTILIZATION
+
+# Security and performance environment variables
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONHASHSEED=random \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_DEFAULT_TIMEOUT=100
+
+# Update and install essential packages only
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl=7.81.0-1ubuntu1.* \
+    ca-certificates=20230311ubuntu0.22.04.1 \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create non-root user early
+RUN groupadd -g ${UID} appuser && \
+    useradd -u ${UID} -g appuser -s /bin/sh -m appuser
+
+# ================================
+# Dependencies stage
+# ================================
+FROM base as dependencies
+
+# Copy requirements first for better layer caching
+COPY requirements.txt /tmp/requirements.txt
+
+# Install Python dependencies with security flags
+RUN pip install --no-cache-dir --upgrade pip==24.0 && \
+    pip install --no-cache-dir --require-hashes -r /tmp/requirements.txt
+
+# ================================
+# Build stage
+# ================================
+FROM dependencies as builder
+
+WORKDIR /build
+
+# Copy source code
+COPY src/ ./src/
+COPY pyproject.toml README.md LICENSE ./
+
+# Build wheel
+RUN pip install --no-cache-dir build==1.0.3 && \
+    python -m build --wheel && \
+    pip wheel --no-deps --wheel-dir /wheels ./
+
+# ================================
+# Final production stage
+# ================================
+FROM base as production
+
+# Install wheel from build stage
+COPY --from=builder /wheels/*.whl /tmp/
+RUN pip install --no-cache-dir /tmp/*.whl && \
+    rm -rf /tmp/*.whl
+
+# Create application directory
+WORKDIR /app
+
+# Copy configuration and scripts
+COPY --chown=appuser:appuser example_configs/ ./configs/
+COPY --chown=appuser:appuser scripts/container-optimization.sh ./scripts/
+
+# Create necessary directories with proper permissions
+RUN mkdir -p /app/{data,models,logs,configs,tmp} && \
+    chown -R appuser:appuser /app && \
+    chmod 755 /app/scripts/container-optimization.sh
+
+# Switch to non-root user
+USER appuser
+
+# Set working directory ownership
+WORKDIR /app
+
+# Expose ports
+EXPOSE 8000 8080 9090
+
+# Health check with proper timeout and retries
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run optimization script and start application
+CMD ["/bin/sh", "-c", "./scripts/container-optimization.sh && gaudi3-train --help"]
+
+# ================================
+# Development stage (optional)
+# ================================
+FROM dependencies as development
+
+WORKDIR /workspace
+
+# Install development dependencies
+COPY requirements-dev.txt /tmp/requirements-dev.txt
+RUN pip install --no-cache-dir -r /tmp/requirements-dev.txt
+
+# Copy all source files
+COPY . .
+
+# Install in editable mode
+RUN pip install -e .
+
+# Switch to non-root user
+USER appuser
+
+# Development command
+CMD ["bash"]

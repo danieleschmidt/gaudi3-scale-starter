@@ -1,0 +1,319 @@
+{{- if .Values.api.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gaudi3-scale.fullname" . }}-api
+  labels:
+    {{- include "gaudi3-scale.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api
+spec:
+  {{- if not .Values.api.autoscaling.enabled }}
+  replicas: {{ .Values.api.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "gaudi3-scale.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- if .Values.monitoring.prometheus.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.api.metricsPort }}"
+        prometheus.io/path: "/metrics"
+        {{- end }}
+        {{- with .Values.annotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "gaudi3-scale.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: api
+        {{- with .Values.labels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "gaudi3-scale.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.security.podSecurityContext | nindent 8 }}
+      containers:
+        - name: api
+          securityContext:
+            {{- toYaml .Values.security.securityContext | nindent 12 }}
+          image: "{{ include "gaudi3-scale.image" . }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.api.port }}
+              protocol: TCP
+            - name: metrics
+              containerPort: {{ .Values.api.metricsPort }}
+              protocol: TCP
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: PORT
+              value: "{{ .Values.api.port }}"
+            - name: METRICS_PORT
+              value: "{{ .Values.api.metricsPort }}"
+            - name: ENVIRONMENT
+              value: "{{ .Values.app.environment }}"
+            - name: LOG_LEVEL
+              value: "{{ .Values.app.logLevel }}"
+            {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ include "gaudi3-scale.fullname" . }}-secrets
+            - configMapRef:
+                name: {{ include "gaudi3-scale.fullname" . }}-config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
+              readOnly: true
+            - name: tmp-volume
+              mountPath: /tmp
+            - name: cache-volume
+              mountPath: /app/cache
+            - name: logs-volume
+              mountPath: /app/logs
+            {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+          resources:
+            {{- toYaml .Values.api.resources | nindent 12 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "gaudi3-scale.fullname" . }}-config
+        - name: tmp-volume
+          emptyDir: {}
+        - name: cache-volume
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: logs-volume
+          emptyDir:
+            sizeLimit: 2Gi
+        {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity.podAntiAffinity.enabled }}
+      affinity:
+        podAntiAffinity:
+          {{- if eq .Values.affinity.podAntiAffinity.type "required" }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+          {{- else }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: {{ .Values.affinity.podAntiAffinity.weight }}
+            podAffinityTerm:
+          {{- end }}
+              labelSelector:
+                matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                  - {{ include "gaudi3-scale.name" . }}
+              topologyKey: kubernetes.io/hostname
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      terminationGracePeriodSeconds: 60
+{{- end }}
+---
+{{- if .Values.trainer.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "gaudi3-scale.fullname" . }}-trainer
+  labels:
+    {{- include "gaudi3-scale.labels" . | nindent 4 }}
+    app.kubernetes.io/component: trainer
+spec:
+  replicas: {{ .Values.trainer.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "gaudi3-scale.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: trainer
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- if .Values.monitoring.prometheus.enabled }}
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.trainer.metricsPort }}"
+        prometheus.io/path: "/metrics"
+        {{- end }}
+        {{- with .Values.annotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "gaudi3-scale.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: trainer
+        {{- with .Values.labels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "gaudi3-scale.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.security.podSecurityContext | nindent 8 }}
+      containers:
+        - name: trainer
+          securityContext:
+            {{- toYaml .Values.security.securityContext | nindent 12 }}
+          image: "{{ include "gaudi3-scale.image" . }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["gaudi3-train"]
+          args: ["--config", "/app/config/training_config.yaml"]
+          ports:
+            - name: metrics
+              containerPort: {{ .Values.trainer.metricsPort }}
+              protocol: TCP
+          env:
+            - name: PYTHONUNBUFFERED
+              value: "1"
+            - name: HPU_VISIBLE_DEVICES
+              value: "0"
+            - name: HABANA_LOGS
+              value: "/app/logs"
+            - name: PT_HPU_LAZY_MODE
+              value: {{ .Values.trainer.hpu.lazyMode | quote }}
+            - name: PT_HPU_ENABLE_LAZY_COMPILATION
+              value: {{ .Values.trainer.hpu.enableLazyCompilation | quote }}
+            - name: PT_HPU_GRAPH_COMPILER_OPT_LEVEL
+              value: {{ .Values.trainer.hpu.graphCompilerOptLevel | quote }}
+            {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ include "gaudi3-scale.fullname" . }}-secrets
+            - configMapRef:
+                name: {{ include "gaudi3-scale.fullname" . }}-config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config
+              readOnly: true
+            {{- if .Values.storage.data.enabled }}
+            - name: data-volume
+              mountPath: /app/data
+            {{- end }}
+            {{- if .Values.storage.models.enabled }}
+            - name: models-volume
+              mountPath: /app/models
+            {{- end }}
+            {{- if .Values.storage.checkpoints.enabled }}
+            - name: checkpoints-volume
+              mountPath: /app/checkpoints
+            {{- end }}
+            - name: tmp-volume
+              mountPath: /tmp
+            - name: cache-volume
+              mountPath: /app/cache
+            - name: logs-volume
+              mountPath: /app/logs
+            {{- with .Values.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - "ps aux | grep gaudi3-train | grep -v grep"
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 5
+          readinessProbe:
+            exec:
+              command:
+              - /bin/sh
+              - -c
+              - "test -f /app/logs/ready"
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.trainer.resources | nindent 12 }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "gaudi3-scale.fullname" . }}-config
+        {{- if .Values.storage.data.enabled }}
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: {{ include "gaudi3-scale.fullname" . }}-data-pvc
+        {{- end }}
+        {{- if .Values.storage.models.enabled }}
+        - name: models-volume
+          persistentVolumeClaim:
+            claimName: {{ include "gaudi3-scale.fullname" . }}-models-pvc
+        {{- end }}
+        {{- if .Values.storage.checkpoints.enabled }}
+        - name: checkpoints-volume
+          persistentVolumeClaim:
+            claimName: {{ include "gaudi3-scale.fullname" . }}-checkpoints-pvc
+        {{- end }}
+        - name: tmp-volume
+          emptyDir: {}
+        - name: cache-volume
+          emptyDir:
+            sizeLimit: 5Gi
+        - name: logs-volume
+          emptyDir:
+            sizeLimit: 10Gi
+        {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.trainer.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.trainer.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      terminationGracePeriodSeconds: 300
+{{- end }}
