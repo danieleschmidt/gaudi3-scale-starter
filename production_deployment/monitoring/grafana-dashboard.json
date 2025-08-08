@@ -1,0 +1,51 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Gaudi 3 Scale Performance",
+    "tags": [
+      "gaudi3",
+      "performance"
+    ],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "Training Throughput",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(gaudi3_training_samples_total[5m])",
+            "legendFormat": "Samples/sec"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Cache Hit Rate",
+        "type": "singlestat",
+        "targets": [
+          {
+            "expr": "gaudi3_cache_hit_rate",
+            "legendFormat": "Hit Rate"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Memory Usage",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "gaudi3_memory_usage_bytes",
+            "legendFormat": "Memory"
+          }
+        ]
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "refresh": "5s"
+  }
+}

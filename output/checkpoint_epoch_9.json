@@ -1,0 +1,25 @@
+{
+  "epoch": 9,
+  "config": {
+    "model_name": "error-demo",
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "max_epochs": 10,
+    "precision": "float32",
+    "output_dir": "output",
+    "validation_split": 0.2,
+    "early_stopping_patience": 3,
+    "checkpoint_every": 1,
+    "log_level": "INFO"
+  },
+  "metrics": {
+    "epoch": 9,
+    "train_loss": 0.4159739343378813,
+    "train_accuracy": 0.9588748174566865,
+    "val_loss": 0.3606267411013828,
+    "val_accuracy": 0.9153963026382069,
+    "epoch_time": 0.20057988166809082,
+    "health_status": "not_checked"
+  },
+  "timestamp": 1754670494.4657075
+}

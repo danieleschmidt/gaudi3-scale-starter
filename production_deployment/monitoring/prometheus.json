@@ -1,0 +1,23 @@
+{
+  "global": {
+    "scrape_interval": "15s",
+    "evaluation_interval": "15s"
+  },
+  "scrape_configs": [
+    {
+      "job_name": "gaudi3-scale",
+      "static_configs": [
+        {
+          "targets": [
+            "gaudi3-scale-service:9090"
+          ]
+        }
+      ],
+      "scrape_interval": "10s",
+      "metrics_path": "/metrics"
+    }
+  ],
+  "rule_files": [
+    "alerts.yml"
+  ]
+}

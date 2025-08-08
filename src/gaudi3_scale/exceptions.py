@@ -9,7 +9,12 @@ advanced error tracking and correlation analysis.
 
 import time
 import cmath
-import numpy as np
+try:
+    import numpy as np
+    _numpy_available = True
+except ImportError:
+    np = None
+    _numpy_available = False
 from typing import Any, Dict, List, Optional, Union, Set
 from enum import Enum
 
@@ -148,7 +153,11 @@ class QuantumEnhancedError(Exception):
         """Apply quantum evolution to error state."""
         if self.quantum_state == QuantumErrorState.COHERENT:
             # Apply decoherence
-            decoherence_factor = np.exp(-self.decoherence_rate * time_delta)
+            if _numpy_available:
+                decoherence_factor = np.exp(-self.decoherence_rate * time_delta)
+            else:
+                import math
+                decoherence_factor = math.exp(-self.decoherence_rate * time_delta)
             self.amplitude *= decoherence_factor
             
             if abs(self.amplitude) < 0.1:
@@ -157,7 +166,11 @@ class QuantumEnhancedError(Exception):
         elif self.quantum_state == QuantumErrorState.SUPERPOSITION:
             # Phase evolution in superposition
             self.phase += 0.1 * time_delta
-            self.amplitude *= complex(np.cos(self.phase), np.sin(self.phase))
+            if _numpy_available:
+                self.amplitude *= complex(np.cos(self.phase), np.sin(self.phase))
+            else:
+                import math
+                self.amplitude *= complex(math.cos(self.phase), math.sin(self.phase))
     
     def entangle_with_error(self, other_error: 'QuantumEnhancedError'):
         """Create quantum entanglement with another error."""
@@ -169,13 +182,21 @@ class QuantumEnhancedError(Exception):
         other_error.quantum_state = QuantumErrorState.ENTANGLED
         
         # Create Bell state correlation
-        entanglement_phase = np.pi / 4
+        if _numpy_available:
+            entanglement_phase = np.pi / 4
+        else:
+            import math
+            entanglement_phase = math.pi / 4
         self.phase += entanglement_phase
         other_error.phase -= entanglement_phase
     
     def collapse_quantum_state(self) -> bool:
         """Collapse quantum error state to classical."""
-        measurement_outcome = np.random.random() < self.probability_amplitude
+        if _numpy_available:
+            measurement_outcome = np.random.random() < self.probability_amplitude
+        else:
+            import random
+            measurement_outcome = random.random() < self.probability_amplitude
         
         self.quantum_state = QuantumErrorState.COLLAPSED
         self.amplitude = complex(1.0, 0.0) if measurement_outcome else complex(0.0, 0.0)
