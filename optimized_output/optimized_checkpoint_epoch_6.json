@@ -1,0 +1,115 @@
+{
+  "epoch": 6,
+  "config": {
+    "model_name": "aggressive-opt-demo",
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "max_epochs": 6,
+    "optimization_level": "aggressive",
+    "enable_caching": true,
+    "cache_size": 1500,
+    "enable_async_processing": true,
+    "async_batch_size": 64,
+    "max_workers": 2,
+    "connection_pool_size": 50,
+    "enable_distributed": false,
+    "num_nodes": 1,
+    "node_rank": 0,
+    "enable_prefetch": true,
+    "prefetch_factor": 3,
+    "enable_memory_optimization": true,
+    "enable_cpu_optimization": true,
+    "output_dir": "optimized_output"
+  },
+  "metrics": {
+    "epoch": 6,
+    "train_loss": 0.8080912633535715,
+    "train_accuracy": 0.8402844995929927,
+    "val_loss": 0.8484958265212501,
+    "val_accuracy": 0.8318816545970628,
+    "epoch_time": 0.08045792579650879,
+    "throughput": 796.5561981631774,
+    "cache_hit_rate": 0.5,
+    "memory_usage": 95.53681068731368,
+    "cpu_usage": 87.7971908413898
+  },
+  "performance_summary": {
+    "epoch_1": {
+      "count": 1,
+      "total_duration": 0.08046460151672363,
+      "avg_duration": 0.08046460151672363,
+      "max_duration": 0.08046460151672363,
+      "min_duration": 0.08046460151672363,
+      "avg_memory_usage": 0.0,
+      "max_memory_usage": 0.0
+    },
+    "epoch_2": {
+      "count": 1,
+      "total_duration": 0.08044314384460449,
+      "avg_duration": 0.08044314384460449,
+      "max_duration": 0.08044314384460449,
+      "min_duration": 0.08044314384460449,
+      "avg_memory_usage": 0.0,
+      "max_memory_usage": 0.0
+    },
+    "epoch_3": {
+      "count": 1,
+      "total_duration": 0.08053302764892578,
+      "avg_duration": 0.08053302764892578,
+      "max_duration": 0.08053302764892578,
+      "min_duration": 0.08053302764892578,
+      "avg_memory_usage": 0.0,
+      "max_memory_usage": 0.0
+    },
+    "epoch_4": {
+      "count": 1,
+      "total_duration": 0.08045792579650879,
+      "avg_duration": 0.08045792579650879,
+      "max_duration": 0.08045792579650879,
+      "min_duration": 0.08045792579650879,
+      "avg_memory_usage": 0.0,
+      "max_memory_usage": 0.0
+    },
+    "epoch_5": {
+      "count": 1,
+      "total_duration": 0.08052515983581543,
+      "avg_duration": 0.08052515983581543,
+      "max_duration": 0.08052515983581543,
+      "min_duration": 0.08052515983581543,
+      "avg_memory_usage": 0.0,
+      "max_memory_usage": 0.0
+    },
+    "epoch_6": {
+      "count": 1,
+      "total_duration": 0.08057141304016113,
+      "avg_duration": 0.08057141304016113,
+      "max_duration": 0.08057141304016113,
+      "min_duration": 0.08057141304016113,
+      "avg_memory_usage": 0.0,
+      "max_memory_usage": 0.0
+    }
+  },
+  "cache_stats": {
+    "hits": 6,
+    "misses": 6,
+    "hit_rate": 0.5,
+    "size": 6,
+    "max_size": 1500
+  },
+  "pool_stats": {
+    "max_connections": 50,
+    "total_created": 10,
+    "active_connections": 0,
+    "available_connections": 10,
+    "total_requests": 6,
+    "utilization": 0.0
+  },
+  "processor_stats": {
+    "total_processed": 0,
+    "total_batches": 0,
+    "batch_size": 64,
+    "max_workers": 2,
+    "queue_size": 30
+  },
+  "timestamp": 1754670626.7006557
+}

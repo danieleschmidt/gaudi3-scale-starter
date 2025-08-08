@@ -1,0 +1,27 @@
+{
+  "environment": "production",
+  "version": "0.5.0",
+  "optimization_level": "extreme",
+  "performance": {
+    "cache_size": 2000,
+    "max_workers": 8,
+    "enable_async_processing": true,
+    "enable_prefetch": true,
+    "prefetch_factor": 3
+  },
+  "monitoring": {
+    "enable_monitoring": true,
+    "metrics_port": 9090,
+    "health_check_port": 8080
+  },
+  "security": {
+    "enable_tls": true,
+    "enable_rbac": true,
+    "network_policies": true
+  },
+  "scaling": {
+    "min_replicas": 1,
+    "max_replicas": 20,
+    "target_cpu_utilization": 70
+  }
+}

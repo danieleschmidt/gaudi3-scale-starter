@@ -1,0 +1,29 @@
+{
+  "apiVersion": "v1",
+  "kind": "Service",
+  "metadata": {
+    "name": "gaudi3-scale-service",
+    "namespace": "gaudi3-scale",
+    "labels": {
+      "app": "gaudi3-scale"
+    }
+  },
+  "spec": {
+    "selector": {
+      "app": "gaudi3-scale"
+    },
+    "ports": [
+      {
+        "name": "health",
+        "port": 8080,
+        "targetPort": 8080
+      },
+      {
+        "name": "metrics",
+        "port": 9090,
+        "targetPort": 9090
+      }
+    ],
+    "type": "ClusterIP"
+  }
+}
