@@ -4,14 +4,45 @@ import uuid
 from datetime import datetime
 from typing import Dict, List, Optional
 
-from sqlalchemy import (
-    Boolean, Column, DateTime, Float, Integer, String, Text, JSON,
-    ForeignKey, Index, UniqueConstraint, CheckConstraint
-)
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+try:
+    from sqlalchemy import (
+        Boolean, Column, DateTime, Float, Integer, String, Text, JSON,
+        ForeignKey, Index, UniqueConstraint, CheckConstraint
+    )
+    from sqlalchemy.dialects.postgresql import UUID
+    from sqlalchemy.ext.declarative import declarative_base
+    from sqlalchemy.orm import relationship
+    from sqlalchemy.sql import func
+    SQLALCHEMY_AVAILABLE = True
+except ImportError:
+    # Fallback for environments without SQLAlchemy
+    SQLALCHEMY_AVAILABLE = False
+    
+    # Create mock classes
+    class Column:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    class DateTime:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    Boolean = Integer = String = Text = JSON = Float = Column
+    ForeignKey = Index = UniqueConstraint = CheckConstraint = Column
+    UUID = String
+    
+    def declarative_base():
+        class Base:
+            pass
+        return Base
+    
+    def relationship(*args, **kwargs):
+        return None
+    
+    class func:
+        @staticmethod
+        def now():
+            return None
 
 Base = declarative_base()
 

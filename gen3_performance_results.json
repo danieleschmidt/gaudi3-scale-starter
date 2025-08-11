@@ -1,0 +1,228 @@
+{
+  "synchronous_benchmarks": {
+    "Basic Config": {
+      "benchmarks": {
+        "cache": {
+          "time_seconds": 0.025538921356201172,
+          "ops_per_second": 195779.60753561492,
+          "l1_size": 100,
+          "l1_max_size": 1000,
+          "cache_hit_rate": 0.98,
+          "avg_latency_ms": 0.0010137557983398438,
+          "total_hits": 4900,
+          "total_misses": 100
+        },
+        "connection_pool": {
+          "time_seconds": 0.004178524017333984,
+          "ops_per_second": 4786.379093917608,
+          "pool_size": 20,
+          "max_pool_size": 20,
+          "connections_in_use": 0,
+          "total_created": 20,
+          "total_reused": 0,
+          "reuse_rate": 0.0
+        },
+        "thread_pool": {
+          "time_seconds": 0.02279520034790039,
+          "ops_per_second": 43868.88400794896,
+          "completed_tasks": 1000
+        },
+        "auto_scaler": {
+          "scale_events": 3,
+          "current_workers": 4,
+          "min_workers": 2,
+          "max_workers": 4,
+          "scale_up_events": 2,
+          "scale_down_events": 1
+        }
+      },
+      "summary": {
+        "config": {
+          "caching_enabled": true,
+          "async_enabled": true,
+          "connection_pooling_enabled": true,
+          "auto_scaling_enabled": true,
+          "max_workers": 4,
+          "cache_size_mb": 64
+        },
+        "components": {
+          "cache": {
+            "l1_size": 100,
+            "l1_max_size": 1000,
+            "cache_hit_rate": 0.98,
+            "avg_latency_ms": 0.0010137557983398438,
+            "total_hits": 4900,
+            "total_misses": 100
+          },
+          "connection_pool": {
+            "pool_size": 20,
+            "max_pool_size": 20,
+            "connections_in_use": 0,
+            "total_created": 20,
+            "total_reused": 0,
+            "reuse_rate": 0.0
+          },
+          "auto_scaler": {
+            "current_workers": 4,
+            "min_workers": 2,
+            "max_workers": 4,
+            "scale_up_events": 2,
+            "scale_down_events": 1
+          }
+        }
+      }
+    },
+    "High Performance": {
+      "benchmarks": {
+        "cache": {
+          "time_seconds": 0.025783538818359375,
+          "ops_per_second": 193922.17783695814,
+          "l1_size": 100,
+          "l1_max_size": 1000,
+          "cache_hit_rate": 0.98,
+          "avg_latency_ms": 0.0010571479797363281,
+          "total_hits": 4900,
+          "total_misses": 100
+        },
+        "connection_pool": {
+          "time_seconds": 0.004213571548461914,
+          "ops_per_second": 4746.5670797261355,
+          "pool_size": 20,
+          "max_pool_size": 20,
+          "connections_in_use": 0,
+          "total_created": 20,
+          "total_reused": 0,
+          "reuse_rate": 0.0
+        },
+        "thread_pool": {
+          "time_seconds": 0.02240729331970215,
+          "ops_per_second": 44628.32639945522,
+          "completed_tasks": 1000
+        },
+        "auto_scaler": {
+          "scale_events": 3,
+          "current_workers": 5,
+          "min_workers": 2,
+          "max_workers": 8,
+          "scale_up_events": 2,
+          "scale_down_events": 1
+        }
+      },
+      "summary": {
+        "config": {
+          "caching_enabled": true,
+          "async_enabled": true,
+          "connection_pooling_enabled": true,
+          "auto_scaling_enabled": true,
+          "max_workers": 8,
+          "cache_size_mb": 256
+        },
+        "components": {
+          "cache": {
+            "l1_size": 100,
+            "l1_max_size": 1000,
+            "cache_hit_rate": 0.98,
+            "avg_latency_ms": 0.0010571479797363281,
+            "total_hits": 4900,
+            "total_misses": 100
+          },
+          "connection_pool": {
+            "pool_size": 20,
+            "max_pool_size": 20,
+            "connections_in_use": 0,
+            "total_created": 20,
+            "total_reused": 0,
+            "reuse_rate": 0.0
+          },
+          "auto_scaler": {
+            "current_workers": 5,
+            "min_workers": 2,
+            "max_workers": 8,
+            "scale_up_events": 2,
+            "scale_down_events": 1
+          }
+        }
+      }
+    },
+    "Maximum Performance": {
+      "benchmarks": {
+        "cache": {
+          "time_seconds": 0.025166988372802734,
+          "ops_per_second": 198672.95704731048,
+          "l1_size": 100,
+          "l1_max_size": 1000,
+          "cache_hit_rate": 0.98,
+          "avg_latency_ms": 0.0011472702026367188,
+          "total_hits": 4900,
+          "total_misses": 100
+        },
+        "connection_pool": {
+          "time_seconds": 0.004262685775756836,
+          "ops_per_second": 4691.877621790928,
+          "pool_size": 20,
+          "max_pool_size": 20,
+          "connections_in_use": 0,
+          "total_created": 20,
+          "total_reused": 0,
+          "reuse_rate": 0.0
+        },
+        "thread_pool": {
+          "time_seconds": 0.02736687660217285,
+          "ops_per_second": 36540.523587576776,
+          "completed_tasks": 1000
+        },
+        "auto_scaler": {
+          "scale_events": 3,
+          "current_workers": 7,
+          "min_workers": 4,
+          "max_workers": 16,
+          "scale_up_events": 2,
+          "scale_down_events": 1
+        }
+      },
+      "summary": {
+        "config": {
+          "caching_enabled": true,
+          "async_enabled": true,
+          "connection_pooling_enabled": true,
+          "auto_scaling_enabled": true,
+          "max_workers": 16,
+          "cache_size_mb": 512
+        },
+        "components": {
+          "cache": {
+            "l1_size": 100,
+            "l1_max_size": 1000,
+            "cache_hit_rate": 0.98,
+            "avg_latency_ms": 0.0011472702026367188,
+            "total_hits": 4900,
+            "total_misses": 100
+          },
+          "connection_pool": {
+            "pool_size": 20,
+            "max_pool_size": 20,
+            "connections_in_use": 0,
+            "total_created": 20,
+            "total_reused": 0,
+            "reuse_rate": 0.0
+          },
+          "auto_scaler": {
+            "current_workers": 7,
+            "min_workers": 4,
+            "max_workers": 16,
+            "scale_up_events": 2,
+            "scale_down_events": 1
+          }
+        }
+      }
+    }
+  },
+  "asynchronous_benchmarks": {
+    "operations": 1000,
+    "total_time_seconds": 0.09809470176696777,
+    "ops_per_second": 10194.230493463187,
+    "avg_latency_ms": 1.3638689517974854,
+    "success_rate": 1.0
+  },
+  "timestamp": 1754914470.7578962
+}

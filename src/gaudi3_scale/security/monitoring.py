@@ -23,7 +23,17 @@ try:
 except ImportError:
     NUMPY_AVAILABLE = False
 
-from pydantic import BaseModel, Field
+try:
+    from pydantic import BaseModel, Field
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def Field(default=None, **kwargs):
+        return default
 from ..logging_utils import get_logger
 from ..database.connection import get_redis
 from .audit_logging import AuditEvent, AuditLevel, EventCategory, SecurityAuditLogger

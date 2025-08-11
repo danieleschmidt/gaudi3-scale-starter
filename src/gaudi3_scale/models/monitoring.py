@@ -4,7 +4,22 @@ from enum import Enum
 from typing import Dict, List, Optional, Union
 from datetime import datetime
 
-from pydantic import BaseModel, Field, validator
+try:
+    from pydantic import BaseModel, Field, validator
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def Field(default=None, **kwargs):
+        return default
+    
+    def validator(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 
 
 class MetricType(str, Enum):

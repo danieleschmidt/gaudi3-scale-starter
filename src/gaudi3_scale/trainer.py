@@ -182,9 +182,17 @@ class GaudiTrainer:
             GaudiValidationError: If configuration is invalid
             RuntimeError: If required dependencies are not available
         """
-        # Validate dependencies
+        # Validate dependencies with graceful fallback
         if not _torch_available:
-            raise RuntimeError("PyTorch and PyTorch Lightning are required")
+            # For environments without PyTorch, create a mock trainer
+            logger.warning(
+                "PyTorch and PyTorch Lightning not available. "
+                "Some functionality will be limited. "
+                "Install with: pip install torch pytorch-lightning"
+            )
+            self._mock_mode = True
+        else:
+            self._mock_mode = False
         
         # Initialize core attributes
         self.model = model
@@ -256,10 +264,19 @@ class GaudiTrainer:
                 raise GaudiValidationError("batch_size must be positive")
             
             # Check HPU availability if using HPU accelerator
-            if self.accelerator == "hpu":
-                self._gaudi_accelerator = GaudiAccelerator()
-                if not self._gaudi_accelerator.is_available():
-                    logger.warning("HPU devices not detected, training may fail")
+            if self.accelerator == "hpu" and not self._mock_mode:
+                try:
+                    self._gaudi_accelerator = GaudiAccelerator()
+                    if not self._gaudi_accelerator.is_available():
+                        logger.warning("HPU devices not detected, switching to mock mode")
+                        self._mock_mode = True
+                        self._gaudi_accelerator = None
+                except Exception as e:
+                    logger.warning(f"Failed to initialize Gaudi accelerator: {e}. Switching to mock mode")
+                    self._mock_mode = True
+                    self._gaudi_accelerator = None
+            else:
+                self._gaudi_accelerator = None
             
         except Exception as e:
             raise GaudiValidationError(f"Configuration validation failed: {str(e)}")

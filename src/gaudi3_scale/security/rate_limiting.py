@@ -22,7 +22,22 @@ try:
 except ImportError:
     REDIS_AVAILABLE = False
 
-from pydantic import BaseModel, Field, validator
+try:
+    from pydantic import BaseModel, Field, validator
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def Field(default=None, **kwargs):
+        return default
+    
+    def validator(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 from ..logging_utils import get_logger
 from ..database.connection import get_redis
 from .audit_logging import SecurityAuditLogger, AuditLevel, EventCategory

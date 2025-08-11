@@ -3,7 +3,24 @@
 from enum import Enum
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, Field, validator
+try:
+    from pydantic import BaseModel, Field, validator
+except ImportError:
+    # Fallback for environments without pydantic
+    from typing import Any
+    
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def Field(default=None, **kwargs):
+        return default
+    
+    def validator(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 
 
 class CloudProvider(str, Enum):

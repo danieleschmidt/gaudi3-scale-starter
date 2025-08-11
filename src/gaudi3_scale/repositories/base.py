@@ -4,9 +4,37 @@ import logging
 from typing import Dict, Generic, List, Optional, Type, TypeVar, Union
 from uuid import UUID
 
-from sqlalchemy import and_, desc, func
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Query, Session
+try:
+    from sqlalchemy import and_, desc, func
+    from sqlalchemy.exc import IntegrityError
+    from sqlalchemy.orm import Query, Session
+    SQLALCHEMY_AVAILABLE = True
+except ImportError:
+    # Fallback for environments without SQLAlchemy
+    SQLALCHEMY_AVAILABLE = False
+    
+    # Mock classes for fallback
+    def and_(*args):
+        return None
+    
+    def desc(*args):
+        return None
+    
+    class func:
+        @staticmethod
+        def count(*args):
+            return 0
+    
+    class IntegrityError(Exception):
+        pass
+    
+    class Query:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    class Session:
+        def __init__(self, *args, **kwargs):
+            pass
 
 from ..database.connection import DatabaseConnection
 from ..database.models import Base

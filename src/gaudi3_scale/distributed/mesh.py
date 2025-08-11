@@ -11,7 +11,11 @@ from enum import Enum
 from typing import Dict, List, Optional, Set, Callable, Any, Union
 import hashlib
 import uuid
-import aiohttp
+try:
+    import aiohttp
+except ImportError:
+    # Fallback for environments without aiohttp
+    aiohttp = None
 import websockets
 from cryptography.fernet import Fernet
 

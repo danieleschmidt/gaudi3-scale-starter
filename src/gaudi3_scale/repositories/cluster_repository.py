@@ -4,8 +4,32 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 from uuid import UUID
 
-from sqlalchemy import and_, func, or_
-from sqlalchemy.orm import Session, joinedload
+try:
+    from sqlalchemy import and_, func, or_
+    from sqlalchemy.orm import Session, joinedload
+    SQLALCHEMY_AVAILABLE = True
+except ImportError:
+    # Fallback for environments without SQLAlchemy
+    SQLALCHEMY_AVAILABLE = False
+    
+    # Mock functions for fallback
+    def and_(*args):
+        return None
+    
+    def or_(*args):
+        return None
+    
+    class func:
+        @staticmethod
+        def count(*args):
+            return 0
+    
+    class Session:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    def joinedload(*args):
+        return None
 
 from ..database.models import ClusterModel, NodeModel, TrainingJobModel
 from .base import BaseRepository

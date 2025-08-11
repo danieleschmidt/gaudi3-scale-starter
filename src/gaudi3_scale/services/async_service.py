@@ -1,8 +1,18 @@
 """Async service layer with high-performance I/O operations."""
 
 import asyncio
-import aiohttp
-import aiofiles
+
+try:
+    import aiohttp
+except ImportError:
+    # Fallback for environments without aiohttp
+    aiohttp = None
+
+try:
+    import aiofiles
+except ImportError:
+    # Fallback for environments without aiofiles
+    aiofiles = None
 import logging
 from typing import Any, Dict, List, Optional, Union, Callable, AsyncIterator
 from dataclasses import dataclass
@@ -44,11 +54,14 @@ class AsyncHTTPService:
     """High-performance async HTTP client service."""
     
     def __init__(self, config: Optional[AsyncServiceConfig] = None):
+        if aiohttp is None:
+            raise ImportError("aiohttp is required for AsyncHTTPService. Install with: pip install aiohttp")
+        
         self.config = config or AsyncServiceConfig()
         self.logger = logger.getChild(self.__class__.__name__)
         
         # HTTP session management
-        self._session: Optional[aiohttp.ClientSession] = None
+        self._session: Optional['aiohttp.ClientSession'] = None
         self._session_lock = asyncio.Lock()
         
         # Request limiting
@@ -323,6 +336,9 @@ class AsyncFileService:
     """High-performance async file I/O service."""
     
     def __init__(self, config: Optional[AsyncServiceConfig] = None):
+        if aiofiles is None:
+            raise ImportError("aiofiles is required for AsyncFileService. Install with: pip install aiofiles")
+        
         self.config = config or AsyncServiceConfig()
         self.logger = logger.getChild(self.__class__.__name__)
         
