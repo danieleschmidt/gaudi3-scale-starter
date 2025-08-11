@@ -5,8 +5,29 @@ import logging
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 
-import requests
-from pydantic import BaseModel, ConfigDict, HttpUrl
+try:
+    import requests
+except ImportError:
+    # Fallback for environments without requests
+    requests = None
+
+try:
+    from pydantic import BaseModel, ConfigDict, HttpUrl
+except ImportError:
+    # Fallback for environments without pydantic
+    from typing import Any
+    
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    class ConfigDict:
+        def __init__(self, **kwargs):
+            pass
+    
+    # Simple HttpUrl fallback - just use str
+    HttpUrl = str
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +67,9 @@ class SlackNotifier:
         Args:
             config: Slack configuration settings
         """
+        if requests is None:
+            raise ImportError("requests library is required for Slack notifications. Install with: pip install requests")
+        
         self.config = config
         self.session = requests.Session()
     

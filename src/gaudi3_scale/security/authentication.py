@@ -29,7 +29,22 @@ try:
 except ImportError:
     TOTP_AVAILABLE = False
 
-from pydantic import BaseModel, Field, validator
+try:
+    from pydantic import BaseModel, Field, validator
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def Field(default=None, **kwargs):
+        return default
+    
+    def validator(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 from ..integrations.auth.jwt import JWTHandler, JWTConfig, JWTPayload
 from ..database.connection import get_redis
 from ..exceptions import AuthenticationError, AuthorizationError

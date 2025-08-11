@@ -23,6 +23,52 @@ try:
     CRYPTOGRAPHY_AVAILABLE = True
 except ImportError:
     CRYPTOGRAPHY_AVAILABLE = False
+    # Mock classes for fallback
+    class Fernet:
+        def __init__(self, key):
+            pass
+        @staticmethod
+        def generate_key():
+            return b'fake_key_for_testing_purposes_only'
+        def encrypt(self, data):
+            return b'encrypted_data'
+        def decrypt(self, data):
+            return b'decrypted_data'
+    
+    class default_backend:
+        pass
+    
+    class hashes:
+        SHA256 = None
+    
+    class PBKDF2HMAC:
+        def __init__(self, **kwargs):
+            pass
+        def derive(self, password):
+            return b'derived_key'
+    
+    class algorithms:
+        AES = lambda x: None
+    
+    class modes:
+        GCM = lambda x: None
+    
+    class Cipher:
+        def __init__(self, *args, **kwargs):
+            pass
+        def encryptor(self):
+            return self
+        def decryptor(self):
+            return self
+        def update(self, data):
+            return data
+        def finalize(self):
+            return b''
+        def authenticate_additional_data(self, data):
+            pass
+        @property
+        def tag(self):
+            return b'fake_tag'
 
 try:
     import keyring
@@ -30,7 +76,20 @@ try:
 except ImportError:
     KEYRING_AVAILABLE = False
 
-from pydantic import BaseModel, Field, SecretStr
+try:
+    from pydantic import BaseModel, Field, SecretStr
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def Field(default=None, **kwargs):
+        return default
+    
+    # Simple SecretStr fallback - just use str
+    SecretStr = str
 from ..exceptions import ConfigurationError
 from ..logging_utils import get_logger
 

@@ -12,6 +12,39 @@ try:
     PROMETHEUS_AVAILABLE = True
 except ImportError:
     PROMETHEUS_AVAILABLE = False
+    # Mock classes for fallback
+    class Counter:
+        def __init__(self, *args, **kwargs):
+            pass
+        def inc(self, *args, **kwargs):
+            pass
+    
+    class Gauge:
+        def __init__(self, *args, **kwargs):
+            pass
+        def set(self, *args, **kwargs):
+            pass
+    
+    class Histogram:
+        def __init__(self, *args, **kwargs):
+            pass
+        def observe(self, *args, **kwargs):
+            pass
+    
+    class Summary:
+        def __init__(self, *args, **kwargs):
+            pass
+        def observe(self, *args, **kwargs):
+            pass
+    
+    class CollectorRegistry:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    def generate_latest(registry=None):
+        return b"# Prometheus metrics not available\n"
+    
+    psutil = None
 
 logger = logging.getLogger(__name__)
 

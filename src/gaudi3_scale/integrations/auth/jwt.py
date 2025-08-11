@@ -14,7 +14,18 @@ except ImportError:
     rsa = None
     serialization = None
 
-from pydantic import BaseModel, ConfigDict
+try:
+    from pydantic import BaseModel, ConfigDict
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    class ConfigDict:
+        def __init__(self, **kwargs):
+            pass
 
 logger = logging.getLogger(__name__)
 

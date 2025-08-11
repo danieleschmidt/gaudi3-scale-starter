@@ -8,8 +8,13 @@ with external monitoring systems.
 import asyncio
 import json
 import os
-import psutil
 import time
+
+try:
+    import psutil
+except ImportError:
+    # Fallback for environments without psutil
+    psutil = None
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
@@ -326,7 +331,7 @@ class SystemHealthCheck(HealthCheck):
             messages = []
             
             # CPU check
-            if self.check_cpu:
+            if self.check_cpu and psutil:
                 cpu_percent = psutil.cpu_percent(interval=1)
                 details['cpu_usage_percent'] = cpu_percent
                 details['cpu_count'] = psutil.cpu_count()
@@ -334,9 +339,13 @@ class SystemHealthCheck(HealthCheck):
                 if cpu_percent > self.cpu_threshold:
                     status = HealthStatus.WARNING
                     messages.append(f"High CPU usage: {cpu_percent:.1f}%")
+            elif self.check_cpu and not psutil:
+                details['cpu_usage_percent'] = 0.0
+                details['cpu_count'] = 1
+                messages.append("psutil not available - CPU monitoring disabled")
             
             # Memory check
-            if self.check_memory:
+            if self.check_memory and psutil:
                 memory = psutil.virtual_memory()
                 details.update({
                     'memory_usage_percent': memory.percent,

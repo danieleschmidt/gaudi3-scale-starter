@@ -6,13 +6,43 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional
 
-from alembic import command
-from alembic.config import Config
-from alembic.migration import MigrationContext
-from alembic.operations import Operations
-from alembic.script import ScriptDirectory
-from sqlalchemy import MetaData, Table, text
-from sqlalchemy.engine import Engine
+try:
+    from alembic import command
+    from alembic.config import Config
+    from alembic.migration import MigrationContext
+    from alembic.operations import Operations
+    from alembic.script import ScriptDirectory
+    from sqlalchemy import MetaData, Table, text
+    from sqlalchemy.engine import Engine
+    ALEMBIC_AVAILABLE = True
+except ImportError:
+    # Fallback for environments without alembic/sqlalchemy
+    ALEMBIC_AVAILABLE = False
+    
+    # Mock classes for fallback
+    class Config:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    class MigrationContext:
+        pass
+    
+    class Operations:
+        pass
+    
+    class ScriptDirectory:
+        pass
+    
+    class MetaData:
+        pass
+    
+    class Table:
+        pass
+    
+    def text(query):
+        return query
+    
+    Engine = object
 
 from .connection import DatabaseConnection
 

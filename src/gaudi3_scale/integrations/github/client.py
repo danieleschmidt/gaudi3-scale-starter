@@ -5,8 +5,24 @@ import os
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 
-import requests
-from pydantic import BaseModel, ConfigDict
+try:
+    import requests
+except ImportError:
+    # Fallback for environments without requests
+    requests = None
+
+try:
+    from pydantic import BaseModel, ConfigDict
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    class ConfigDict:
+        def __init__(self, **kwargs):
+            pass
 
 logger = logging.getLogger(__name__)
 
@@ -61,6 +77,9 @@ class GitHubClient:
         Args:
             token: GitHub personal access token. If None, will try to get from environment.
         """
+        if requests is None:
+            raise ImportError("requests library is required for GitHub client. Install with: pip install requests")
+        
         self.token = token or os.getenv("GITHUB_TOKEN")
         if not self.token:
             raise ValueError("GitHub token not provided and GITHUB_TOKEN env var not set")

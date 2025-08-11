@@ -1,0 +1,433 @@
+{
+  "Minimal Global": {
+    "readiness": {
+      "timestamp": 1754914809.600664,
+      "overall_score": 0.6666666666666666,
+      "components": {
+        "i18n": {
+          "score": 0.3333333333333333,
+          "supported_languages": [
+            "en",
+            "es"
+          ],
+          "translation_coverage": 12
+        },
+        "compliance": {
+          "score": 0.3333333333333333,
+          "standards": [
+            "gdpr"
+          ],
+          "privacy_controls": 5
+        },
+        "multi_region": {
+          "score": 1.0,
+          "regions_ready": 2,
+          "primary_region": "us-west-2"
+        },
+        "cross_platform": {
+          "score": 1.0,
+          "current_platform": "Linux",
+          "issues": 0
+        }
+      }
+    },
+    "deployment": {
+      "timestamp": 1754914809.6008627,
+      "regions_deployed": [
+        {
+          "region": "us-west-2",
+          "status": "success",
+          "deployment_time": 1.9073486328125e-06,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.us-west-2.gaudi3scale.com",
+            "monitoring": "https://metrics.us-west-2.gaudi3scale.com"
+          }
+        },
+        {
+          "region": "us-east-1",
+          "status": "success",
+          "deployment_time": 1.1920928955078125e-06,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.us-east-1.gaudi3scale.com",
+            "monitoring": "https://metrics.us-east-1.gaudi3scale.com"
+          }
+        }
+      ],
+      "deployment_time": 2.6226043701171875e-05,
+      "status": "success",
+      "total_regions": 2
+    },
+    "i18n_test": {
+      "languages_tested": [
+        {
+          "language": "en",
+          "translations": {
+            "welcome": "Welcome to Gaudi 3 Scale",
+            "training_started": "Training started",
+            "performance_metrics": "Performance Metrics"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "es",
+          "translations": {
+            "welcome": "Bienvenido a Gaudi 3 Scale",
+            "training_started": "Entrenamiento iniciado",
+            "performance_metrics": "M\u00e9tricas de Rendimiento"
+          },
+          "fallback_used": false
+        }
+      ],
+      "translation_accuracy": 1.0,
+      "fallback_behavior": true
+    },
+    "summary": {
+      "global_readiness_score": 0.6666666666666666,
+      "i18n_languages": 2,
+      "compliance_standards": 1,
+      "deployment_regions": 2,
+      "platform_compatibility": 1.0,
+      "implementation_complete": false,
+      "deployment_ready": true
+    }
+  },
+  "Enterprise Global": {
+    "readiness": {
+      "timestamp": 1754914809.6024675,
+      "overall_score": 0.8333333333333333,
+      "components": {
+        "i18n": {
+          "score": 0.6666666666666666,
+          "supported_languages": [
+            "en",
+            "es",
+            "fr",
+            "de"
+          ],
+          "translation_coverage": 12
+        },
+        "compliance": {
+          "score": 0.6666666666666666,
+          "standards": [
+            "gdpr",
+            "ccpa"
+          ],
+          "privacy_controls": 5
+        },
+        "multi_region": {
+          "score": 1.0,
+          "regions_ready": 3,
+          "primary_region": "us-west-2"
+        },
+        "cross_platform": {
+          "score": 1.0,
+          "current_platform": "Linux",
+          "issues": 0
+        }
+      }
+    },
+    "deployment": {
+      "timestamp": 1754914809.6025305,
+      "regions_deployed": [
+        {
+          "region": "us-west-2",
+          "status": "success",
+          "deployment_time": 1.430511474609375e-06,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.us-west-2.gaudi3scale.com",
+            "monitoring": "https://metrics.us-west-2.gaudi3scale.com"
+          }
+        },
+        {
+          "region": "us-east-1",
+          "status": "success",
+          "deployment_time": 7.152557373046875e-07,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.us-east-1.gaudi3scale.com",
+            "monitoring": "https://metrics.us-east-1.gaudi3scale.com"
+          }
+        },
+        {
+          "region": "eu-west-1",
+          "status": "success",
+          "deployment_time": 9.5367431640625e-07,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.eu-west-1.gaudi3scale.com",
+            "monitoring": "https://metrics.eu-west-1.gaudi3scale.com"
+          }
+        }
+      ],
+      "deployment_time": 2.3365020751953125e-05,
+      "status": "success",
+      "total_regions": 3
+    },
+    "i18n_test": {
+      "languages_tested": [
+        {
+          "language": "en",
+          "translations": {
+            "welcome": "Welcome to Gaudi 3 Scale",
+            "training_started": "Training started",
+            "performance_metrics": "Performance Metrics"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "es",
+          "translations": {
+            "welcome": "Bienvenido a Gaudi 3 Scale",
+            "training_started": "Entrenamiento iniciado",
+            "performance_metrics": "M\u00e9tricas de Rendimiento"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "fr",
+          "translations": {
+            "welcome": "Bienvenue \u00e0 Gaudi 3 Scale",
+            "training_started": "Entra\u00eenement d\u00e9marr\u00e9",
+            "performance_metrics": "M\u00e9triques de Performance"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "de",
+          "translations": {
+            "welcome": "Willkommen bei Gaudi 3 Scale",
+            "training_started": "Training gestartet",
+            "performance_metrics": "Leistungsmetriken"
+          },
+          "fallback_used": false
+        }
+      ],
+      "translation_accuracy": 1.0,
+      "fallback_behavior": true
+    },
+    "summary": {
+      "global_readiness_score": 0.8333333333333333,
+      "i18n_languages": 4,
+      "compliance_standards": 2,
+      "deployment_regions": 3,
+      "platform_compatibility": 1.0,
+      "implementation_complete": true,
+      "deployment_ready": true
+    }
+  },
+  "Maximum Global": {
+    "readiness": {
+      "timestamp": 1754914809.6037946,
+      "overall_score": 1.0,
+      "components": {
+        "i18n": {
+          "score": 1.0,
+          "supported_languages": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "ja",
+            "zh"
+          ],
+          "translation_coverage": 12
+        },
+        "compliance": {
+          "score": 1.0,
+          "standards": [
+            "gdpr",
+            "ccpa",
+            "pdpa",
+            "soc2",
+            "iso27001"
+          ],
+          "privacy_controls": 9
+        },
+        "multi_region": {
+          "score": 1.0,
+          "regions_ready": 4,
+          "primary_region": "us-west-2"
+        },
+        "cross_platform": {
+          "score": 1.0,
+          "current_platform": "Linux",
+          "issues": 0
+        }
+      }
+    },
+    "deployment": {
+      "timestamp": 1754914809.6038668,
+      "regions_deployed": [
+        {
+          "region": "us-west-2",
+          "status": "success",
+          "deployment_time": 1.1920928955078125e-06,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.us-west-2.gaudi3scale.com",
+            "monitoring": "https://metrics.us-west-2.gaudi3scale.com"
+          }
+        },
+        {
+          "region": "us-east-1",
+          "status": "success",
+          "deployment_time": 7.152557373046875e-07,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.us-east-1.gaudi3scale.com",
+            "monitoring": "https://metrics.us-east-1.gaudi3scale.com"
+          }
+        },
+        {
+          "region": "eu-west-1",
+          "status": "success",
+          "deployment_time": 7.152557373046875e-07,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.eu-west-1.gaudi3scale.com",
+            "monitoring": "https://metrics.eu-west-1.gaudi3scale.com"
+          }
+        },
+        {
+          "region": "ap-southeast-1",
+          "status": "success",
+          "deployment_time": 4.76837158203125e-07,
+          "steps_completed": [
+            "Infrastructure provisioning",
+            "Service deployment",
+            "Configuration sync",
+            "Health check validation",
+            "Traffic routing setup"
+          ],
+          "endpoints": {
+            "api": "https://api.ap-southeast-1.gaudi3scale.com",
+            "monitoring": "https://metrics.ap-southeast-1.gaudi3scale.com"
+          }
+        }
+      ],
+      "deployment_time": 2.7894973754882812e-05,
+      "status": "success",
+      "total_regions": 4
+    },
+    "i18n_test": {
+      "languages_tested": [
+        {
+          "language": "en",
+          "translations": {
+            "welcome": "Welcome to Gaudi 3 Scale",
+            "training_started": "Training started",
+            "performance_metrics": "Performance Metrics"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "es",
+          "translations": {
+            "welcome": "Bienvenido a Gaudi 3 Scale",
+            "training_started": "Entrenamiento iniciado",
+            "performance_metrics": "M\u00e9tricas de Rendimiento"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "fr",
+          "translations": {
+            "welcome": "Bienvenue \u00e0 Gaudi 3 Scale",
+            "training_started": "Entra\u00eenement d\u00e9marr\u00e9",
+            "performance_metrics": "M\u00e9triques de Performance"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "de",
+          "translations": {
+            "welcome": "Willkommen bei Gaudi 3 Scale",
+            "training_started": "Training gestartet",
+            "performance_metrics": "Leistungsmetriken"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "ja",
+          "translations": {
+            "welcome": "Gaudi 3 Scale\u3078\u3088\u3046\u3053\u305d",
+            "training_started": "\u30c8\u30ec\u30fc\u30cb\u30f3\u30b0\u304c\u958b\u59cb\u3055\u308c\u307e\u3057\u305f",
+            "performance_metrics": "\u30d1\u30d5\u30a9\u30fc\u30de\u30f3\u30b9\u30e1\u30c8\u30ea\u30af\u30b9"
+          },
+          "fallback_used": false
+        },
+        {
+          "language": "zh",
+          "translations": {
+            "welcome": "\u6b22\u8fce\u4f7f\u7528Gaudi 3 Scale",
+            "training_started": "\u8bad\u7ec3\u5df2\u5f00\u59cb",
+            "performance_metrics": "\u6027\u80fd\u6307\u6807"
+          },
+          "fallback_used": false
+        }
+      ],
+      "translation_accuracy": 1.0,
+      "fallback_behavior": true
+    },
+    "summary": {
+      "global_readiness_score": 1.0,
+      "i18n_languages": 6,
+      "compliance_standards": 5,
+      "deployment_regions": 4,
+      "platform_compatibility": 1.0,
+      "implementation_complete": true,
+      "deployment_ready": true
+    }
+  }
+}

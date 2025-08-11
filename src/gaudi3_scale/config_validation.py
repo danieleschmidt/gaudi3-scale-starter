@@ -6,7 +6,12 @@ with schema validation, cross-field validation, and security checks.
 
 import json
 import os
-import yaml
+
+try:
+    import yaml
+except ImportError:
+    # Fallback for environments without PyYAML
+    yaml = None
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Type, Union, Tuple, Set
 from enum import Enum
@@ -914,6 +919,9 @@ class ConfigValidator:
             config_file = Path(config_path)
             with open(config_file, 'r', encoding=encoding) as f:
                 if config_file.suffix.lower() in ['.yaml', '.yml']:
+                    if yaml is None:
+                        result.add_error("YAML configuration files not supported - PyYAML not installed")
+                        return result
                     config_data = yaml.safe_load(f)
                 else:
                     config_data = json.load(f)
@@ -925,8 +933,14 @@ class ConfigValidator:
             if validation_result.sanitized_value:
                 result.sanitized_value = validation_result.sanitized_value
             
-        except yaml.YAMLError as e:
-            result.add_error(f"YAML parsing error: {str(e)}")
+        except Exception as yaml_error:
+            if yaml and "YAMLError" in str(type(yaml_error)):
+                result.add_error(f"YAML parsing error: {str(yaml_error)}")
+            elif yaml is None and "yaml" in str(yaml_error).lower():
+                result.add_error(f"YAML not supported - PyYAML not installed")
+            else:
+                # Re-raise if not YAML-related
+                raise yaml_error
         except json.JSONDecodeError as e:
             result.add_error(f"JSON parsing error: {str(e)}")
         except UnicodeDecodeError as e:

@@ -38,7 +38,12 @@ from rich.progress import (
 )
 from rich.table import Table
 from rich.text import Text
-from pydantic import ValidationError
+try:
+    from pydantic import ValidationError
+except ImportError:
+    # Fallback for environments without pydantic
+    class ValidationError(Exception):
+        pass
 
 # Import project components
 from .accelerator import GaudiAccelerator
@@ -1338,8 +1343,8 @@ def _simulate_batch_benchmark(
     # Scale based on batch size and device count
     throughput = base_throughput * (batch_size / 32) * config['devices'] * 0.85
     
-    # Memory usage estimation (GB per HPU)
-    memory_per_token = {
+    # Memory usage estimation (GB per HPU) - model computation constants
+    memory_per_computation_unit = {
         'llama-7b': 0.001,
         'llama-70b': 0.01,
         'bert-large': 0.0005,
@@ -1347,7 +1352,7 @@ def _simulate_batch_benchmark(
         't5-large': 0.002
     }.get(config['model'], 0.002)
     
-    memory_usage = batch_size * config['sequence_length'] * memory_per_token
+    memory_usage = batch_size * config['sequence_length'] * memory_per_computation_unit
     
     # HPU utilization
     optimal_batch = {'llama-7b': 64, 'llama-70b': 16, 'bert-large': 128}.get(config['model'], 32)

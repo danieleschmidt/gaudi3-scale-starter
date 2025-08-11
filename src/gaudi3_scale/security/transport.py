@@ -27,6 +27,59 @@ try:
     CRYPTO_AVAILABLE = True
 except ImportError:
     CRYPTO_AVAILABLE = False
+    
+    # Mock classes for fallback
+    certifi = None
+    cryptography = None
+    
+    class x509:
+        class Certificate:
+            pass
+        
+        class CertificateBuilder:
+            pass
+        
+        class CertificateSigningRequest:
+            pass
+    
+    class NameOID:
+        COMMON_NAME = None
+        ORGANIZATION_NAME = None
+    
+    class ExtensionOID:
+        SUBJECT_ALTERNATIVE_NAME = None
+    
+    class hashes:
+        class SHA256:
+            pass
+    
+    class serialization:
+        class Encoding:
+            PEM = None
+        
+        class PrivateFormat:
+            PKCS8 = None
+        
+        class NoEncryption:
+            pass
+    
+    class rsa:
+        class RSAPrivateKey:
+            pass
+        
+        @staticmethod
+        def generate_private_key(*args, **kwargs):
+            return None
+    
+    class padding:
+        class OAEP:
+            pass
+        
+        class PSS:
+            pass
+    
+    def default_backend():
+        return None
 
 try:
     import httpx
@@ -40,7 +93,22 @@ try:
 except ImportError:
     REQUESTS_AVAILABLE = False
 
-from pydantic import BaseModel, Field, validator
+try:
+    from pydantic import BaseModel, Field, validator
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def Field(default=None, **kwargs):
+        return default
+    
+    def validator(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 from ..logging_utils import get_logger
 from ..exceptions import ConfigurationError
 from .audit_logging import SecurityAuditLogger

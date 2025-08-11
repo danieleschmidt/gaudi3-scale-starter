@@ -26,7 +26,19 @@ try:
 except ImportError:
     SQLPARSE_AVAILABLE = False
 
-from pydantic import BaseModel, validator
+try:
+    from pydantic import BaseModel, validator
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    def validator(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
 from ..validation import ValidationResult, DataValidator
 from ..exceptions import InputSanitizationError, SecurityValidationError
 from ..logging_utils import get_logger

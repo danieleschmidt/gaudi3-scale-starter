@@ -6,8 +6,27 @@ import urllib.parse
 from typing import Dict, Any, Optional, List
 from datetime import datetime, timedelta
 
-import requests
-from pydantic import BaseModel, ConfigDict, HttpUrl
+try:
+    import requests
+except ImportError:
+    # Fallback for environments without requests
+    requests = None
+
+try:
+    from pydantic import BaseModel, ConfigDict, HttpUrl
+except ImportError:
+    # Fallback for environments without pydantic
+    class BaseModel:
+        def __init__(self, **kwargs):
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+    
+    class ConfigDict:
+        def __init__(self, **kwargs):
+            pass
+    
+    # Simple HttpUrl fallback - just use str
+    HttpUrl = str
 
 logger = logging.getLogger(__name__)
 
@@ -70,6 +89,9 @@ class OAuthManager:
         Args:
             config: OAuth configuration settings
         """
+        if requests is None:
+            raise ImportError("requests library is required for OAuth authentication. Install with: pip install requests")
+        
         self.config = config
         self.session = requests.Session()
         self._pending_states: Dict[str, Dict[str, Any]] = {}
