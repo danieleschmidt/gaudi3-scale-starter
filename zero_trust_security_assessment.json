@@ -1,0 +1,2616 @@
+{
+  "security_assessment_id": "zt_assessment_1755370920",
+  "overall_security_score": 0.0,
+  "threat_level": "critical",
+  "zero_trust_maturity": 0.55,
+  "security_metrics": {
+    "assessment_id": "security_assessment_1755370920",
+    "threat_level": "critical",
+    "security_score": 0.0,
+    "vulnerability_count": 125,
+    "compliance_score": 0.5676470588235294,
+    "encryption_strength": 0.0,
+    "access_control_score": 0.8,
+    "audit_coverage": 0.8,
+    "incident_response_readiness": 1.0,
+    "zero_trust_maturity": 0.55,
+    "autonomous_defense_score": 0.17029411764705882,
+    "timestamp": "2025-08-16T19:02:00.965385+00:00"
+  },
+  "threat_detections": [
+    {
+      "threat_id": "threat_0_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in comprehensive_test_suite.py",
+      "affected_assets": [
+        "comprehensive_test_suite.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.310789+00:00"
+    },
+    {
+      "threat_id": "threat_1_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in comprehensive_test_suite.py",
+      "affected_assets": [
+        "comprehensive_test_suite.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.311414+00:00"
+    },
+    {
+      "threat_id": "threat_2_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in gen3_performance_optimizer.py",
+      "affected_assets": [
+        "gen3_performance_optimizer.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.347925+00:00"
+    },
+    {
+      "threat_id": "threat_3_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in optimized_trainer.py",
+      "affected_assets": [
+        "optimized_trainer.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.369842+00:00"
+    },
+    {
+      "threat_id": "threat_4_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in production_deployment.py",
+      "affected_assets": [
+        "production_deployment.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.382446+00:00"
+    },
+    {
+      "threat_id": "threat_5_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in production_deployment.py",
+      "affected_assets": [
+        "production_deployment.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.383352+00:00"
+    },
+    {
+      "threat_id": "threat_6_1755370919",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in production_deployment.py",
+      "affected_assets": [
+        "production_deployment.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:01:59.388719+00:00"
+    },
+    {
+      "threat_id": "threat_7_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in progressive_quality_gates.py",
+      "affected_assets": [
+        "progressive_quality_gates.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.447242+00:00"
+    },
+    {
+      "threat_id": "threat_8_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.484522+00:00"
+    },
+    {
+      "threat_id": "threat_9_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.486480+00:00"
+    },
+    {
+      "threat_id": "threat_10_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.487247+00:00"
+    },
+    {
+      "threat_id": "threat_11_1755370919",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.496905+00:00"
+    },
+    {
+      "threat_id": "threat_12_1755370919",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:01:59.497610+00:00"
+    },
+    {
+      "threat_id": "threat_13_1755370919",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:01:59.498319+00:00"
+    },
+    {
+      "threat_id": "threat_14_1755370919",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:01:59.499086+00:00"
+    },
+    {
+      "threat_id": "threat_15_1755370919",
+      "threat_type": "privilege_escalation",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential privilege escalation vectors found in zero_trust_security.py",
+      "affected_assets": [
+        "zero_trust_security.py"
+      ],
+      "remediation_steps": [
+        "Implement principle of least privilege",
+        "Use role-based access control (RBAC)",
+        "Monitor privileged account usage",
+        "Implement privileged access management (PAM)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.501685+00:00"
+    },
+    {
+      "threat_id": "threat_16_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in .terragon/automation-runner.py",
+      "affected_assets": [
+        ".terragon/automation-runner.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.503902+00:00"
+    },
+    {
+      "threat_id": "threat_17_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in .terragon/autonomous-orchestrator.py",
+      "affected_assets": [
+        ".terragon/autonomous-orchestrator.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.510852+00:00"
+    },
+    {
+      "threat_id": "threat_18_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in .terragon/discovery-engine.py",
+      "affected_assets": [
+        ".terragon/discovery-engine.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.521930+00:00"
+    },
+    {
+      "threat_id": "threat_19_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in examples/enhanced_usage_example.py",
+      "affected_assets": [
+        "examples/enhanced_usage_example.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.540941+00:00"
+    },
+    {
+      "threat_id": "threat_20_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in research_framework/quantum_benchmark_suite.py",
+      "affected_assets": [
+        "research_framework/quantum_benchmark_suite.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.549445+00:00"
+    },
+    {
+      "threat_id": "threat_21_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in research_framework/quantum_hybrid_scheduler.py",
+      "affected_assets": [
+        "research_framework/quantum_hybrid_scheduler.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.567067+00:00"
+    },
+    {
+      "threat_id": "threat_22_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in scripts/update_version.py",
+      "affected_assets": [
+        "scripts/update_version.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.602063+00:00"
+    },
+    {
+      "threat_id": "threat_23_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/accelerator_original.py",
+      "affected_assets": [
+        "src/gaudi3_scale/accelerator_original.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.625975+00:00"
+    },
+    {
+      "threat_id": "threat_24_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/adaptive_intelligence.py",
+      "affected_assets": [
+        "src/gaudi3_scale/adaptive_intelligence.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.632085+00:00"
+    },
+    {
+      "threat_id": "threat_25_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/autonomous_enhancement.py",
+      "affected_assets": [
+        "src/gaudi3_scale/autonomous_enhancement.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.644592+00:00"
+    },
+    {
+      "threat_id": "threat_26_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/autonomous_orchestrator.py",
+      "affected_assets": [
+        "src/gaudi3_scale/autonomous_orchestrator.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.656702+00:00"
+    },
+    {
+      "threat_id": "threat_27_1755370919",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in src/gaudi3_scale/cli.py",
+      "affected_assets": [
+        "src/gaudi3_scale/cli.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:01:59.690683+00:00"
+    },
+    {
+      "threat_id": "threat_28_1755370919",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in src/gaudi3_scale/config_validation.py",
+      "affected_assets": [
+        "src/gaudi3_scale/config_validation.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:01:59.707895+00:00"
+    },
+    {
+      "threat_id": "threat_29_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/exceptions.py",
+      "affected_assets": [
+        "src/gaudi3_scale/exceptions.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.715043+00:00"
+    },
+    {
+      "threat_id": "threat_30_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/health_checks.py",
+      "affected_assets": [
+        "src/gaudi3_scale/health_checks.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.730970+00:00"
+    },
+    {
+      "threat_id": "threat_31_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/hyper_scale_engine.py",
+      "affected_assets": [
+        "src/gaudi3_scale/hyper_scale_engine.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.745979+00:00"
+    },
+    {
+      "threat_id": "threat_32_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/logging_utils.py",
+      "affected_assets": [
+        "src/gaudi3_scale/logging_utils.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.760255+00:00"
+    },
+    {
+      "threat_id": "threat_33_1755370919",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in src/gaudi3_scale/logging_utils.py",
+      "affected_assets": [
+        "src/gaudi3_scale/logging_utils.py"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.765625+00:00"
+    },
+    {
+      "threat_id": "threat_34_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum_resilience.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum_resilience.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.780394+00:00"
+    },
+    {
+      "threat_id": "threat_35_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/validation.py",
+      "affected_assets": [
+        "src/gaudi3_scale/validation.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.816486+00:00"
+    },
+    {
+      "threat_id": "threat_36_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/validation.py",
+      "affected_assets": [
+        "src/gaudi3_scale/validation.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.816880+00:00"
+    },
+    {
+      "threat_id": "threat_37_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/algorithms/autoscaler.py",
+      "affected_assets": [
+        "src/gaudi3_scale/algorithms/autoscaler.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.838260+00:00"
+    },
+    {
+      "threat_id": "threat_38_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/algorithms/scheduler.py",
+      "affected_assets": [
+        "src/gaudi3_scale/algorithms/scheduler.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.864233+00:00"
+    },
+    {
+      "threat_id": "threat_39_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/api/main.py",
+      "affected_assets": [
+        "src/gaudi3_scale/api/main.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.871461+00:00"
+    },
+    {
+      "threat_id": "threat_40_1755370919",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in src/gaudi3_scale/api/main.py",
+      "affected_assets": [
+        "src/gaudi3_scale/api/main.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:01:59.872661+00:00"
+    },
+    {
+      "threat_id": "threat_41_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/benchmarks/benchmark_suite.py",
+      "affected_assets": [
+        "src/gaudi3_scale/benchmarks/benchmark_suite.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.875673+00:00"
+    },
+    {
+      "threat_id": "threat_42_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/cache/distributed_cache.py",
+      "affected_assets": [
+        "src/gaudi3_scale/cache/distributed_cache.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.894046+00:00"
+    },
+    {
+      "threat_id": "threat_43_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/cache/memory_cache.py",
+      "affected_assets": [
+        "src/gaudi3_scale/cache/memory_cache.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.901113+00:00"
+    },
+    {
+      "threat_id": "threat_44_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/cache/redis_cache.py",
+      "affected_assets": [
+        "src/gaudi3_scale/cache/redis_cache.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.908027+00:00"
+    },
+    {
+      "threat_id": "threat_45_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/database/async_pool.py",
+      "affected_assets": [
+        "src/gaudi3_scale/database/async_pool.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.916148+00:00"
+    },
+    {
+      "threat_id": "threat_46_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/database/connection.py",
+      "affected_assets": [
+        "src/gaudi3_scale/database/connection.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.925267+00:00"
+    },
+    {
+      "threat_id": "threat_47_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/database/connection_pool.py",
+      "affected_assets": [
+        "src/gaudi3_scale/database/connection_pool.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.932372+00:00"
+    },
+    {
+      "threat_id": "threat_48_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/config_management.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/config_management.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.956089+00:00"
+    },
+    {
+      "threat_id": "threat_49_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/coordinator.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/coordinator.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.971030+00:00"
+    },
+    {
+      "threat_id": "threat_50_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/discovery.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/discovery.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.982046+00:00"
+    },
+    {
+      "threat_id": "threat_51_1755370919",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/fault_tolerance.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/fault_tolerance.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:01:59.995020+00:00"
+    },
+    {
+      "threat_id": "threat_52_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/mesh.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/mesh.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.009675+00:00"
+    },
+    {
+      "threat_id": "threat_53_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/observability.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/observability.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.023388+00:00"
+    },
+    {
+      "threat_id": "threat_54_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/orchestration.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/orchestration.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.040316+00:00"
+    },
+    {
+      "threat_id": "threat_55_1755370920",
+      "threat_type": "privilege_escalation",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential privilege escalation vectors found in src/gaudi3_scale/distributed/orchestration.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/orchestration.py"
+      ],
+      "remediation_steps": [
+        "Implement principle of least privilege",
+        "Use role-based access control (RBAC)",
+        "Monitor privileged account usage",
+        "Implement privileged access management (PAM)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.055616+00:00"
+    },
+    {
+      "threat_id": "threat_56_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/distributed/storage.py",
+      "affected_assets": [
+        "src/gaudi3_scale/distributed/storage.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.059454+00:00"
+    },
+    {
+      "threat_id": "threat_57_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/models/monitoring.py",
+      "affected_assets": [
+        "src/gaudi3_scale/models/monitoring.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.075517+00:00"
+    },
+    {
+      "threat_id": "threat_58_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/models/training.py",
+      "affected_assets": [
+        "src/gaudi3_scale/models/training.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.079932+00:00"
+    },
+    {
+      "threat_id": "threat_59_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/monitoring/health.py",
+      "affected_assets": [
+        "src/gaudi3_scale/monitoring/health.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.091625+00:00"
+    },
+    {
+      "threat_id": "threat_60_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/monitoring/metrics.py",
+      "affected_assets": [
+        "src/gaudi3_scale/monitoring/metrics.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.099212+00:00"
+    },
+    {
+      "threat_id": "threat_61_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/optimization/memory_optimizer.py",
+      "affected_assets": [
+        "src/gaudi3_scale/optimization/memory_optimizer.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.126637+00:00"
+    },
+    {
+      "threat_id": "threat_62_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum/annealing_optimizer.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum/annealing_optimizer.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.138196+00:00"
+    },
+    {
+      "threat_id": "threat_63_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum/auto_scaler.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum/auto_scaler.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.148338+00:00"
+    },
+    {
+      "threat_id": "threat_64_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum/circuit_simulator.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum/circuit_simulator.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.159414+00:00"
+    },
+    {
+      "threat_id": "threat_65_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum/entanglement_coordinator.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum/entanglement_coordinator.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.169464+00:00"
+    },
+    {
+      "threat_id": "threat_66_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum/multi_dimensional_deployer.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum/multi_dimensional_deployer.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.182143+00:00"
+    },
+    {
+      "threat_id": "threat_67_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum/resource_allocator.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum/resource_allocator.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.197131+00:00"
+    },
+    {
+      "threat_id": "threat_68_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/quantum/task_planner.py",
+      "affected_assets": [
+        "src/gaudi3_scale/quantum/task_planner.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.207233+00:00"
+    },
+    {
+      "threat_id": "threat_69_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/repositories/base.py",
+      "affected_assets": [
+        "src/gaudi3_scale/repositories/base.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.214670+00:00"
+    },
+    {
+      "threat_id": "threat_70_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/repositories/cluster_repository.py",
+      "affected_assets": [
+        "src/gaudi3_scale/repositories/cluster_repository.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.220042+00:00"
+    },
+    {
+      "threat_id": "threat_71_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/research/adaptive_batch_optimizer.py",
+      "affected_assets": [
+        "src/gaudi3_scale/research/adaptive_batch_optimizer.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.227571+00:00"
+    },
+    {
+      "threat_id": "threat_72_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/research/performance_auto_scaler.py",
+      "affected_assets": [
+        "src/gaudi3_scale/research/performance_auto_scaler.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.269984+00:00"
+    },
+    {
+      "threat_id": "threat_73_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/research/quantum_hybrid_scheduler.py",
+      "affected_assets": [
+        "src/gaudi3_scale/research/quantum_hybrid_scheduler.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.284307+00:00"
+    },
+    {
+      "threat_id": "threat_74_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/security/authentication.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/authentication.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.313161+00:00"
+    },
+    {
+      "threat_id": "threat_75_1755370920",
+      "threat_type": "authentication_bypass",
+      "severity": "critical",
+      "confidence": 0.8,
+      "description": "Authentication bypass or weak credential patterns found in src/gaudi3_scale/security/authentication.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/authentication.py"
+      ],
+      "remediation_steps": [
+        "Implement strong authentication mechanisms",
+        "Enable multi-factor authentication",
+        "Use secure session management",
+        "Implement account lockout policies"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.316553+00:00"
+    },
+    {
+      "threat_id": "threat_76_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/security/config_security.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/config_security.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.326719+00:00"
+    },
+    {
+      "threat_id": "threat_77_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/security/monitoring.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/monitoring.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.338275+00:00"
+    },
+    {
+      "threat_id": "threat_78_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/security/rate_limiting.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/rate_limiting.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.353626+00:00"
+    },
+    {
+      "threat_id": "threat_79_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/security/transport.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/transport.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.369186+00:00"
+    },
+    {
+      "threat_id": "threat_80_1755370920",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in src/gaudi3_scale/security/transport.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/transport.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.378907+00:00"
+    },
+    {
+      "threat_id": "threat_81_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/security/validation.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/validation.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.386140+00:00"
+    },
+    {
+      "threat_id": "threat_82_1755370920",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in src/gaudi3_scale/security/validation.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/validation.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.391606+00:00"
+    },
+    {
+      "threat_id": "threat_83_1755370920",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in src/gaudi3_scale/security/validation.py",
+      "affected_assets": [
+        "src/gaudi3_scale/security/validation.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.392030+00:00"
+    },
+    {
+      "threat_id": "threat_84_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/services/async_service.py",
+      "affected_assets": [
+        "src/gaudi3_scale/services/async_service.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.396603+00:00"
+    },
+    {
+      "threat_id": "threat_85_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/services/queue_manager.py",
+      "affected_assets": [
+        "src/gaudi3_scale/services/queue_manager.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.415234+00:00"
+    },
+    {
+      "threat_id": "threat_86_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/api/routers/clusters.py",
+      "affected_assets": [
+        "src/gaudi3_scale/api/routers/clusters.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.424258+00:00"
+    },
+    {
+      "threat_id": "threat_87_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/integrations/github/actions.py",
+      "affected_assets": [
+        "src/gaudi3_scale/integrations/github/actions.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.438289+00:00"
+    },
+    {
+      "threat_id": "threat_88_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in src/gaudi3_scale/integrations/notifications/email/client.py",
+      "affected_assets": [
+        "src/gaudi3_scale/integrations/notifications/email/client.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.456840+00:00"
+    },
+    {
+      "threat_id": "threat_89_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/quantum/test_quantum_circuit_simulator.py",
+      "affected_assets": [
+        "tests/quantum/test_quantum_circuit_simulator.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.475300+00:00"
+    },
+    {
+      "threat_id": "threat_90_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/security/test_authentication.py",
+      "affected_assets": [
+        "tests/security/test_authentication.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.492458+00:00"
+    },
+    {
+      "threat_id": "threat_91_1755370920",
+      "threat_type": "authentication_bypass",
+      "severity": "critical",
+      "confidence": 0.8,
+      "description": "Authentication bypass or weak credential patterns found in tests/security/test_authentication.py",
+      "affected_assets": [
+        "tests/security/test_authentication.py"
+      ],
+      "remediation_steps": [
+        "Implement strong authentication mechanisms",
+        "Enable multi-factor authentication",
+        "Use secure session management",
+        "Implement account lockout policies"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.494640+00:00"
+    },
+    {
+      "threat_id": "threat_92_1755370920",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in tests/security/test_authentication.py",
+      "affected_assets": [
+        "tests/security/test_authentication.py"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.496149+00:00"
+    },
+    {
+      "threat_id": "threat_93_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/security/test_integration.py",
+      "affected_assets": [
+        "tests/security/test_integration.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.501622+00:00"
+    },
+    {
+      "threat_id": "threat_94_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/security/test_integration.py",
+      "affected_assets": [
+        "tests/security/test_integration.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.502270+00:00"
+    },
+    {
+      "threat_id": "threat_95_1755370920",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in tests/security/test_integration.py",
+      "affected_assets": [
+        "tests/security/test_integration.py"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.505248+00:00"
+    },
+    {
+      "threat_id": "threat_96_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/security/test_rate_limiting.py",
+      "affected_assets": [
+        "tests/security/test_rate_limiting.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.511344+00:00"
+    },
+    {
+      "threat_id": "threat_97_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/security/test_validation.py",
+      "affected_assets": [
+        "tests/security/test_validation.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.522137+00:00"
+    },
+    {
+      "threat_id": "threat_98_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/security/test_validation.py",
+      "affected_assets": [
+        "tests/security/test_validation.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.522861+00:00"
+    },
+    {
+      "threat_id": "threat_99_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in tests/security/test_validation.py",
+      "affected_assets": [
+        "tests/security/test_validation.py"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.523120+00:00"
+    },
+    {
+      "threat_id": "threat_100_1755370920",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in tests/security/test_validation.py",
+      "affected_assets": [
+        "tests/security/test_validation.py"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.527838+00:00"
+    },
+    {
+      "threat_id": "threat_101_1755370920",
+      "threat_type": "privilege_escalation",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential privilege escalation vectors found in tests/security/test_validation.py",
+      "affected_assets": [
+        "tests/security/test_validation.py"
+      ],
+      "remediation_steps": [
+        "Implement principle of least privilege",
+        "Use role-based access control (RBAC)",
+        "Monitor privileged account usage",
+        "Implement privileged access management (PAM)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.529964+00:00"
+    },
+    {
+      "threat_id": "threat_102_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in .github/ISSUE_TEMPLATE/security_vulnerability.yml",
+      "affected_assets": [
+        ".github/ISSUE_TEMPLATE/security_vulnerability.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.569706+00:00"
+    },
+    {
+      "threat_id": "threat_103_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in deployment/workflows/production-deployment.yml",
+      "affected_assets": [
+        "deployment/workflows/production-deployment.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.573628+00:00"
+    },
+    {
+      "threat_id": "threat_104_1755370920",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in deployment/workflows/production-deployment.yml",
+      "affected_assets": [
+        "deployment/workflows/production-deployment.yml"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.575638+00:00"
+    },
+    {
+      "threat_id": "threat_105_1755370920",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in deployment/workflows/production-deployment.yml",
+      "affected_assets": [
+        "deployment/workflows/production-deployment.yml"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.576818+00:00"
+    },
+    {
+      "threat_id": "threat_106_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/advanced-ci-template.yml",
+      "affected_assets": [
+        "docs/workflows/advanced-ci-template.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.579110+00:00"
+    },
+    {
+      "threat_id": "threat_107_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/advanced-release-template.yml",
+      "affected_assets": [
+        "docs/workflows/advanced-release-template.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.582158+00:00"
+    },
+    {
+      "threat_id": "threat_108_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/advanced-release-template.yml",
+      "affected_assets": [
+        "docs/workflows/advanced-release-template.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.582596+00:00"
+    },
+    {
+      "threat_id": "threat_109_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/auto-assign.yml",
+      "affected_assets": [
+        "docs/workflows/auto-assign.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.586992+00:00"
+    },
+    {
+      "threat_id": "threat_110_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/auto-assign.yml",
+      "affected_assets": [
+        "docs/workflows/auto-assign.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.587424+00:00"
+    },
+    {
+      "threat_id": "threat_111_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/comprehensive-ci.yml",
+      "affected_assets": [
+        "docs/workflows/comprehensive-ci.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.591832+00:00"
+    },
+    {
+      "threat_id": "threat_112_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/dependency-review.yml",
+      "affected_assets": [
+        "docs/workflows/dependency-review.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.595853+00:00"
+    },
+    {
+      "threat_id": "threat_113_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/release-automation.yml",
+      "affected_assets": [
+        "docs/workflows/release-automation.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.600325+00:00"
+    },
+    {
+      "threat_id": "threat_114_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/release-automation.yml",
+      "affected_assets": [
+        "docs/workflows/release-automation.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.600851+00:00"
+    },
+    {
+      "threat_id": "threat_115_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in docs/workflows/templates/ci.yml",
+      "affected_assets": [
+        "docs/workflows/templates/ci.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.605205+00:00"
+    },
+    {
+      "threat_id": "threat_116_1755370920",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in monitoring/grafana/provisioning/datasources/prometheus.yml",
+      "affected_assets": [
+        "monitoring/grafana/provisioning/datasources/prometheus.yml"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.606626+00:00"
+    },
+    {
+      "threat_id": "threat_117_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in monitoring/production/prometheus/alerts.yml",
+      "affected_assets": [
+        "monitoring/production/prometheus/alerts.yml"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.607510+00:00"
+    },
+    {
+      "threat_id": "threat_118_1755370920",
+      "threat_type": "insecure_communication",
+      "severity": "medium",
+      "confidence": 0.8,
+      "description": "Insecure communication protocols or disabled SSL verification found in monitoring/production/prometheus/prometheus-production.yml",
+      "affected_assets": [
+        "monitoring/production/prometheus/prometheus-production.yml"
+      ],
+      "remediation_steps": [
+        "Enforce HTTPS/TLS for all communications",
+        "Implement certificate pinning",
+        "Use secure communication protocols",
+        "Enable HSTS headers"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.612676+00:00"
+    },
+    {
+      "threat_id": "threat_119_1755370920",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in deployment/helm/gaudi3-scale/values.yaml",
+      "affected_assets": [
+        "deployment/helm/gaudi3-scale/values.yaml"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.618823+00:00"
+    },
+    {
+      "threat_id": "threat_120_1755370920",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in deployment/k8s/base/pvc.yaml",
+      "affected_assets": [
+        "deployment/k8s/base/pvc.yaml"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.627854+00:00"
+    },
+    {
+      "threat_id": "threat_121_1755370920",
+      "threat_type": "sensitive_data_exposure",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "Potential sensitive data exposure found in deployment/k8s/base/secret.yaml",
+      "affected_assets": [
+        "deployment/k8s/base/secret.yaml"
+      ],
+      "remediation_steps": [
+        "Implement data encryption at rest and in transit",
+        "Use environment variables for secrets",
+        "Implement proper access controls",
+        "Enable data loss prevention (DLP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.628351+00:00"
+    },
+    {
+      "threat_id": "threat_122_1755370920",
+      "threat_type": "injection_attacks",
+      "severity": "high",
+      "confidence": 0.8,
+      "description": "SQL injection, XSS, or command injection patterns found in .releaserc.json",
+      "affected_assets": [
+        ".releaserc.json"
+      ],
+      "remediation_steps": [
+        "Implement input validation and sanitization",
+        "Use parameterized queries and prepared statements",
+        "Deploy Web Application Firewall (WAF)",
+        "Implement Content Security Policy (CSP)"
+      ],
+      "automated_response": true,
+      "detection_time": "2025-08-16T19:02:00.635146+00:00"
+    },
+    {
+      "threat_id": "advanced_threat_0_1755370920",
+      "threat_type": "behavioral_anomaly",
+      "severity": "medium",
+      "confidence": 0.6,
+      "description": "Unusual file access patterns detected",
+      "affected_assets": [
+        "network",
+        "data_access",
+        "user_behavior"
+      ],
+      "remediation_steps": [
+        "Investigate anomalous behavior patterns",
+        "Implement behavioral analytics",
+        "Enable continuous monitoring"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.683934+00:00"
+    },
+    {
+      "threat_id": "advanced_threat_2_1755370920",
+      "threat_type": "behavioral_anomaly",
+      "severity": "medium",
+      "confidence": 0.6,
+      "description": "Anomalous network communication patterns",
+      "affected_assets": [
+        "network",
+        "data_access",
+        "user_behavior"
+      ],
+      "remediation_steps": [
+        "Investigate anomalous behavior patterns",
+        "Implement behavioral analytics",
+        "Enable continuous monitoring"
+      ],
+      "automated_response": false,
+      "detection_time": "2025-08-16T19:02:00.683962+00:00"
+    }
+  ],
+  "compliance_results": [
+    {
+      "framework": "SOC2",
+      "requirement": "access_control",
+      "status": "compliant",
+      "compliance_level": 0.8,
+      "evidence": [
+        "Authentication implementation found"
+      ],
+      "gaps": [
+        "No significant gaps identified"
+      ],
+      "remediation_priority": "low",
+      "automated_fixes": [
+        "Implement automated access_control monitoring",
+        "Deploy compliance templates for SOC2",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "SOC2",
+      "requirement": "encryption",
+      "status": "non_compliant",
+      "compliance_level": 0.4,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of encryption for SOC2",
+        "Critical gaps in encryption compliance"
+      ],
+      "remediation_priority": "high",
+      "automated_fixes": [
+        "Implement automated encryption monitoring",
+        "Deploy compliance templates for SOC2",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "SOC2",
+      "requirement": "monitoring",
+      "status": "compliant",
+      "compliance_level": 0.85,
+      "evidence": [
+        "Monitoring infrastructure present"
+      ],
+      "gaps": [
+        "No significant gaps identified"
+      ],
+      "remediation_priority": "low",
+      "automated_fixes": [
+        "Implement automated monitoring monitoring",
+        "Deploy compliance templates for SOC2",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "SOC2",
+      "requirement": "incident_response",
+      "status": "non_compliant",
+      "compliance_level": 0.6,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of incident_response for SOC2"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated incident_response monitoring",
+        "Deploy compliance templates for SOC2",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "ISO27001",
+      "requirement": "information_security_policy",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of information_security_policy for ISO27001"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated information_security_policy monitoring",
+        "Deploy compliance templates for ISO27001",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "ISO27001",
+      "requirement": "risk_management",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of risk_management for ISO27001"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated risk_management monitoring",
+        "Deploy compliance templates for ISO27001",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "ISO27001",
+      "requirement": "access_control",
+      "status": "compliant",
+      "compliance_level": 0.8,
+      "evidence": [
+        "Authentication implementation found"
+      ],
+      "gaps": [
+        "No significant gaps identified"
+      ],
+      "remediation_priority": "low",
+      "automated_fixes": [
+        "Implement automated access_control monitoring",
+        "Deploy compliance templates for ISO27001",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "ISO27001",
+      "requirement": "cryptography",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of cryptography for ISO27001"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated cryptography monitoring",
+        "Deploy compliance templates for ISO27001",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "GDPR",
+      "requirement": "data_protection",
+      "status": "compliant",
+      "compliance_level": 0.7,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "No significant gaps identified"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated data_protection monitoring",
+        "Deploy compliance templates for GDPR",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "GDPR",
+      "requirement": "privacy_by_design",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of privacy_by_design for GDPR"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated privacy_by_design monitoring",
+        "Deploy compliance templates for GDPR",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "GDPR",
+      "requirement": "consent_management",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of consent_management for GDPR"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated consent_management monitoring",
+        "Deploy compliance templates for GDPR",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "GDPR",
+      "requirement": "breach_notification",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of breach_notification for GDPR"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated breach_notification monitoring",
+        "Deploy compliance templates for GDPR",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "NIST_CSF",
+      "requirement": "identify",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of identify for NIST_CSF"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated identify monitoring",
+        "Deploy compliance templates for NIST_CSF",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "NIST_CSF",
+      "requirement": "protect",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of protect for NIST_CSF"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated protect monitoring",
+        "Deploy compliance templates for NIST_CSF",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "NIST_CSF",
+      "requirement": "detect",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of detect for NIST_CSF"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated detect monitoring",
+        "Deploy compliance templates for NIST_CSF",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "NIST_CSF",
+      "requirement": "respond",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of respond for NIST_CSF"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated respond monitoring",
+        "Deploy compliance templates for NIST_CSF",
+        "Enable continuous compliance validation"
+      ]
+    },
+    {
+      "framework": "NIST_CSF",
+      "requirement": "recover",
+      "status": "non_compliant",
+      "compliance_level": 0.5,
+      "evidence": [
+        "Limited evidence found"
+      ],
+      "gaps": [
+        "Insufficient implementation of recover for NIST_CSF"
+      ],
+      "remediation_priority": "medium",
+      "automated_fixes": [
+        "Implement automated recover monitoring",
+        "Deploy compliance templates for NIST_CSF",
+        "Enable continuous compliance validation"
+      ]
+    }
+  ],
+  "security_recommendations": [
+    "URGENT: Implement comprehensive security program",
+    "Deploy Zero Trust architecture",
+    "Establish security operations center (SOC)",
+    "CRITICAL: Address 2 critical threats immediately",
+    "Address 13 compliance gaps",
+    "Implement Zero Trust principles",
+    "Deploy identity and access management (IAM)",
+    "Enable continuous verification"
+  ],
+  "autonomous_actions": [
+    "Automatically isolated affected asset: src/gaudi3_scale/security/authentication.py",
+    "Generated security alert for threat: threat_75_1755370920",
+    "Initiated incident response workflow",
+    "Automatically isolated affected asset: tests/security/test_authentication.py",
+    "Generated security alert for threat: threat_91_1755370920",
+    "Initiated incident response workflow",
+    "Automatically enabled additional security monitoring",
+    "Deployed emergency security patches",
+    "Activated enhanced logging",
+    "Initiated automated compliance remediation",
+    "Deployed compliance monitoring dashboards",
+    "Enabled compliance reporting automation"
+  ],
+  "assessment_summary": {
+    "total_threats_detected": 125,
+    "critical_threats": 2,
+    "compliance_frameworks_passed": 4,
+    "encryption_strength": 0.0,
+    "access_control_score": 0.8
+  },
+  "execution_time": 1.6830437183380127,
+  "timestamp": "2025-08-16T19:02:00.967696+00:00"
+}
