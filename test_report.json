@@ -1,0 +1,59 @@
+{
+  "summary": {
+    "total_tests": 18,
+    "tests_passed": 18,
+    "overall_pass_rate": 1.0,
+    "total_duration": 11.948798656463623,
+    "all_quality_gates_passed": true
+  },
+  "category_stats": {
+    "unit_tests": {
+      "passed": 9,
+      "total": 9,
+      "pass_rate": 1.0,
+      "duration": 8.937564373016357
+    },
+    "integration_tests": {
+      "passed": 4,
+      "total": 4,
+      "pass_rate": 1.0,
+      "duration": 1.8072137832641602
+    },
+    "performance_tests": {
+      "passed": 3,
+      "total": 3,
+      "pass_rate": 1.0,
+      "duration": 0.902350902557373
+    },
+    "security_tests": {
+      "passed": 2,
+      "total": 2,
+      "pass_rate": 1.0,
+      "duration": 0.3012878894805908
+    }
+  },
+  "quality_gates": {
+    "unit_tests": {
+      "passed": true,
+      "required_rate": 0.95,
+      "actual_rate": 1.0
+    },
+    "integration_tests": {
+      "passed": true,
+      "required_rate": 0.9,
+      "actual_rate": 1.0
+    },
+    "performance_tests": {
+      "passed": true,
+      "required_rate": 0.85,
+      "actual_rate": 1.0
+    },
+    "security_tests": {
+      "passed": true,
+      "required_rate": 1.0,
+      "actual_rate": 1.0
+    }
+  },
+  "failed_tests": [],
+  "timestamp": 1755491287.1156318
+}
