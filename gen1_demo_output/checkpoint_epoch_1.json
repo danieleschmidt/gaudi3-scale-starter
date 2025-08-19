@@ -1,0 +1,50 @@
+{
+  "epoch": 1,
+  "model_name": "generation-1-demo",
+  "loss": 1.657200087002626,
+  "accuracy": 0.44785670052506943,
+  "learning_rate": 0.001,
+  "batch_size": 64,
+  "precision": "bf16",
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "training_history": {
+    "epoch": [
+      1
+    ],
+    "loss": [
+      1.6330579550428508
+    ],
+    "accuracy": [
+      0.44785670052506943
+    ],
+    "val_loss": [
+      1.657200087002626
+    ],
+    "val_accuracy": [
+      0.4420079583368561
+    ],
+    "learning_rate": [
+      0.001
+    ],
+    "batch_time": [
+      0.11081615213383976
+    ],
+    "throughput": [
+      577.5331372515362
+    ]
+  },
+  "optimizer_state": {
+    "momentum": 0.9,
+    "weight_decay": 0.01
+  },
+  "timestamp": 1755610308.6348372
+}

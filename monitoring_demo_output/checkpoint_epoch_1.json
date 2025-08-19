@@ -1,0 +1,50 @@
+{
+  "epoch": 1,
+  "model_name": "monitoring-demo",
+  "loss": 1.1791395490822238,
+  "accuracy": 0.6291272984798961,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "precision": "bf16",
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "training_history": {
+    "epoch": [
+      1
+    ],
+    "loss": [
+      1.1722897859471015
+    ],
+    "accuracy": [
+      0.6291272984798961
+    ],
+    "val_loss": [
+      1.1791395490822238
+    ],
+    "val_accuracy": [
+      0.5794736482247628
+    ],
+    "learning_rate": [
+      0.001
+    ],
+    "batch_time": [
+      0.19456986884189154
+    ],
+    "throughput": [
+      657.8613675481965
+    ]
+  },
+  "optimizer_state": {
+    "momentum": 0.9,
+    "weight_decay": 0.01
+  },
+  "timestamp": 1755610308.7094078
+}

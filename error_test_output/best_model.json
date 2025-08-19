@@ -1,0 +1,50 @@
+{
+  "epoch": 1,
+  "model_name": "default-model",
+  "loss": 0.3050084783734778,
+  "accuracy": 0.9249741368023601,
+  "learning_rate": 0.001,
+  "batch_size": 32,
+  "precision": "bf16",
+  "devices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "training_history": {
+    "epoch": [
+      1
+    ],
+    "loss": [
+      0.4318084124482055
+    ],
+    "accuracy": [
+      0.9249741368023601
+    ],
+    "val_loss": [
+      0.3050084783734778
+    ],
+    "val_accuracy": [
+      0.938548144522172
+    ],
+    "learning_rate": [
+      0.001
+    ],
+    "batch_time": [
+      0.06957305184432831
+    ],
+    "throughput": [
+      459.94820051305084
+    ]
+  },
+  "optimizer_state": {
+    "momentum": 0.9,
+    "weight_decay": 0.01
+  },
+  "timestamp": 1755610308.7213624
+}

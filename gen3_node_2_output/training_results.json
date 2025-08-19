@@ -1,0 +1,97 @@
+{
+  "success": true,
+  "model_name": "distributed-node-2",
+  "config": {
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "max_epochs": 2,
+    "precision": "bf16",
+    "devices": [
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "metrics": {
+    "final_loss": 0.42004052499292144,
+    "final_accuracy": 0.9260302801961222,
+    "best_val_loss": 0.41011495188041824,
+    "best_val_accuracy": 0.8859422551289935,
+    "total_epochs": 2,
+    "total_time": 0.0037102699279785156,
+    "avg_epoch_time": 0.0018551349639892578,
+    "avg_throughput": 568.190678507779,
+    "profiling": {
+      "train_epoch_1": 0.0006189346313476562,
+      "val_epoch_1": 3.0994415283203125e-06,
+      "train_epoch_2": 0.0005707740783691406,
+      "val_epoch_2": 2.6226043701171875e-06,
+      "total_training": 0.003710031509399414
+    },
+    "devices": {
+      "device_8": {
+        "utilization": 0.7913354471779657,
+        "temperature": 72.6967406512288,
+        "power_usage": 558.2670894355931,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_9": {
+        "utilization": 0.8224312185234978,
+        "temperature": 73.78509264832242,
+        "power_usage": 564.4862437046995,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_10": {
+        "utilization": 0.7989624616930118,
+        "temperature": 72.96368615925542,
+        "power_usage": 559.7924923386024,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_11": {
+        "utilization": 0.7522709370377243,
+        "temperature": 71.32948279632035,
+        "power_usage": 550.4541874075449,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      }
+    }
+  },
+  "history": {
+    "epoch": [
+      1,
+      2
+    ],
+    "loss": [
+      1.168583184065969,
+      0.42004052499292144
+    ],
+    "accuracy": [
+      0.6308443065284183,
+      0.9260302801961222
+    ],
+    "val_loss": [
+      1.174504526266694,
+      0.41011495188041824
+    ],
+    "val_accuracy": [
+      0.688805907977269,
+      0.8859422551289935
+    ],
+    "learning_rate": [
+      0.001,
+      0.001
+    ],
+    "batch_time": [
+      0.11194778436917545,
+      0.1133372725613485
+    ],
+    "throughput": [
+      571.6951019677549,
+      564.686255047803
+    ]
+  }
+}

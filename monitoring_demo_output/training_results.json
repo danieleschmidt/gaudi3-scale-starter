@@ -1,0 +1,129 @@
+{
+  "success": true,
+  "model_name": "monitoring-demo",
+  "config": {
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "max_epochs": 2,
+    "precision": "bf16",
+    "devices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "metrics": {
+    "final_loss": 0.42857425212383565,
+    "final_accuracy": 0.9189786665589946,
+    "best_val_loss": 0.44273363706334895,
+    "best_val_accuracy": 0.927704964517626,
+    "total_epochs": 2,
+    "total_time": 0.008466005325317383,
+    "avg_epoch_time": 0.004233002662658691,
+    "avg_throughput": 656.781811607473,
+    "profiling": {
+      "train_epoch_1": 0.0009491443634033203,
+      "val_epoch_1": 2.6226043701171875e-06,
+      "train_epoch_2": 0.0022819042205810547,
+      "val_epoch_2": 5.7220458984375e-06,
+      "total_training": 0.008465766906738281
+    },
+    "devices": {
+      "device_0": {
+        "utilization": 0.9227377169454443,
+        "temperature": 77.29582009309055,
+        "power_usage": 584.5475433890888,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_1": {
+        "utilization": 0.9243721070261179,
+        "temperature": 77.35302374591413,
+        "power_usage": 584.8744214052235,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_2": {
+        "utilization": 0.8592037814458816,
+        "temperature": 75.07213235060586,
+        "power_usage": 571.8407562891763,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_3": {
+        "utilization": 0.7694249744603566,
+        "temperature": 71.92987410611248,
+        "power_usage": 553.8849948920713,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_4": {
+        "utilization": 0.7794397051326318,
+        "temperature": 72.28038967964211,
+        "power_usage": 555.8879410265264,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_5": {
+        "utilization": 0.8322417322587522,
+        "temperature": 74.12846062905632,
+        "power_usage": 566.4483464517505,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_6": {
+        "utilization": 0.8104035671907458,
+        "temperature": 73.36412485167611,
+        "power_usage": 562.0807134381491,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_7": {
+        "utilization": 0.7940357756082908,
+        "temperature": 72.79125214629018,
+        "power_usage": 558.8071551216582,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      }
+    }
+  },
+  "history": {
+    "epoch": [
+      1,
+      2
+    ],
+    "loss": [
+      1.1722897859471015,
+      0.42857425212383565
+    ],
+    "accuracy": [
+      0.6291272984798961,
+      0.9189786665589946
+    ],
+    "val_loss": [
+      1.1791395490822238,
+      0.44273363706334895
+    ],
+    "val_accuracy": [
+      0.5794736482247628,
+      0.927704964517626
+    ],
+    "learning_rate": [
+      0.001,
+      0.001
+    ],
+    "batch_time": [
+      0.19456986884189154,
+      0.19521055310362395
+    ],
+    "throughput": [
+      657.8613675481965,
+      655.7022556667495
+    ]
+  }
+}

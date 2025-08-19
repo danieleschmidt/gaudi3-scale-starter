@@ -1,0 +1,46 @@
+{
+  "epoch": 1,
+  "model_name": "distributed-node-2",
+  "loss": 1.174504526266694,
+  "accuracy": 0.6308443065284183,
+  "learning_rate": 0.001,
+  "batch_size": 64,
+  "precision": "bf16",
+  "devices": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "training_history": {
+    "epoch": [
+      1
+    ],
+    "loss": [
+      1.168583184065969
+    ],
+    "accuracy": [
+      0.6308443065284183
+    ],
+    "val_loss": [
+      1.174504526266694
+    ],
+    "val_accuracy": [
+      0.688805907977269
+    ],
+    "learning_rate": [
+      0.001
+    ],
+    "batch_time": [
+      0.11194778436917545
+    ],
+    "throughput": [
+      571.6951019677549
+    ]
+  },
+  "optimizer_state": {
+    "momentum": 0.9,
+    "weight_decay": 0.01
+  },
+  "timestamp": 1755610975.0138135
+}
