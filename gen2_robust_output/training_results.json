@@ -1,0 +1,139 @@
+{
+  "success": true,
+  "model_name": "generation-2-robust-demo",
+  "config": {
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "max_epochs": 3,
+    "precision": "bf16",
+    "devices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "metrics": {
+    "final_loss": 0.42354668915572546,
+    "final_accuracy": 0.9235318795059793,
+    "best_val_loss": 0.36024239197489755,
+    "best_val_accuracy": 0.9502749413572363,
+    "total_epochs": 3,
+    "total_time": 0.007346153259277344,
+    "avg_epoch_time": 0.0024487177530924478,
+    "avg_throughput": 466.7532035040702,
+    "profiling": {
+      "train_epoch_1": 0.000926971435546875,
+      "val_epoch_1": 4.0531158447265625e-06,
+      "train_epoch_2": 0.0009608268737792969,
+      "val_epoch_2": 3.814697265625e-06,
+      "train_epoch_3": 0.0008931159973144531,
+      "val_epoch_3": 2.86102294921875e-06,
+      "total_training": 0.007344961166381836
+    },
+    "devices": {
+      "device_0": {
+        "utilization": 0.8146280134277123,
+        "temperature": 73.51198046996993,
+        "power_usage": 562.9256026855425,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_1": {
+        "utilization": 0.8018322014851165,
+        "temperature": 73.06412705197909,
+        "power_usage": 560.3664402970232,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_2": {
+        "utilization": 0.7746305218935197,
+        "temperature": 72.11206826627318,
+        "power_usage": 554.9261043787039,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_3": {
+        "utilization": 0.9407073710979974,
+        "temperature": 77.92475798842992,
+        "power_usage": 588.1414742195994,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_4": {
+        "utilization": 0.8237741778300024,
+        "temperature": 73.83209622405008,
+        "power_usage": 564.7548355660005,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_5": {
+        "utilization": 0.8238216268998524,
+        "temperature": 73.83375694149484,
+        "power_usage": 564.7643253799705,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_6": {
+        "utilization": 0.7040078813252799,
+        "temperature": 69.6402758463848,
+        "power_usage": 540.8015762650559,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      },
+      "device_7": {
+        "utilization": 0.7536309555651481,
+        "temperature": 71.37708344478018,
+        "power_usage": 550.7261911130297,
+        "memory_used": 0,
+        "memory_total": 103079215104
+      }
+    }
+  },
+  "history": {
+    "epoch": [
+      1,
+      2,
+      3
+    ],
+    "loss": [
+      1.4356939977152479,
+      0.9336854249465597,
+      0.42354668915572546
+    ],
+    "accuracy": [
+      0.5296551002337188,
+      0.7325389817405408,
+      0.9235318795059793
+    ],
+    "val_loss": [
+      1.438407971600013,
+      0.8347170561870689,
+      0.36024239197489755
+    ],
+    "val_accuracy": [
+      0.559301829353404,
+      0.692123712830441,
+      0.9502749413572363
+    ],
+    "learning_rate": [
+      0.001,
+      0.001,
+      0.001
+    ],
+    "batch_time": [
+      0.0689797822303379,
+      0.068106248837065,
+      0.06859571107984994
+    ],
+    "throughput": [
+      463.9040450018429,
+      469.85409630408043,
+      466.50146920628737
+    ]
+  }
+}

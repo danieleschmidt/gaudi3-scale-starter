@@ -21,13 +21,19 @@ except ImportError:
     Accelerator = object
     _torch_available = False
 
-# Import habana frameworks for easier mocking in tests
+# Import habana frameworks with mock fallback support
 try:
     import habana_frameworks.torch as htorch
     _habana_available = True
 except ImportError:
     htorch = None
     _habana_available = False
+
+# Import mock HPU support
+from .mock_hpu import (
+    is_mock_enabled, get_mock_instance, auto_enable_mock_if_needed,
+    MockPerformanceProfiler, temporary_mock_mode
+)
 
 # Import enhanced components
 from .exceptions import (
@@ -102,6 +108,10 @@ class GaudiAccelerator(Accelerator):
         self._health_checker = None
         self._validator = DataValidator()
         
+        # Initialize mock mode attributes
+        self._mock_mode = False
+        self._available_devices = 0
+        
         try:
             super().__init__()
             
@@ -126,14 +136,30 @@ class GaudiAccelerator(Accelerator):
             ) from e
     
     def _check_habana_availability(self) -> None:
-        """Check if Habana frameworks are available with enhanced validation.
+        """Check if Habana frameworks are available with enhanced validation and mock fallback.
         
         Raises:
             HPUNotAvailableError: If habana-torch-plugin is not installed or HPU devices not found
         """
         logger.debug("Checking Habana frameworks availability")
         
+        # Check if mock mode is enabled or should be auto-enabled
+        auto_enable_mock_if_needed()
+        
+        if is_mock_enabled():
+            mock_instance = get_mock_instance()
+            if mock_instance and mock_instance.device_count() > 0:
+                logger.info(f"Using mock HPU mode with {mock_instance.device_count()} simulated devices")
+                self._mock_mode = True
+                self._available_devices = mock_instance.device_count()
+                return
+        
         if htorch is None:
+            # Check if we can/should fall back to mock mode
+            if not is_mock_enabled():
+                logger.warning("Habana frameworks not available, consider enabling mock mode for development")
+                logger.warning("Set GAUDI3_ENABLE_MOCK=1 environment variable to enable mock HPU simulation")
+                
             raise HPUNotAvailableError(
                 requested_devices=1,
                 available_devices=0,
@@ -232,6 +258,11 @@ class GaudiAccelerator(Accelerator):
             bool: True if Habana HPU devices are available, False otherwise.
         """
         try:
+            # Check mock mode first
+            if is_mock_enabled():
+                mock_instance = get_mock_instance()
+                return mock_instance is not None and mock_instance.device_count() > 0
+                
             if htorch is None:
                 logger.debug("Habana frameworks not available")
                 return False
@@ -452,6 +483,10 @@ class GaudiAccelerator(Accelerator):
             int: Number of available HPU devices.
         """
         try:
+            # Return mock device count if in mock mode
+            if self._mock_mode:
+                return self._available_devices
+                
             if htorch is None:
                 logger.debug("Habana frameworks not available, returning 0 devices")
                 return 0
