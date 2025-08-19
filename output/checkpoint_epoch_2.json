@@ -1,21 +1,21 @@
 {
   "epoch": 2,
-  "model_name": "final-demo",
+  "model_name": "e2e_test_model",
   "metrics": {
     "epoch": 2,
-    "train_loss": 1.3851394955852092,
-    "train_accuracy": 0.5458456236253268,
-    "val_loss": 1.4891467494644446,
-    "val_accuracy": 0.5522398891334271,
-    "epoch_time": 0.3004875183105469,
+    "train_loss": 1.358259966189106,
+    "train_accuracy": 0.5626741634561029,
+    "val_loss": 1.4893218051711254,
+    "val_accuracy": 0.5652810813813959,
+    "epoch_time": 0.3005189895629883,
     "device_type": "cpu",
     "device_count": 1,
     "learning_rate": 0.001,
-    "batch_size": 16
+    "batch_size": 8
   },
   "config": {
-    "model_name": "final-demo",
-    "batch_size": 16,
+    "model_name": "e2e_test_model",
+    "batch_size": 8,
     "learning_rate": 0.001,
     "max_epochs": 2,
     "precision": "float32",
@@ -27,7 +27,7 @@
     "device_type": "cpu",
     "available_devices": 1
   },
-  "timestamp": 1755491423.5682185,
-  "best_accuracy": 0.5522398891334271,
-  "best_loss": 1.4891467494644446
+  "timestamp": 1755617494.402956,
+  "best_accuracy": 0.5652810813813959,
+  "best_loss": 1.4893218051711254
 }
