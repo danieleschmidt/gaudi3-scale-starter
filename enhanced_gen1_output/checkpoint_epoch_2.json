@@ -1,0 +1,6 @@
+{
+  "epoch": 2,
+  "batch_idx": 100,
+  "loss": 1.8929999999999998,
+  "model_state": "checkpoint_epoch_2_batch_100.pt"
+}
