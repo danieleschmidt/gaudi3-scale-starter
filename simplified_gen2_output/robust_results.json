@@ -1,0 +1,120 @@
+{
+  "session_id": "2c82a8c1322de4679cd4244f964550cd",
+  "model_name": "robust-llama-simple",
+  "training_metrics": {
+    "epochs": [
+      1,
+      2,
+      3
+    ],
+    "losses": [
+      2.503844444444445,
+      2.206044444444445,
+      1.9022999999999997
+    ],
+    "throughput": [
+      6864.248976010692,
+      198286.20354563362,
+      205142.23761972692
+    ],
+    "memory_usage": [
+      65.0,
+      65.0,
+      65.0
+    ],
+    "error_recovery_count": 0,
+    "checkpoint_count": 6,
+    "health_checks": [
+      {
+        "memory_usage": 65.0,
+        "cpu_usage": 45.0,
+        "disk_usage": 30.0,
+        "system_status": "healthy",
+        "timestamp": "2025-08-21T01:09:39.301886+00:00"
+      },
+      {
+        "memory_usage": 65.0,
+        "cpu_usage": 45.0,
+        "disk_usage": 30.0,
+        "system_status": "healthy",
+        "timestamp": "2025-08-21T01:09:39.407124+00:00"
+      },
+      {
+        "memory_usage": 65.0,
+        "cpu_usage": 45.0,
+        "disk_usage": 30.0,
+        "system_status": "healthy",
+        "timestamp": "2025-08-21T01:09:39.411031+00:00"
+      }
+    ]
+  },
+  "robustness_features": {
+    "error_recovery": true,
+    "health_monitoring": true,
+    "audit_logging": true,
+    "secure_checkpoints": true,
+    "input_validation": true
+  },
+  "performance": {
+    "epochs": 3,
+    "final_loss": 1.9022999999999997,
+    "avg_throughput": 136764.23004712374,
+    "error_recoveries": 0,
+    "checkpoints": 6
+  },
+  "security_events": [
+    {
+      "timestamp": "2025-08-21T01:09:39.300695+00:00",
+      "event_type": "input_validation_start",
+      "session_id": "2c82a8c1322de4679cd4244f964550cd",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-08-21T01:09:39.300993+00:00",
+      "event_type": "input_validation_passed",
+      "session_id": "2c82a8c1322de4679cd4244f964550cd",
+      "details": {}
+    },
+    {
+      "timestamp": "2025-08-21T01:09:39.301271+00:00",
+      "event_type": "training_started",
+      "session_id": "2c82a8c1322de4679cd4244f964550cd",
+      "details": {
+        "model_name": "robust-llama-simple"
+      }
+    },
+    {
+      "timestamp": "2025-08-21T01:09:39.414595+00:00",
+      "event_type": "training_completed",
+      "session_id": "2c82a8c1322de4679cd4244f964550cd",
+      "details": {
+        "epochs": 3,
+        "final_loss": 1.9022999999999997
+      }
+    }
+  ],
+  "health_checks": [
+    {
+      "memory_usage": 65.0,
+      "cpu_usage": 45.0,
+      "disk_usage": 30.0,
+      "system_status": "healthy",
+      "timestamp": "2025-08-21T01:09:39.301886+00:00"
+    },
+    {
+      "memory_usage": 65.0,
+      "cpu_usage": 45.0,
+      "disk_usage": 30.0,
+      "system_status": "healthy",
+      "timestamp": "2025-08-21T01:09:39.407124+00:00"
+    },
+    {
+      "memory_usage": 65.0,
+      "cpu_usage": 45.0,
+      "disk_usage": 30.0,
+      "system_status": "healthy",
+      "timestamp": "2025-08-21T01:09:39.411031+00:00"
+    }
+  ],
+  "timestamp": "2025-08-21T01:09:39.415515+00:00"
+}

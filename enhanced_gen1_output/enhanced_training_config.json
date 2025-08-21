@@ -1,0 +1,50 @@
+{
+  "model_name": "enhanced-llama-demo",
+  "model_config": {
+    "model_type": "causal_lm",
+    "hidden_size": 4096,
+    "num_layers": 32,
+    "num_heads": 32,
+    "vocab_size": 32000,
+    "max_seq_length": 2048,
+    "dtype": "bfloat16"
+  },
+  "training_config": {
+    "learning_rate": 0.0006,
+    "batch_size": 8,
+    "gradient_accumulation_steps": 4,
+    "num_epochs": 3,
+    "warmup_steps": 100,
+    "weight_decay": 0.01,
+    "gradient_clip_val": 1.0,
+    "save_every_n_steps": 50,
+    "eval_every_n_steps": 100
+  },
+  "data_config": {
+    "dataset_name": "synthetic_text",
+    "num_samples": 1000,
+    "sequence_length": 512,
+    "validation_split": 0.1
+  },
+  "optimization_config": {
+    "optimizer": "AdamW",
+    "scheduler": "cosine",
+    "precision": "bf16-mixed",
+    "compile_model": true,
+    "use_flash_attention": true
+  },
+  "logging_config": {
+    "log_level": "INFO",
+    "log_every_n_steps": 10,
+    "save_logs": true,
+    "tensorboard_logging": true,
+    "wandb_logging": false
+  },
+  "output_config": {
+    "output_dir": "enhanced_gen1_output",
+    "save_checkpoints": true,
+    "checkpoint_every_n_epochs": 1,
+    "keep_best_checkpoint": true,
+    "save_final_model": true
+  }
+}
