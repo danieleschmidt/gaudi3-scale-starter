@@ -1,0 +1,346 @@
+{
+  "suite_id": "benchmark_1755887578",
+  "start_time": 1755887578.698177,
+  "config": {
+    "categories": [
+      "architecture",
+      "performance",
+      "memory"
+    ],
+    "parallel_execution": true,
+    "max_parallel_jobs": 3,
+    "timeout_minutes": 120,
+    "statistical_validation": true,
+    "update_baselines": false,
+    "max_benchmark_runtime_minutes": 50
+  },
+  "benchmark_results": [
+    {
+      "benchmark_id": "arch_large_transformer",
+      "execution_id": "arch_large_transformer_1755887578",
+      "timestamp": 1755887578.701231,
+      "configuration": {
+        "benchmark_id": "arch_large_transformer",
+        "name": "Large Transformer Benchmark",
+        "description": "Large transformer for performance stress testing",
+        "category": "architecture",
+        "model_config": {
+          "model_type": "transformer",
+          "layers": 12,
+          "hidden_dim": 1024,
+          "attention_heads": 16,
+          "vocab_size": 50000
+        },
+        "dataset_config": {
+          "dataset": "synthetic_text",
+          "sequence_length": 1024,
+          "samples": 50000
+        },
+        "training_config": {
+          "epochs": 3,
+          "batch_size": 16,
+          "learning_rate": 0.0005,
+          "optimizer": "adamw"
+        },
+        "expected_runtime_minutes": 45,
+        "resource_requirements": {
+          "memory_mb": 8000,
+          "compute_hours": 1.5
+        },
+        "success_criteria": {
+          "min_accuracy": 0.88,
+          "max_loss": 0.15,
+          "max_runtime_minutes": 60
+        },
+        "baseline_metrics": {
+          "accuracy": 0.92,
+          "loss": 0.08,
+          "training_time": 2400,
+          "throughput": 80
+        }
+      },
+      "metrics": {
+        "error": "'GaudiTrainer' object has no attribute 'train'"
+      },
+      "runtime_seconds": 0.0,
+      "resource_usage": {},
+      "success": false,
+      "performance_score": 0.0,
+      "comparison_to_baseline": {},
+      "anomalies_detected": [
+        "execution_failure: 'GaudiTrainer' object has no attribute 'train'"
+      ],
+      "optimization_suggestions": []
+    },
+    {
+      "benchmark_id": "arch_tiny_transformer",
+      "execution_id": "arch_tiny_transformer_1755887578",
+      "timestamp": 1755887578.7016332,
+      "configuration": {
+        "benchmark_id": "arch_tiny_transformer",
+        "name": "Tiny Transformer Benchmark",
+        "description": "Small transformer model for rapid validation",
+        "category": "architecture",
+        "model_config": {
+          "model_type": "transformer",
+          "layers": 4,
+          "hidden_dim": 256,
+          "attention_heads": 4,
+          "vocab_size": 10000
+        },
+        "dataset_config": {
+          "dataset": "synthetic_text",
+          "sequence_length": 512,
+          "samples": 10000
+        },
+        "training_config": {
+          "epochs": 5,
+          "batch_size": 32,
+          "learning_rate": 0.001,
+          "optimizer": "adamw"
+        },
+        "expected_runtime_minutes": 10,
+        "resource_requirements": {
+          "memory_mb": 2000,
+          "compute_hours": 0.2
+        },
+        "success_criteria": {
+          "min_accuracy": 0.8,
+          "max_loss": 0.3,
+          "max_runtime_minutes": 15
+        },
+        "baseline_metrics": {
+          "accuracy": 0.85,
+          "loss": 0.12,
+          "training_time": 480,
+          "throughput": 150
+        }
+      },
+      "metrics": {
+        "error": "'GaudiTrainer' object has no attribute 'train'"
+      },
+      "runtime_seconds": 0.0,
+      "resource_usage": {},
+      "success": false,
+      "performance_score": 0.0,
+      "comparison_to_baseline": {},
+      "anomalies_detected": [
+        "execution_failure: 'GaudiTrainer' object has no attribute 'train'"
+      ],
+      "optimization_suggestions": []
+    },
+    {
+      "benchmark_id": "perf_mixed_precision",
+      "execution_id": "perf_mixed_precision_1755887578",
+      "timestamp": 1755887578.701836,
+      "configuration": {
+        "benchmark_id": "perf_mixed_precision",
+        "name": "Mixed Precision Training Benchmark",
+        "description": "Benchmark mixed precision training performance",
+        "category": "performance",
+        "model_config": {
+          "model_type": "resnet",
+          "layers": 50,
+          "channels": [
+            64,
+            128,
+            256,
+            512
+          ],
+          "num_classes": 1000
+        },
+        "dataset_config": {
+          "dataset": "synthetic_images",
+          "image_size": [
+            224,
+            224,
+            3
+          ],
+          "samples": 25000
+        },
+        "training_config": {
+          "epochs": 5,
+          "batch_size": 64,
+          "learning_rate": 0.01,
+          "mixed_precision": true,
+          "optimizer": "sgd"
+        },
+        "expected_runtime_minutes": 20,
+        "resource_requirements": {
+          "memory_mb": 6000,
+          "compute_hours": 0.5
+        },
+        "success_criteria": {
+          "min_accuracy": 0.75,
+          "max_loss": 0.8,
+          "max_runtime_minutes": 30
+        },
+        "baseline_metrics": {
+          "accuracy": 0.78,
+          "loss": 0.65,
+          "training_time": 1000,
+          "throughput": 250
+        }
+      },
+      "metrics": {
+        "error": "'GaudiTrainer' object has no attribute 'train'"
+      },
+      "runtime_seconds": 0.0,
+      "resource_usage": {},
+      "success": false,
+      "performance_score": 0.0,
+      "comparison_to_baseline": {},
+      "anomalies_detected": [
+        "execution_failure: 'GaudiTrainer' object has no attribute 'train'"
+      ],
+      "optimization_suggestions": []
+    },
+    {
+      "benchmark_id": "perf_distributed_training",
+      "execution_id": "perf_distributed_training_1755887578",
+      "timestamp": 1755887578.7020032,
+      "configuration": {
+        "benchmark_id": "perf_distributed_training",
+        "name": "Distributed Training Benchmark",
+        "description": "Multi-node distributed training performance test",
+        "category": "performance",
+        "model_config": {
+          "model_type": "bert",
+          "hidden_size": 768,
+          "num_attention_heads": 12,
+          "num_layers": 12,
+          "vocab_size": 30000
+        },
+        "dataset_config": {
+          "dataset": "synthetic_text",
+          "sequence_length": 512,
+          "samples": 100000
+        },
+        "training_config": {
+          "epochs": 3,
+          "batch_size": 32,
+          "learning_rate": 0.0001,
+          "distributed": true,
+          "num_nodes": 4,
+          "optimizer": "adamw"
+        },
+        "expected_runtime_minutes": 30,
+        "resource_requirements": {
+          "memory_mb": 12000,
+          "compute_hours": 2.0
+        },
+        "success_criteria": {
+          "min_accuracy": 0.85,
+          "max_loss": 0.2,
+          "max_runtime_minutes": 40
+        },
+        "baseline_metrics": {
+          "accuracy": 0.89,
+          "loss": 0.11,
+          "training_time": 1500,
+          "throughput": 120
+        }
+      },
+      "metrics": {
+        "error": "'GaudiTrainer' object has no attribute 'train'"
+      },
+      "runtime_seconds": 0.0,
+      "resource_usage": {},
+      "success": false,
+      "performance_score": 0.0,
+      "comparison_to_baseline": {},
+      "anomalies_detected": [
+        "execution_failure: 'GaudiTrainer' object has no attribute 'train'"
+      ],
+      "optimization_suggestions": []
+    },
+    {
+      "benchmark_id": "mem_gradient_checkpointing",
+      "execution_id": "mem_gradient_checkpointing_1755887578",
+      "timestamp": 1755887578.702146,
+      "configuration": {
+        "benchmark_id": "mem_gradient_checkpointing",
+        "name": "Gradient Checkpointing Benchmark",
+        "description": "Memory efficiency with gradient checkpointing",
+        "category": "memory",
+        "model_config": {
+          "model_type": "transformer",
+          "layers": 16,
+          "hidden_dim": 1536,
+          "attention_heads": 24,
+          "vocab_size": 32000
+        },
+        "dataset_config": {
+          "dataset": "synthetic_text",
+          "sequence_length": 2048,
+          "samples": 20000
+        },
+        "training_config": {
+          "epochs": 2,
+          "batch_size": 8,
+          "learning_rate": 0.0003,
+          "gradient_checkpointing": true,
+          "optimizer": "adamw"
+        },
+        "expected_runtime_minutes": 40,
+        "resource_requirements": {
+          "memory_mb": 16000,
+          "compute_hours": 1.0
+        },
+        "success_criteria": {
+          "min_accuracy": 0.82,
+          "max_loss": 0.25,
+          "max_memory_mb": 20000
+        },
+        "baseline_metrics": {
+          "accuracy": 0.86,
+          "loss": 0.15,
+          "memory_usage": 18000,
+          "training_time": 2000
+        }
+      },
+      "metrics": {
+        "error": "'GaudiTrainer' object has no attribute 'train'"
+      },
+      "runtime_seconds": 0.0,
+      "resource_usage": {},
+      "success": false,
+      "performance_score": 0.0,
+      "comparison_to_baseline": {},
+      "anomalies_detected": [
+        "execution_failure: 'GaudiTrainer' object has no attribute 'train'"
+      ],
+      "optimization_suggestions": []
+    }
+  ],
+  "summary_statistics": {
+    "total_benchmarks": 5,
+    "successful_benchmarks": 0,
+    "success_rate": 0.0,
+    "average_accuracy": 0,
+    "average_loss": 0,
+    "average_throughput": 0,
+    "average_performance_score": 0,
+    "total_runtime_minutes": 0.0,
+    "categories_tested": [
+      "architecture",
+      "performance",
+      "memory"
+    ]
+  },
+  "performance_analysis": {
+    "by_category": {},
+    "performance_regression_candidates": [],
+    "top_performers": [],
+    "optimization_opportunities": []
+  },
+  "optimization_recommendations": [
+    "No successful benchmarks to analyze for optimization recommendations"
+  ],
+  "anomalies_detected": [
+    "execution_failure: 'GaudiTrainer' object has no attribute 'train'"
+  ],
+  "end_time": 1755887578.7027502,
+  "total_duration_minutes": 7.62184460957845e-05,
+  "status": "completed"
+}

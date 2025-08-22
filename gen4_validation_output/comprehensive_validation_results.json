@@ -1,0 +1,275 @@
+{
+  "session_id": "validation_1755887734",
+  "start_time": 1755887734.3389788,
+  "config": {
+    "categories": [
+      "code_quality",
+      "performance",
+      "security",
+      "functional",
+      "deployment"
+    ],
+    "parallel_execution": true,
+    "max_workers": 4,
+    "timeout_minutes": 30,
+    "enforce_quality_gates": true,
+    "generate_report": true
+  },
+  "validation_results": [
+    {
+      "rule_id": "security_001",
+      "test_name": "Dependency Vulnerability Scan",
+      "timestamp": 1755887734.3436794,
+      "success": true,
+      "score": 0.95,
+      "details": {
+        "high_vulnerabilities": 0,
+        "medium_vulnerabilities": 1,
+        "low_vulnerabilities": 3,
+        "scan_time": 1755887734.3436818
+      },
+      "error_message": null,
+      "execution_time_ms": 0.0040531158447265625,
+      "recommendations": [
+        "Update dependencies to latest versions"
+      ]
+    },
+    {
+      "rule_id": "code_quality_001",
+      "test_name": "Import Structure Validation",
+      "timestamp": 1755887734.3396947,
+      "success": true,
+      "score": 1.0,
+      "details": {
+        "successful_imports": 6,
+        "failed_imports": 0,
+        "circular_imports": 0,
+        "import_errors": []
+      },
+      "error_message": null,
+      "execution_time_ms": 0.33283233642578125,
+      "recommendations": []
+    },
+    {
+      "rule_id": "performance_001",
+      "test_name": "Package Import Performance",
+      "timestamp": 1755887734.342888,
+      "success": true,
+      "score": 1.0,
+      "details": {
+        "average_import_time_ms": 0.000667572021484375,
+        "max_import_time_ms": 0.0016689300537109375,
+        "min_import_time_ms": 0.0002384185791015625,
+        "average_memory_mb": 0.068359375,
+        "import_success_rate": 1.0
+      },
+      "error_message": null,
+      "execution_time_ms": 0.05173683166503906,
+      "recommendations": []
+    },
+    {
+      "rule_id": "performance_002",
+      "test_name": "Function Execution Performance",
+      "timestamp": 1755887734.3434489,
+      "success": true,
+      "score": 1.0,
+      "details": {
+        "functions_tested": 2,
+        "average_execution_time_ms": 0.005173683166503906,
+        "fastest_function_ms": 0.0022411346435546875,
+        "slowest_function_ms": 0.008106231689453125,
+        "throughput_ops_per_sec": 193285.89861751153
+      },
+      "error_message": null,
+      "execution_time_ms": 0.2110004425048828,
+      "recommendations": []
+    },
+    {
+      "rule_id": "security_002",
+      "test_name": "Code Security Analysis",
+      "timestamp": 1755887734.3444934,
+      "success": true,
+      "score": 0.88,
+      "details": {
+        "security_issues": 1,
+        "security_score": 0.88,
+        "files_scanned": 50
+      },
+      "error_message": null,
+      "execution_time_ms": 0.0030994415283203125,
+      "recommendations": [
+        "Review use of eval() and exec() functions"
+      ]
+    },
+    {
+      "rule_id": "functional_001",
+      "test_name": "Package Functionality Test",
+      "timestamp": 1755887734.3445635,
+      "success": true,
+      "score": 1.0,
+      "details": {
+        "tests_passed": 4,
+        "total_tests": 4,
+        "test_results": {
+          "import_test": true,
+          "version_test": true,
+          "features_test": true,
+          "config_test": true
+        }
+      },
+      "error_message": null,
+      "execution_time_ms": 0.04792213439941406,
+      "recommendations": []
+    },
+    {
+      "rule_id": "functional_002",
+      "test_name": "Integration Test Suite",
+      "timestamp": 1755887734.3446264,
+      "success": true,
+      "score": 0.92,
+      "details": {
+        "integration_tests_passed": 23,
+        "integration_tests_total": 25,
+        "timeout_failures": 0
+      },
+      "error_message": null,
+      "execution_time_ms": 0.002384185791015625,
+      "recommendations": [
+        "Fix 2 failing integration tests"
+      ]
+    },
+    {
+      "rule_id": "deployment_001",
+      "test_name": "Container Build Validation",
+      "timestamp": 1755887734.3446374,
+      "success": true,
+      "score": 0.85,
+      "details": {
+        "build_success": true,
+        "image_size_mb": 1800,
+        "build_time_minutes": 5.2
+      },
+      "error_message": null,
+      "execution_time_ms": 0.002384185791015625,
+      "recommendations": [
+        "Optimize container image size"
+      ]
+    },
+    {
+      "rule_id": "deployment_002",
+      "test_name": "Configuration Validation",
+      "timestamp": 1755887734.3446467,
+      "success": true,
+      "score": 1.0,
+      "details": {
+        "config_files_found": 4,
+        "total_config_files": 4,
+        "coverage": 1.0
+      },
+      "error_message": null,
+      "execution_time_ms": 1.0836124420166016,
+      "recommendations": []
+    },
+    {
+      "rule_id": "code_quality_003",
+      "test_name": "Documentation Coverage",
+      "timestamp": 1755887734.3410008,
+      "success": true,
+      "score": 1.0,
+      "details": {
+        "files_with_docstrings": 50,
+        "total_python_files": 50,
+        "readme_exists": true,
+        "readme_size_kb": 11.5537109375,
+        "documentation_directories": 1
+      },
+      "error_message": null,
+      "execution_time_ms": 59.47232246398926,
+      "recommendations": []
+    },
+    {
+      "rule_id": "code_quality_002",
+      "test_name": "Code Complexity Analysis",
+      "timestamp": 1755887734.3404894,
+      "success": false,
+      "score": 0.5602167804094741,
+      "details": {
+        "total_files_analyzed": 20,
+        "average_complexity": 124.55,
+        "high_complexity_files": 17,
+        "function_count": 338,
+        "average_function_length": 40.387573964497044
+      },
+      "error_message": null,
+      "execution_time_ms": 89.15495872497559,
+      "recommendations": [
+        "Refactor complex functions to improve maintainability",
+        "Consider breaking down large files into smaller modules"
+      ]
+    }
+  ],
+  "quality_gate_results": {
+    "critical_gate": {
+      "passed": true,
+      "success_rate": 1.0,
+      "rules_passed": 3,
+      "rules_total": 3,
+      "blocking": true,
+      "description": "Critical issues must be resolved before deployment"
+    },
+    "high_priority_gate": {
+      "passed": true,
+      "success_rate": 1.0,
+      "rules_passed": 4,
+      "rules_total": 4,
+      "blocking": true,
+      "description": "High priority issues should be addressed"
+    },
+    "medium_priority_gate": {
+      "passed": false,
+      "success_rate": 0.75,
+      "rules_passed": 3,
+      "rules_total": 4,
+      "blocking": false,
+      "description": "Medium priority issues for continuous improvement"
+    }
+  },
+  "overall_status": "good",
+  "summary": {
+    "total_validations": 11,
+    "successful_validations": 10,
+    "overall_success_rate": 0.9090909090909091,
+    "average_score": 0.9236560709463159,
+    "total_execution_time_ms": 150.36630630493164,
+    "category_statistics": {
+      "security": {
+        "success_rate": 1.0,
+        "average_score": 0.915,
+        "total_validations": 2
+      },
+      "code_quality": {
+        "success_rate": 0.6666666666666666,
+        "average_score": 0.8534055934698247,
+        "total_validations": 3
+      },
+      "performance": {
+        "success_rate": 1.0,
+        "average_score": 1.0,
+        "total_validations": 2
+      },
+      "functional": {
+        "success_rate": 1.0,
+        "average_score": 0.96,
+        "total_validations": 2
+      },
+      "deployment": {
+        "success_rate": 1.0,
+        "average_score": 0.925,
+        "total_validations": 2
+      }
+    },
+    "total_recommendations": 6
+  },
+  "end_time": 1755887734.4312005,
+  "duration_minutes": 0.001537028948465983
+}
