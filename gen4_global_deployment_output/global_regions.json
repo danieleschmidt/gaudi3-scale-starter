@@ -1,0 +1,372 @@
+{
+  "regions": [
+    {
+      "region_id": "aws_us_east_1",
+      "name": "AWS US East (N. Virginia)",
+      "cloud_provider": "aws",
+      "location": {
+        "lat": 39.0458,
+        "lng": -77.5078
+      },
+      "availability_zones": [
+        "us-east-1a",
+        "us-east-1b",
+        "us-east-1c"
+      ],
+      "compliance_certifications": [
+        "SOC2",
+        "HIPAA",
+        "PCI",
+        "FedRAMP"
+      ],
+      "cost_per_hour_usd": 0.096,
+      "performance_rating": 0.95,
+      "latency_ms": {
+        "aws_us_east_1": 1.0,
+        "aws_eu_west_1": 115.0516567955031,
+        "aws_ap_southeast_1": 315.8375419036998,
+        "azure_east_us": 16.705447848015364,
+        "azure_west_europe": 134.555190483761,
+        "gcp_us_central1": 43.93202387877462,
+        "gcp_europe_west1": 138.80189744370648
+      },
+      "resource_availability": {
+        "cpu": 10000,
+        "memory": 50000,
+        "gpu": 1000
+      },
+      "current_utilization": {
+        "cpu": 0.72,
+        "memory": 0.92,
+        "gpu": 0.7
+      },
+      "data_residency_requirements": [
+        "US"
+      ]
+    },
+    {
+      "region_id": "aws_eu_west_1",
+      "name": "AWS Europe (Ireland)",
+      "cloud_provider": "aws",
+      "location": {
+        "lat": 53.3498,
+        "lng": -6.2603
+      },
+      "availability_zones": [
+        "eu-west-1a",
+        "eu-west-1b",
+        "eu-west-1c"
+      ],
+      "compliance_certifications": [
+        "GDPR",
+        "SOC2",
+        "ISO27001"
+      ],
+      "cost_per_hour_usd": 0.108,
+      "performance_rating": 0.92,
+      "latency_ms": {
+        "aws_us_east_1": 114.83353158699454,
+        "aws_eu_west_1": 1.0,
+        "aws_ap_southeast_1": 231.98438637977966,
+        "azure_east_us": 125.67347851725998,
+        "azure_west_europe": 21.24893120364601,
+        "gcp_us_central1": 138.67870379190714,
+        "gcp_europe_west1": 29.532369801762673
+      },
+      "resource_availability": {
+        "cpu": 8000,
+        "memory": 40000,
+        "gpu": 800
+      },
+      "current_utilization": {
+        "cpu": 0.7975,
+        "memory": 0.93,
+        "gpu": 0.78
+      },
+      "data_residency_requirements": [
+        "EU"
+      ]
+    },
+    {
+      "region_id": "aws_ap_southeast_1",
+      "name": "AWS Asia Pacific (Singapore)",
+      "cloud_provider": "aws",
+      "location": {
+        "lat": 1.3521,
+        "lng": 103.8198
+      },
+      "availability_zones": [
+        "ap-southeast-1a",
+        "ap-southeast-1b",
+        "ap-southeast-1c"
+      ],
+      "compliance_certifications": [
+        "SOC2",
+        "ISO27001",
+        "MTCS"
+      ],
+      "cost_per_hour_usd": 0.114,
+      "performance_rating": 0.89,
+      "latency_ms": {
+        "aws_us_east_1": 316.96753907809205,
+        "aws_eu_west_1": 235.60552166456034,
+        "aws_ap_southeast_1": 1.0,
+        "azure_east_us": 327.7407013219683,
+        "azure_west_europe": 219.98228639563786,
+        "gcp_us_central1": 308.0862145459069,
+        "gcp_europe_west1": 222.4199256359818
+      },
+      "resource_availability": {
+        "cpu": 6000,
+        "memory": 30000,
+        "gpu": 600
+      },
+      "current_utilization": {
+        "cpu": 0.58,
+        "memory": 0.75,
+        "gpu": 0.69
+      },
+      "data_residency_requirements": [
+        "APAC"
+      ]
+    },
+    {
+      "region_id": "azure_east_us",
+      "name": "Azure East US",
+      "cloud_provider": "azure",
+      "location": {
+        "lat": 37.3719,
+        "lng": -79.8164
+      },
+      "availability_zones": [
+        "1",
+        "2",
+        "3"
+      ],
+      "compliance_certifications": [
+        "SOC2",
+        "HIPAA",
+        "PCI",
+        "FedRAMP"
+      ],
+      "cost_per_hour_usd": 0.099,
+      "performance_rating": 0.93,
+      "latency_ms": {
+        "aws_us_east_1": 14.108910967754088,
+        "aws_eu_west_1": 122.32431118063734,
+        "aws_ap_southeast_1": 323.8009088426821,
+        "azure_east_us": 1.0,
+        "azure_west_europe": 139.0612908030139,
+        "gcp_us_central1": 40.46438909070265,
+        "gcp_europe_west1": 140.55425384501405
+      },
+      "resource_availability": {
+        "cpu": 9000,
+        "memory": 45000,
+        "gpu": 900
+      },
+      "current_utilization": {
+        "cpu": 0.6755555555555556,
+        "memory": 0.8677777777777778,
+        "gpu": 0.6611111111111111
+      },
+      "data_residency_requirements": [
+        "US"
+      ]
+    },
+    {
+      "region_id": "azure_west_europe",
+      "name": "Azure West Europe",
+      "cloud_provider": "azure",
+      "location": {
+        "lat": 52.3667,
+        "lng": 4.9
+      },
+      "availability_zones": [
+        "1",
+        "2",
+        "3"
+      ],
+      "compliance_certifications": [
+        "GDPR",
+        "SOC2",
+        "ISO27001"
+      ],
+      "cost_per_hour_usd": 0.112,
+      "performance_rating": 0.91,
+      "latency_ms": {
+        "aws_us_east_1": 130.6513392327348,
+        "aws_eu_west_1": 23.2734311991509,
+        "aws_ap_southeast_1": 218.05623919277198,
+        "azure_east_us": 138.6782664907202,
+        "azure_west_europe": 1.0,
+        "gcp_us_central1": 151.3875731293968,
+        "gcp_europe_west1": 8.640683985001722
+      },
+      "resource_availability": {
+        "cpu": 7500,
+        "memory": 38000,
+        "gpu": 750
+      },
+      "current_utilization": {
+        "cpu": 0.7066666666666667,
+        "memory": 0.7826315789473685,
+        "gpu": 0.6366666666666667
+      },
+      "data_residency_requirements": [
+        "EU"
+      ]
+    },
+    {
+      "region_id": "gcp_us_central1",
+      "name": "GCP US Central1 (Iowa)",
+      "cloud_provider": "gcp",
+      "location": {
+        "lat": 41.2619,
+        "lng": -95.8608
+      },
+      "availability_zones": [
+        "us-central1-a",
+        "us-central1-b",
+        "us-central1-c"
+      ],
+      "compliance_certifications": [
+        "SOC2",
+        "HIPAA",
+        "PCI"
+      ],
+      "cost_per_hour_usd": 0.094,
+      "performance_rating": 0.94,
+      "latency_ms": {
+        "aws_us_east_1": 41.35273135544564,
+        "aws_eu_west_1": 139.1531449422665,
+        "aws_ap_southeast_1": 310.72053217047926,
+        "azure_east_us": 40.06745358096602,
+        "azure_west_europe": 150.64056159799784,
+        "gcp_us_central1": 1.0,
+        "gcp_europe_west1": 157.1811340589244
+      },
+      "resource_availability": {
+        "cpu": 8500,
+        "memory": 42000,
+        "gpu": 850
+      },
+      "current_utilization": {
+        "cpu": 0.6488235294117647,
+        "memory": 0.8504761904761905,
+        "gpu": 0.6376470588235295
+      },
+      "data_residency_requirements": [
+        "US"
+      ]
+    },
+    {
+      "region_id": "gcp_europe_west1",
+      "name": "GCP Europe West1 (Belgium)",
+      "cloud_provider": "gcp",
+      "location": {
+        "lat": 50.8503,
+        "lng": 4.3517
+      },
+      "availability_zones": [
+        "europe-west1-b",
+        "europe-west1-c",
+        "europe-west1-d"
+      ],
+      "compliance_certifications": [
+        "GDPR",
+        "SOC2",
+        "ISO27001"
+      ],
+      "cost_per_hour_usd": 0.105,
+      "performance_rating": 0.9,
+      "latency_ms": {
+        "aws_us_east_1": 138.03464648698363,
+        "aws_eu_west_1": 29.2282980918823,
+        "aws_ap_southeast_1": 217.05502408261012,
+        "azure_east_us": 144.9908178162673,
+        "azure_west_europe": 9.47729402753569,
+        "gcp_us_central1": 158.74681856671873,
+        "gcp_europe_west1": 1.0
+      },
+      "resource_availability": {
+        "cpu": 7000,
+        "memory": 35000,
+        "gpu": 700
+      },
+      "current_utilization": {
+        "cpu": 0.7485714285714286,
+        "memory": 0.7671428571428571,
+        "gpu": 0.6885714285714286
+      },
+      "data_residency_requirements": [
+        "EU"
+      ]
+    }
+  ],
+  "connectivity_matrix": {
+    "aws_us_east_1": {
+      "aws_us_east_1": 1.0,
+      "aws_eu_west_1": 115.0516567955031,
+      "aws_ap_southeast_1": 315.8375419036998,
+      "azure_east_us": 16.705447848015364,
+      "azure_west_europe": 134.555190483761,
+      "gcp_us_central1": 43.93202387877462,
+      "gcp_europe_west1": 138.80189744370648
+    },
+    "aws_eu_west_1": {
+      "aws_us_east_1": 114.83353158699454,
+      "aws_eu_west_1": 1.0,
+      "aws_ap_southeast_1": 231.98438637977966,
+      "azure_east_us": 125.67347851725998,
+      "azure_west_europe": 21.24893120364601,
+      "gcp_us_central1": 138.67870379190714,
+      "gcp_europe_west1": 29.532369801762673
+    },
+    "aws_ap_southeast_1": {
+      "aws_us_east_1": 316.96753907809205,
+      "aws_eu_west_1": 235.60552166456034,
+      "aws_ap_southeast_1": 1.0,
+      "azure_east_us": 327.7407013219683,
+      "azure_west_europe": 219.98228639563786,
+      "gcp_us_central1": 308.0862145459069,
+      "gcp_europe_west1": 222.4199256359818
+    },
+    "azure_east_us": {
+      "aws_us_east_1": 14.108910967754088,
+      "aws_eu_west_1": 122.32431118063734,
+      "aws_ap_southeast_1": 323.8009088426821,
+      "azure_east_us": 1.0,
+      "azure_west_europe": 139.0612908030139,
+      "gcp_us_central1": 40.46438909070265,
+      "gcp_europe_west1": 140.55425384501405
+    },
+    "azure_west_europe": {
+      "aws_us_east_1": 130.6513392327348,
+      "aws_eu_west_1": 23.2734311991509,
+      "aws_ap_southeast_1": 218.05623919277198,
+      "azure_east_us": 138.6782664907202,
+      "azure_west_europe": 1.0,
+      "gcp_us_central1": 151.3875731293968,
+      "gcp_europe_west1": 8.640683985001722
+    },
+    "gcp_us_central1": {
+      "aws_us_east_1": 41.35273135544564,
+      "aws_eu_west_1": 139.1531449422665,
+      "aws_ap_southeast_1": 310.72053217047926,
+      "azure_east_us": 40.06745358096602,
+      "azure_west_europe": 150.64056159799784,
+      "gcp_us_central1": 1.0,
+      "gcp_europe_west1": 157.1811340589244
+    },
+    "gcp_europe_west1": {
+      "aws_us_east_1": 138.03464648698363,
+      "aws_eu_west_1": 29.2282980918823,
+      "aws_ap_southeast_1": 217.05502408261012,
+      "azure_east_us": 144.9908178162673,
+      "azure_west_europe": 9.47729402753569,
+      "gcp_us_central1": 158.74681856671873,
+      "gcp_europe_west1": 1.0
+    }
+  }
+}

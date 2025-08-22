@@ -1,0 +1,876 @@
+{
+  "session_id": "global_deploy_1755887874",
+  "start_time": 1755887874.7219968,
+  "config": {
+    "targets": [
+      {
+        "id": "ml_training_platform",
+        "name": "ML Training Platform",
+        "type": "ml_training",
+        "resources": {
+          "cpu": 500,
+          "memory": 8000,
+          "gpu": 100
+        },
+        "performance": {
+          "max_latency_ms": 100,
+          "min_throughput": 2000
+        },
+        "compliance": [
+          "SOC2",
+          "GDPR"
+        ],
+        "geography": {
+          "preferred_regions": [],
+          "data_residency": [
+            "US",
+            "EU"
+          ]
+        },
+        "cost": {
+          "max_hourly_cost_usd": 2.0
+        },
+        "scaling": {
+          "min_instances": 2,
+          "max_instances": 20,
+          "target_utilization": 0.75
+        },
+        "disaster_recovery": {
+          "multi_cloud": true,
+          "multi_region": true,
+          "backup_frequency_hours": 6,
+          "cross_region_backup": true
+        }
+      },
+      {
+        "id": "inference_api",
+        "name": "ML Inference API",
+        "type": "api_service",
+        "resources": {
+          "cpu": 200,
+          "memory": 2000,
+          "gpu": 20
+        },
+        "performance": {
+          "max_latency_ms": 50,
+          "min_throughput": 5000
+        },
+        "compliance": [
+          "SOC2"
+        ],
+        "geography": {
+          "data_residency": [
+            "US",
+            "EU",
+            "APAC"
+          ]
+        },
+        "cost": {
+          "max_hourly_cost_usd": 1.0
+        },
+        "scaling": {
+          "min_instances": 3,
+          "max_instances": 50,
+          "target_utilization": 0.8
+        },
+        "disaster_recovery": {
+          "multi_region": true,
+          "backup_frequency_hours": 12
+        }
+      }
+    ],
+    "max_regions_per_target": 4,
+    "deployment_strategy": "blue_green",
+    "rollback_enabled": true,
+    "global_monitoring": true,
+    "cost_optimization": true
+  },
+  "deployment_targets": [
+    {
+      "target_id": "ml_training_platform",
+      "name": "ML Training Platform",
+      "application_type": "ml_training",
+      "resource_requirements": {
+        "cpu": 500,
+        "memory": 8000,
+        "gpu": 100
+      },
+      "performance_requirements": {
+        "max_latency_ms": 100,
+        "min_throughput": 2000
+      },
+      "compliance_requirements": [
+        "SOC2",
+        "GDPR"
+      ],
+      "geographical_constraints": {
+        "preferred_regions": [],
+        "data_residency": [
+          "US",
+          "EU"
+        ]
+      },
+      "cost_constraints": {
+        "max_hourly_cost_usd": 2.0
+      },
+      "scaling_requirements": {
+        "min_instances": 2,
+        "max_instances": 20,
+        "target_utilization": 0.75
+      },
+      "disaster_recovery_requirements": {
+        "multi_cloud": true,
+        "multi_region": true,
+        "backup_frequency_hours": 6,
+        "cross_region_backup": true
+      }
+    },
+    {
+      "target_id": "inference_api",
+      "name": "ML Inference API",
+      "application_type": "api_service",
+      "resource_requirements": {
+        "cpu": 200,
+        "memory": 2000,
+        "gpu": 20
+      },
+      "performance_requirements": {
+        "max_latency_ms": 50,
+        "min_throughput": 5000
+      },
+      "compliance_requirements": [
+        "SOC2"
+      ],
+      "geographical_constraints": {
+        "data_residency": [
+          "US",
+          "EU",
+          "APAC"
+        ]
+      },
+      "cost_constraints": {
+        "max_hourly_cost_usd": 1.0
+      },
+      "scaling_requirements": {
+        "min_instances": 3,
+        "max_instances": 50,
+        "target_utilization": 0.8
+      },
+      "disaster_recovery_requirements": {
+        "multi_region": true,
+        "backup_frequency_hours": 12
+      }
+    }
+  ],
+  "regional_deployments": [
+    {
+      "target_id": "ml_training_platform",
+      "region_id": "aws_eu_west_1",
+      "region_name": "AWS Europe (Ireland)",
+      "cloud_provider": "aws",
+      "success": true,
+      "deployment_time_seconds": 70.82281343216198,
+      "deployment_plan": {
+        "region_id": "aws_eu_west_1",
+        "cloud_provider": "aws",
+        "availability_zones": [
+          "eu-west-1a",
+          "eu-west-1b"
+        ],
+        "estimated_cost_per_hour": 0.108,
+        "resource_allocation": {
+          "cpu": 500,
+          "memory": 8000,
+          "gpu": 100
+        },
+        "scaling_configuration": {
+          "min_instances": 2,
+          "max_instances": 20,
+          "target_utilization": 0.75
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.aws_eu_west_1.example.com",
+            "https://metrics.aws_eu_west_1.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.aws_eu_west_1.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 6,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 500,
+        "memory": 8000,
+        "gpu": 100
+      },
+      "endpoints": [
+        "https://ml_training_platform.aws_eu_west_1.example.com",
+        "https://api.ml_training_platform.aws_eu_west_1.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.aws_eu_west_1.example.com",
+          "https://metrics.aws_eu_west_1.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.aws_eu_west_1.example.com"
+      },
+      "estimated_monthly_cost_usd": 77.76,
+      "deployment_timestamp": 1755887874.8248155
+    },
+    {
+      "target_id": "ml_training_platform",
+      "region_id": "aws_us_east_1",
+      "region_name": "AWS US East (N. Virginia)",
+      "cloud_provider": "aws",
+      "success": true,
+      "deployment_time_seconds": 66.88939680195523,
+      "deployment_plan": {
+        "region_id": "aws_us_east_1",
+        "cloud_provider": "aws",
+        "availability_zones": [
+          "us-east-1a",
+          "us-east-1b"
+        ],
+        "estimated_cost_per_hour": 0.096,
+        "resource_allocation": {
+          "cpu": 500,
+          "memory": 8000,
+          "gpu": 100
+        },
+        "scaling_configuration": {
+          "min_instances": 2,
+          "max_instances": 20,
+          "target_utilization": 0.75
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.aws_us_east_1.example.com",
+            "https://metrics.aws_us_east_1.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.aws_us_east_1.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 6,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 500,
+        "memory": 8000,
+        "gpu": 100
+      },
+      "endpoints": [
+        "https://ml_training_platform.aws_us_east_1.example.com",
+        "https://api.ml_training_platform.aws_us_east_1.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.aws_us_east_1.example.com",
+          "https://metrics.aws_us_east_1.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.aws_us_east_1.example.com"
+      },
+      "estimated_monthly_cost_usd": 69.12,
+      "deployment_timestamp": 1755887874.8250504
+    },
+    {
+      "target_id": "ml_training_platform",
+      "region_id": "gcp_us_central1",
+      "region_name": "GCP US Central1 (Iowa)",
+      "cloud_provider": "gcp",
+      "success": true,
+      "deployment_time_seconds": 73.49120503395517,
+      "deployment_plan": {
+        "region_id": "gcp_us_central1",
+        "cloud_provider": "gcp",
+        "availability_zones": [
+          "us-central1-a",
+          "us-central1-b"
+        ],
+        "estimated_cost_per_hour": 0.094,
+        "resource_allocation": {
+          "cpu": 500,
+          "memory": 8000,
+          "gpu": 100
+        },
+        "scaling_configuration": {
+          "min_instances": 2,
+          "max_instances": 20,
+          "target_utilization": 0.75
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.gcp_us_central1.example.com",
+            "https://metrics.gcp_us_central1.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.gcp_us_central1.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 6,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 500,
+        "memory": 8000,
+        "gpu": 100
+      },
+      "endpoints": [
+        "https://ml_training_platform.gcp_us_central1.example.com",
+        "https://api.ml_training_platform.gcp_us_central1.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.gcp_us_central1.example.com",
+          "https://metrics.gcp_us_central1.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.gcp_us_central1.example.com"
+      },
+      "estimated_monthly_cost_usd": 67.68,
+      "deployment_timestamp": 1755887874.8251781
+    },
+    {
+      "target_id": "ml_training_platform",
+      "region_id": "azure_east_us",
+      "region_name": "Azure East US",
+      "cloud_provider": "azure",
+      "success": true,
+      "deployment_time_seconds": 40.42282699968517,
+      "deployment_plan": {
+        "region_id": "azure_east_us",
+        "cloud_provider": "azure",
+        "availability_zones": [
+          "1",
+          "2"
+        ],
+        "estimated_cost_per_hour": 0.099,
+        "resource_allocation": {
+          "cpu": 500,
+          "memory": 8000,
+          "gpu": 100
+        },
+        "scaling_configuration": {
+          "min_instances": 2,
+          "max_instances": 20,
+          "target_utilization": 0.75
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.azure_east_us.example.com",
+            "https://metrics.azure_east_us.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.azure_east_us.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 6,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 500,
+        "memory": 8000,
+        "gpu": 100
+      },
+      "endpoints": [
+        "https://ml_training_platform.azure_east_us.example.com",
+        "https://api.ml_training_platform.azure_east_us.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.azure_east_us.example.com",
+          "https://metrics.azure_east_us.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.azure_east_us.example.com"
+      },
+      "estimated_monthly_cost_usd": 71.28000000000002,
+      "deployment_timestamp": 1755887874.8272655
+    },
+    {
+      "target_id": "inference_api",
+      "region_id": "aws_us_east_1",
+      "region_name": "AWS US East (N. Virginia)",
+      "cloud_provider": "aws",
+      "success": true,
+      "deployment_time_seconds": 60.83203895470173,
+      "deployment_plan": {
+        "region_id": "aws_us_east_1",
+        "cloud_provider": "aws",
+        "availability_zones": [
+          "us-east-1a",
+          "us-east-1b"
+        ],
+        "estimated_cost_per_hour": 0.096,
+        "resource_allocation": {
+          "cpu": 200,
+          "memory": 2000,
+          "gpu": 20
+        },
+        "scaling_configuration": {
+          "min_instances": 3,
+          "max_instances": 50,
+          "target_utilization": 0.8
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.aws_us_east_1.example.com",
+            "https://metrics.aws_us_east_1.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.aws_us_east_1.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 12,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 200,
+        "memory": 2000,
+        "gpu": 20
+      },
+      "endpoints": [
+        "https://inference_api.aws_us_east_1.example.com",
+        "https://api.inference_api.aws_us_east_1.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.aws_us_east_1.example.com",
+          "https://metrics.aws_us_east_1.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.aws_us_east_1.example.com"
+      },
+      "estimated_monthly_cost_usd": 69.12,
+      "deployment_timestamp": 1755887874.930638
+    },
+    {
+      "target_id": "inference_api",
+      "region_id": "azure_west_europe",
+      "region_name": "Azure West Europe",
+      "cloud_provider": "azure",
+      "success": true,
+      "deployment_time_seconds": 33.609245923467064,
+      "deployment_plan": {
+        "region_id": "azure_west_europe",
+        "cloud_provider": "azure",
+        "availability_zones": [
+          "1",
+          "2"
+        ],
+        "estimated_cost_per_hour": 0.112,
+        "resource_allocation": {
+          "cpu": 200,
+          "memory": 2000,
+          "gpu": 20
+        },
+        "scaling_configuration": {
+          "min_instances": 3,
+          "max_instances": 50,
+          "target_utilization": 0.8
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.azure_west_europe.example.com",
+            "https://metrics.azure_west_europe.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.azure_west_europe.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 12,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 200,
+        "memory": 2000,
+        "gpu": 20
+      },
+      "endpoints": [
+        "https://inference_api.azure_west_europe.example.com",
+        "https://api.inference_api.azure_west_europe.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.azure_west_europe.example.com",
+          "https://metrics.azure_west_europe.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.azure_west_europe.example.com"
+      },
+      "estimated_monthly_cost_usd": 80.64,
+      "deployment_timestamp": 1755887874.9307537
+    },
+    {
+      "target_id": "inference_api",
+      "region_id": "gcp_europe_west1",
+      "region_name": "GCP Europe West1 (Belgium)",
+      "cloud_provider": "gcp",
+      "success": true,
+      "deployment_time_seconds": 97.44258408375178,
+      "deployment_plan": {
+        "region_id": "gcp_europe_west1",
+        "cloud_provider": "gcp",
+        "availability_zones": [
+          "europe-west1-b",
+          "europe-west1-c"
+        ],
+        "estimated_cost_per_hour": 0.105,
+        "resource_allocation": {
+          "cpu": 200,
+          "memory": 2000,
+          "gpu": 20
+        },
+        "scaling_configuration": {
+          "min_instances": 3,
+          "max_instances": 50,
+          "target_utilization": 0.8
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.gcp_europe_west1.example.com",
+            "https://metrics.gcp_europe_west1.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.gcp_europe_west1.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 12,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 200,
+        "memory": 2000,
+        "gpu": 20
+      },
+      "endpoints": [
+        "https://inference_api.gcp_europe_west1.example.com",
+        "https://api.inference_api.gcp_europe_west1.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.gcp_europe_west1.example.com",
+          "https://metrics.gcp_europe_west1.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.gcp_europe_west1.example.com"
+      },
+      "estimated_monthly_cost_usd": 75.6,
+      "deployment_timestamp": 1755887874.9307826
+    },
+    {
+      "target_id": "inference_api",
+      "region_id": "aws_eu_west_1",
+      "region_name": "AWS Europe (Ireland)",
+      "cloud_provider": "aws",
+      "success": true,
+      "deployment_time_seconds": 36.185934113448624,
+      "deployment_plan": {
+        "region_id": "aws_eu_west_1",
+        "cloud_provider": "aws",
+        "availability_zones": [
+          "eu-west-1a",
+          "eu-west-1b"
+        ],
+        "estimated_cost_per_hour": 0.108,
+        "resource_allocation": {
+          "cpu": 200,
+          "memory": 2000,
+          "gpu": 20
+        },
+        "scaling_configuration": {
+          "min_instances": 3,
+          "max_instances": 50,
+          "target_utilization": 0.8
+        },
+        "monitoring_endpoints": {
+          "metrics_collection_interval": 30,
+          "health_check_endpoints": [
+            "https://health.aws_eu_west_1.example.com",
+            "https://metrics.aws_eu_west_1.example.com"
+          ],
+          "alerting_rules": {
+            "high_cpu_threshold": 0.8,
+            "high_memory_threshold": 0.85,
+            "response_time_threshold_ms": 1000
+          },
+          "dashboard_url": "https://dashboard.aws_eu_west_1.example.com"
+        },
+        "backup_strategy": {
+          "backup_frequency_hours": 12,
+          "retention_days": 30,
+          "cross_region_backup": true,
+          "backup_storage_class": "cold"
+        }
+      },
+      "resources_allocated": {
+        "cpu": 200,
+        "memory": 2000,
+        "gpu": 20
+      },
+      "endpoints": [
+        "https://inference_api.aws_eu_west_1.example.com",
+        "https://api.inference_api.aws_eu_west_1.example.com"
+      ],
+      "monitoring_endpoints": {
+        "metrics_collection_interval": 30,
+        "health_check_endpoints": [
+          "https://health.aws_eu_west_1.example.com",
+          "https://metrics.aws_eu_west_1.example.com"
+        ],
+        "alerting_rules": {
+          "high_cpu_threshold": 0.8,
+          "high_memory_threshold": 0.85,
+          "response_time_threshold_ms": 1000
+        },
+        "dashboard_url": "https://dashboard.aws_eu_west_1.example.com"
+      },
+      "estimated_monthly_cost_usd": 77.76,
+      "deployment_timestamp": 1755887874.931088
+    }
+  ],
+  "global_configuration": {
+    "ml_training_platform": {
+      "load_balancer_type": "global",
+      "routing_policy": "latency_based",
+      "health_check_interval": 30,
+      "failover_threshold_seconds": 10,
+      "region_weights": {
+        "aws_eu_west_1": 0.26111463397449447,
+        "gcp_us_central1": 0.24709363770872966,
+        "aws_us_east_1": 0.2467413513703939,
+        "azure_east_us": 0.24505037694638204
+      },
+      "traffic_distribution": "auto",
+      "ssl_termination": true,
+      "cdn_enabled": true,
+      "global_endpoint": "https://global.ml_training_platform.example.com"
+    },
+    "inference_api": {
+      "load_balancer_type": "global",
+      "routing_policy": "latency_based",
+      "health_check_interval": 30,
+      "failover_threshold_seconds": 10,
+      "region_weights": {
+        "aws_us_east_1": 0.25257225244118225,
+        "aws_eu_west_1": 0.24981977849138215,
+        "azure_west_europe": 0.24890228717478208,
+        "gcp_europe_west1": 0.2487056818926535
+      },
+      "traffic_distribution": "auto",
+      "ssl_termination": true,
+      "cdn_enabled": true,
+      "global_endpoint": "https://global.inference_api.example.com"
+    }
+  },
+  "monitoring_setup": {
+    "monitoring_stack": "prometheus_grafana",
+    "metrics_aggregation": "global",
+    "alerting_rules": {
+      "global_availability": {
+        "threshold": 0.99,
+        "evaluation_window": "5m"
+      },
+      "cross_region_latency": {
+        "threshold": 500,
+        "unit": "ms"
+      },
+      "regional_failure": {
+        "threshold": 1,
+        "severity": "critical"
+      }
+    },
+    "dashboards": {
+      "global_overview": "https://monitoring.global.example.com/global",
+      "regional_breakdown": "https://monitoring.global.example.com/regions",
+      "cost_tracking": "https://monitoring.global.example.com/costs"
+    },
+    "log_aggregation": {
+      "backend": "elasticsearch",
+      "retention_days": 90,
+      "cross_region_search": true
+    },
+    "tracing": {
+      "backend": "jaeger",
+      "sampling_rate": 0.1,
+      "cross_region_correlation": true
+    }
+  },
+  "disaster_recovery_plan": {
+    "recovery_time_objective_minutes": 15,
+    "recovery_point_objective_minutes": 60,
+    "automated_failover": true,
+    "backup_strategy": {
+      "frequency": "hourly",
+      "cross_region_replication": true,
+      "point_in_time_recovery": true
+    },
+    "failover_scenarios": [
+      {
+        "scenario": "single_region_failure",
+        "response": "automatic_traffic_redirect",
+        "recovery_time_minutes": 5
+      },
+      {
+        "scenario": "multi_region_failure",
+        "response": "manual_intervention",
+        "recovery_time_minutes": 30
+      },
+      {
+        "scenario": "global_provider_outage",
+        "response": "cross_cloud_failover",
+        "recovery_time_minutes": 60
+      }
+    ],
+    "communication_plan": {
+      "notification_channels": [
+        "email",
+        "slack",
+        "pagerduty"
+      ],
+      "escalation_matrix": {
+        "level_1": "on_call_engineer",
+        "level_2": "engineering_manager",
+        "level_3": "cto"
+      }
+    },
+    "testing_schedule": {
+      "drill_frequency": "monthly",
+      "full_test_frequency": "quarterly",
+      "automated_tests": "daily"
+    }
+  },
+  "cost_optimization": {
+    "total_estimated_monthly_cost_usd": 588.96,
+    "cost_by_region": {
+      "aws_eu_west_1": 77.76,
+      "aws_us_east_1": 69.12,
+      "gcp_us_central1": 67.68,
+      "azure_east_us": 71.28000000000002,
+      "azure_west_europe": 80.64,
+      "gcp_europe_west1": 75.6
+    },
+    "cost_optimization_potential_percent": 25,
+    "optimization_recommendations": [
+      "Evaluate traffic patterns for potential region consolidation",
+      "Review resource allocation in azure_west_europe (highest cost: $80.64/month)"
+    ],
+    "cost_tracking": {
+      "budget_alerts": true,
+      "spending_forecasts": true,
+      "cost_anomaly_detection": true
+    },
+    "savings_opportunities": {
+      "reserved_instances": {
+        "potential_savings_percent": 30,
+        "commitment_years": 1
+      },
+      "spot_instances": {
+        "potential_savings_percent": 60,
+        "availability_risk": "medium"
+      },
+      "resource_right_sizing": {
+        "potential_savings_percent": 15,
+        "effort_required": "low"
+      }
+    }
+  },
+  "status": "completed",
+  "end_time": 1755887874.932441,
+  "duration_minutes": 0.003507403532663981
+}
