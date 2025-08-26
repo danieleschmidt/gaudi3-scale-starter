@@ -1,0 +1,371 @@
+{
+  "global_deployment_id": "global_deployment_1756183728",
+  "deployment_plan": {
+    "applications": [
+      "generation7-intelligence-amplifier",
+      "quantum-load-balancer"
+    ],
+    "targets": [
+      "prod-aws-us-east-1"
+    ]
+  },
+  "deployment_strategy": "blue_green",
+  "start_time": 1756183728.210653,
+  "infrastructure_results": {
+    "prod-aws-us-east-1": {
+      "provision_id": "provision_prod-aws-us-east-1_1756183728",
+      "deployment_target": "prod-aws-us-east-1",
+      "start_time": 1756183728.2113004,
+      "terraform_config_generated": true,
+      "provisioning_steps": [
+        {
+          "step_id": "terraform_init",
+          "description": "Initialize Terraform",
+          "status": "SUCCESS",
+          "duration": 4.291534423828125e-06,
+          "result": {
+            "providers_downloaded": [
+              "kubernetes",
+              "helm",
+              "aws"
+            ],
+            "backend_configured": true,
+            "modules_initialized": true
+          }
+        },
+        {
+          "step_id": "terraform_plan",
+          "description": "Generate execution plan",
+          "status": "SUCCESS",
+          "duration": 1.0251998901367188e-05,
+          "result": {
+            "resources_to_add": 15,
+            "resources_to_change": 0,
+            "resources_to_destroy": 0,
+            "estimated_cost_change": "+$125.50/month"
+          }
+        },
+        {
+          "step_id": "terraform_apply",
+          "description": "Apply infrastructure changes",
+          "status": "SUCCESS",
+          "duration": 3.814697265625e-05,
+          "result": {
+            "resources_created": [
+              "aws_vpc.main",
+              "aws_subnet.main",
+              "kubernetes_cluster.prod-aws-us-east-1",
+              "kubernetes_namespace.monitoring",
+              "kubernetes_namespace.generation7"
+            ],
+            "outputs_generated": [
+              "cluster_endpoint",
+              "cluster_name",
+              "kubeconfig"
+            ]
+          }
+        },
+        {
+          "step_id": "validate_infrastructure",
+          "description": "Validate provisioned infrastructure",
+          "status": "SUCCESS",
+          "duration": 2.384185791015625e-05,
+          "result": {
+            "cluster_status": "active",
+            "node_pools_ready": true,
+            "networking_configured": true,
+            "security_groups_applied": true
+          }
+        }
+      ],
+      "infrastructure_resources": [
+        "aws_vpc.main",
+        "aws_subnet.main",
+        "kubernetes_cluster.prod-aws-us-east-1",
+        "kubernetes_namespace.monitoring",
+        "kubernetes_namespace.generation7"
+      ],
+      "outputs": {},
+      "completion_time": 1756183729.111012,
+      "total_duration": 0.8997135162353516,
+      "success": true,
+      "success_rate": 1.0,
+      "total_resources_created": 5,
+      "cluster_ready": true
+    }
+  },
+  "application_deployments": {
+    "generation7-intelligence-amplifier": {
+      "prod-aws-us-east-1": {
+        "deployment_id": "deploy_generation7-intelligence-amplifier_prod-aws-us-east-1_1756183729",
+        "app_name": "generation7-intelligence-amplifier",
+        "app_version": "7.0.0",
+        "deployment_target": "prod-aws-us-east-1",
+        "deployment_strategy": "blue_green",
+        "start_time": 1756183729.113442,
+        "helm_chart_created": true,
+        "deployment_steps": [
+          {
+            "step_id": "validate_cluster",
+            "description": "Validate Kubernetes cluster connectivity",
+            "status": "SUCCESS",
+            "duration": 5.4836273193359375e-06,
+            "result": {
+              "cluster_accessible": true,
+              "kubernetes_version": "1.29.0",
+              "node_count": 3,
+              "available_resources": true
+            }
+          },
+          {
+            "step_id": "prepare_green_environment",
+            "description": "Prepare green environment",
+            "status": "SUCCESS",
+            "duration": 1.4781951904296875e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "deploy_green_version",
+            "description": "Deploy new version to green environment",
+            "status": "SUCCESS",
+            "duration": 1.7881393432617188e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "run_green_tests",
+            "description": "Run integration tests on green environment",
+            "status": "SUCCESS",
+            "duration": 1.7642974853515625e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "switch_traffic",
+            "description": "Switch traffic from blue to green",
+            "status": "SUCCESS",
+            "duration": 1.3828277587890625e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "verify_green_deployment",
+            "description": "Verify green deployment stability",
+            "status": "SUCCESS",
+            "duration": 1.1205673217773438e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "cleanup_blue_environment",
+            "description": "Cleanup blue environment resources",
+            "status": "SUCCESS",
+            "duration": 2.765655517578125e-05,
+            "result": {
+              "step_executed": true
+            }
+          }
+        ],
+        "deployed_resources": [],
+        "service_endpoints": [],
+        "completion_time": 1756183729.8291252,
+        "total_duration": 0.7156858444213867,
+        "success": true,
+        "success_rate": 1.0,
+        "deployment_status": "deployed",
+        "service_url": "https://generation7-intelligence-amplifier.terragonlabs.com",
+        "monitoring_dashboard": "https://grafana.terragonlabs.com/d/generation7-intelligence-amplifier"
+      }
+    },
+    "quantum-load-balancer": {
+      "prod-aws-us-east-1": {
+        "deployment_id": "deploy_quantum-load-balancer_prod-aws-us-east-1_1756183729",
+        "app_name": "quantum-load-balancer",
+        "app_version": "7.1.0",
+        "deployment_target": "prod-aws-us-east-1",
+        "deployment_strategy": "blue_green",
+        "start_time": 1756183729.8314586,
+        "helm_chart_created": true,
+        "deployment_steps": [
+          {
+            "step_id": "validate_cluster",
+            "description": "Validate Kubernetes cluster connectivity",
+            "status": "SUCCESS",
+            "duration": 2.6226043701171875e-06,
+            "result": {
+              "cluster_accessible": true,
+              "kubernetes_version": "1.29.0",
+              "node_count": 3,
+              "available_resources": true
+            }
+          },
+          {
+            "step_id": "prepare_green_environment",
+            "description": "Prepare green environment",
+            "status": "SUCCESS",
+            "duration": 2.2411346435546875e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "deploy_green_version",
+            "description": "Deploy new version to green environment",
+            "status": "SUCCESS",
+            "duration": 1.6927719116210938e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "run_green_tests",
+            "description": "Run integration tests on green environment",
+            "status": "SUCCESS",
+            "duration": 2.193450927734375e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "switch_traffic",
+            "description": "Switch traffic from blue to green",
+            "status": "SUCCESS",
+            "duration": 1.7881393432617188e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "verify_green_deployment",
+            "description": "Verify green deployment stability",
+            "status": "SUCCESS",
+            "duration": 1.71661376953125e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "cleanup_blue_environment",
+            "description": "Cleanup blue environment resources",
+            "status": "SUCCESS",
+            "duration": 1.9550323486328125e-05,
+            "result": {
+              "step_executed": true
+            }
+          }
+        ],
+        "deployed_resources": [],
+        "service_endpoints": [],
+        "completion_time": 1756183730.537978,
+        "total_duration": 0.7065203189849854,
+        "success": true,
+        "success_rate": 1.0,
+        "deployment_status": "deployed",
+        "service_url": "https://quantum-load-balancer.terragonlabs.com",
+        "monitoring_dashboard": "https://grafana.terragonlabs.com/d/quantum-load-balancer"
+      }
+    }
+  },
+  "regional_results": {
+    "prod-aws-us-east-1": {
+      "region": "US East (N. Virginia)",
+      "environment": "production",
+      "cloud_provider": "aws",
+      "validation_checks": {
+        "cluster_health": {
+          "score": 0.951,
+          "status": "HEALTHY"
+        },
+        "application_health": {
+          "score": 0.909,
+          "status": "HEALTHY"
+        },
+        "network_connectivity": {
+          "score": 0.981,
+          "status": "HEALTHY"
+        },
+        "security_compliance": {
+          "score": 0.918,
+          "status": "HEALTHY"
+        },
+        "monitoring_active": {
+          "score": 0.965,
+          "status": "HEALTHY"
+        }
+      },
+      "overall_health": 0.9448000000000001,
+      "health_status": "HEALTHY",
+      "validation_timestamp": 1756183730.5397034
+    }
+  },
+  "overall_success": true,
+  "deployment_summary": {
+    "total_applications": 2,
+    "total_deployment_targets": 1,
+    "successful_app_deployments": 2,
+    "successful_regions": 1,
+    "infrastructure_success_rate": 1.0,
+    "application_success_rate": 1.0,
+    "regional_success_rate": 1.0,
+    "global_deployment_urls": {
+      "generation7-intelligence-amplifier": [
+        "https://generation7-intelligence-amplifier.terragonlabs.com",
+        "https://generation7-intelligence-amplifier-eu.terragonlabs.com",
+        "https://generation7-intelligence-amplifier-asia.terragonlabs.com"
+      ],
+      "quantum-load-balancer": [
+        "https://quantum-load-balancer.terragonlabs.com",
+        "https://quantum-load-balancer-eu.terragonlabs.com",
+        "https://quantum-load-balancer-asia.terragonlabs.com"
+      ]
+    },
+    "monitoring_dashboards": {
+      "grafana_global": "https://grafana.terragonlabs.com/d/generation7-global",
+      "prometheus_global": "https://prometheus.terragonlabs.com/graph",
+      "alertmanager": "https://alertmanager.terragonlabs.com",
+      "jaeger_tracing": "https://jaeger.terragonlabs.com",
+      "kibana_logs": "https://kibana.terragonlabs.com"
+    }
+  },
+  "health_check_results": {
+    "global_health_score": 0.88,
+    "application_health": {
+      "generation7-intelligence-amplifier": {
+        "regional_health": {
+          "prod-aws-us-east-1": {
+            "health_score": 0.9,
+            "response_time_ms": 45,
+            "error_rate": 0.02,
+            "throughput_rps": 1050
+          }
+        },
+        "average_health": 0.9,
+        "global_status": "HEALTHY"
+      },
+      "quantum-load-balancer": {
+        "regional_health": {
+          "prod-aws-us-east-1": {
+            "health_score": 0.86,
+            "response_time_ms": 61,
+            "error_rate": 0.06,
+            "throughput_rps": 1166
+          }
+        },
+        "average_health": 0.86,
+        "global_status": "HEALTHY"
+      }
+    },
+    "regional_health": {},
+    "service_connectivity": {},
+    "performance_metrics": {}
+  },
+  "completion_time": 1756183730.5399828,
+  "total_deployment_time": 2.3293302059173584,
+  "next_deployment_window": 1756788530.539984
+}

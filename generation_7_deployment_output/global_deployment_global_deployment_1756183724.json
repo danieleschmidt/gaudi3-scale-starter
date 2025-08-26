@@ -1,0 +1,301 @@
+{
+  "global_deployment_id": "global_deployment_1756183724",
+  "deployment_plan": {
+    "applications": [
+      "quantum-load-balancer"
+    ],
+    "targets": [
+      "staging-aws-us-west-2"
+    ]
+  },
+  "deployment_strategy": "rolling",
+  "start_time": 1756183724.497838,
+  "infrastructure_results": {
+    "staging-aws-us-west-2": {
+      "provision_id": "provision_staging-aws-us-west-2_1756183724",
+      "deployment_target": "staging-aws-us-west-2",
+      "start_time": 1756183724.498567,
+      "terraform_config_generated": true,
+      "provisioning_steps": [
+        {
+          "step_id": "terraform_init",
+          "description": "Initialize Terraform",
+          "status": "SUCCESS",
+          "duration": 5.245208740234375e-06,
+          "result": {
+            "providers_downloaded": [
+              "kubernetes",
+              "helm",
+              "aws"
+            ],
+            "backend_configured": true,
+            "modules_initialized": true
+          }
+        },
+        {
+          "step_id": "terraform_plan",
+          "description": "Generate execution plan",
+          "status": "SUCCESS",
+          "duration": 0.00010538101196289062,
+          "result": {
+            "resources_to_add": 15,
+            "resources_to_change": 0,
+            "resources_to_destroy": 0,
+            "estimated_cost_change": "+$125.50/month"
+          }
+        },
+        {
+          "step_id": "terraform_apply",
+          "description": "Apply infrastructure changes",
+          "status": "SUCCESS",
+          "duration": 4.553794860839844e-05,
+          "result": {
+            "resources_created": [
+              "aws_vpc.main",
+              "aws_subnet.main",
+              "kubernetes_cluster.staging-aws-us-west-2",
+              "kubernetes_namespace.monitoring",
+              "kubernetes_namespace.generation7"
+            ],
+            "outputs_generated": [
+              "cluster_endpoint",
+              "cluster_name",
+              "kubeconfig"
+            ]
+          }
+        },
+        {
+          "step_id": "validate_infrastructure",
+          "description": "Validate provisioned infrastructure",
+          "status": "SUCCESS",
+          "duration": 1.6450881958007812e-05,
+          "result": {
+            "cluster_status": "active",
+            "node_pools_ready": true,
+            "networking_configured": true,
+            "security_groups_applied": true
+          }
+        }
+      ],
+      "infrastructure_resources": [
+        "aws_vpc.main",
+        "aws_subnet.main",
+        "kubernetes_cluster.staging-aws-us-west-2",
+        "kubernetes_namespace.monitoring",
+        "kubernetes_namespace.generation7"
+      ],
+      "outputs": {},
+      "completion_time": 1756183725.3005922,
+      "total_duration": 0.8020265102386475,
+      "success": true,
+      "success_rate": 1.0,
+      "total_resources_created": 5,
+      "cluster_ready": true
+    }
+  },
+  "application_deployments": {
+    "quantum-load-balancer": {
+      "staging-aws-us-west-2": {
+        "deployment_id": "deploy_quantum-load-balancer_staging-aws-us-west-2_1756183725",
+        "app_name": "quantum-load-balancer",
+        "app_version": "7.1.0",
+        "deployment_target": "staging-aws-us-west-2",
+        "deployment_strategy": "rolling",
+        "start_time": 1756183725.3022628,
+        "helm_chart_created": true,
+        "deployment_steps": [
+          {
+            "step_id": "validate_cluster",
+            "description": "Validate Kubernetes cluster connectivity",
+            "status": "SUCCESS",
+            "duration": 3.5762786865234375e-06,
+            "result": {
+              "cluster_accessible": true,
+              "kubernetes_version": "1.29.0",
+              "node_count": 3,
+              "available_resources": true
+            }
+          },
+          {
+            "step_id": "create_namespace",
+            "description": "Create or update namespace",
+            "status": "SUCCESS",
+            "duration": 3.4332275390625e-05,
+            "result": {
+              "namespace_created": "generation7-staging",
+              "rbac_configured": true,
+              "resource_quotas_applied": true
+            }
+          },
+          {
+            "step_id": "deploy_secrets",
+            "description": "Deploy application secrets",
+            "status": "SUCCESS",
+            "duration": 2.193450927734375e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "deploy_configmaps",
+            "description": "Deploy configuration maps",
+            "status": "SUCCESS",
+            "duration": 2.0742416381835938e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "install_helm_chart",
+            "description": "Install Helm chart with rolling update",
+            "status": "SUCCESS",
+            "duration": 4.00543212890625e-05,
+            "result": {
+              "helm_release": "quantum-load-balancer-staging",
+              "chart_version": "1.0.0",
+              "resources_created": [
+                "Deployment/generation7-ai",
+                "Service/generation7-ai",
+                "Ingress/generation7-ai",
+                "HorizontalPodAutoscaler/generation7-ai"
+              ]
+            }
+          },
+          {
+            "step_id": "verify_rollout",
+            "description": "Verify rolling deployment completion",
+            "status": "SUCCESS",
+            "duration": 1.4781951904296875e-05,
+            "result": {
+              "deployment_ready": true,
+              "replicas_available": 2,
+              "rollout_status": "complete",
+              "ready_pods": 2
+            }
+          },
+          {
+            "step_id": "run_health_checks",
+            "description": "Execute application health checks",
+            "status": "SUCCESS",
+            "duration": 1.4543533325195312e-05,
+            "result": {
+              "liveness_check": "passing",
+              "readiness_check": "passing",
+              "startup_probe": "passing",
+              "response_time_ms": 45.2
+            }
+          },
+          {
+            "step_id": "configure_ingress",
+            "description": "Configure ingress and load balancing",
+            "status": "SUCCESS",
+            "duration": 1.9788742065429688e-05,
+            "result": {
+              "step_executed": true
+            }
+          },
+          {
+            "step_id": "setup_monitoring",
+            "description": "Setup monitoring and alerting",
+            "status": "SUCCESS",
+            "duration": 1.3589859008789062e-05,
+            "result": {
+              "prometheus_scraping": true,
+              "grafana_dashboard": true,
+              "alerting_rules": true,
+              "log_aggregation": true
+            }
+          }
+        ],
+        "deployed_resources": [],
+        "service_endpoints": [],
+        "completion_time": 1756183726.2059374,
+        "total_duration": 0.9036750793457031,
+        "success": true,
+        "success_rate": 1.0,
+        "deployment_status": "deployed",
+        "service_url": "https://quantum-load-balancer.terragonlabs.com",
+        "monitoring_dashboard": "https://grafana.terragonlabs.com/d/quantum-load-balancer"
+      }
+    }
+  },
+  "regional_results": {
+    "staging-aws-us-west-2": {
+      "region": "US West (Oregon)",
+      "environment": "staging",
+      "cloud_provider": "aws",
+      "validation_checks": {
+        "cluster_health": {
+          "score": 0.94,
+          "status": "HEALTHY"
+        },
+        "application_health": {
+          "score": 0.893,
+          "status": "HEALTHY"
+        },
+        "network_connectivity": {
+          "score": 0.972,
+          "status": "HEALTHY"
+        },
+        "security_compliance": {
+          "score": 0.915,
+          "status": "HEALTHY"
+        },
+        "monitoring_active": {
+          "score": 0.969,
+          "status": "HEALTHY"
+        }
+      },
+      "overall_health": 0.9378,
+      "health_status": "HEALTHY",
+      "validation_timestamp": 1756183726.2071848
+    }
+  },
+  "overall_success": true,
+  "deployment_summary": {
+    "total_applications": 1,
+    "total_deployment_targets": 1,
+    "successful_app_deployments": 1,
+    "successful_regions": 1,
+    "infrastructure_success_rate": 1.0,
+    "application_success_rate": 1.0,
+    "regional_success_rate": 1.0,
+    "global_deployment_urls": {
+      "quantum-load-balancer": [
+        "https://quantum-load-balancer.terragonlabs.com",
+        "https://quantum-load-balancer-eu.terragonlabs.com",
+        "https://quantum-load-balancer-asia.terragonlabs.com"
+      ]
+    },
+    "monitoring_dashboards": {
+      "grafana_global": "https://grafana.terragonlabs.com/d/generation7-global",
+      "prometheus_global": "https://prometheus.terragonlabs.com/graph",
+      "alertmanager": "https://alertmanager.terragonlabs.com",
+      "jaeger_tracing": "https://jaeger.terragonlabs.com",
+      "kibana_logs": "https://kibana.terragonlabs.com"
+    }
+  },
+  "health_check_results": {
+    "global_health_score": 0.87,
+    "application_health": {
+      "quantum-load-balancer": {
+        "regional_health": {
+          "staging-aws-us-west-2": {
+            "health_score": 0.87,
+            "response_time_ms": 92,
+            "error_rate": 0.05,
+            "throughput_rps": 1047
+          }
+        },
+        "average_health": 0.87,
+        "global_status": "HEALTHY"
+      }
+    },
+    "regional_health": {},
+    "service_connectivity": {},
+    "performance_metrics": {}
+  },
+  "completion_time": 1756183726.2074156,
+  "total_deployment_time": 1.7095777988433838,
+  "next_deployment_window": 1756788526.2074165
+}

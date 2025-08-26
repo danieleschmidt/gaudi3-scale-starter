@@ -1,0 +1,35 @@
+{
+  "global_deployment_id": "global_deployment_1756183728",
+  "deployment_strategy": "blue_green",
+  "overall_success": true,
+  "total_deployment_time": 2.3293302059173584,
+  "deployment_summary": {
+    "total_applications": 2,
+    "total_deployment_targets": 1,
+    "successful_app_deployments": 2,
+    "successful_regions": 1,
+    "infrastructure_success_rate": 1.0,
+    "application_success_rate": 1.0,
+    "regional_success_rate": 1.0,
+    "global_deployment_urls": {
+      "generation7-intelligence-amplifier": [
+        "https://generation7-intelligence-amplifier.terragonlabs.com",
+        "https://generation7-intelligence-amplifier-eu.terragonlabs.com",
+        "https://generation7-intelligence-amplifier-asia.terragonlabs.com"
+      ],
+      "quantum-load-balancer": [
+        "https://quantum-load-balancer.terragonlabs.com",
+        "https://quantum-load-balancer-eu.terragonlabs.com",
+        "https://quantum-load-balancer-asia.terragonlabs.com"
+      ]
+    },
+    "monitoring_dashboards": {
+      "grafana_global": "https://grafana.terragonlabs.com/d/generation7-global",
+      "prometheus_global": "https://prometheus.terragonlabs.com/graph",
+      "alertmanager": "https://alertmanager.terragonlabs.com",
+      "jaeger_tracing": "https://jaeger.terragonlabs.com",
+      "kibana_logs": "https://kibana.terragonlabs.com"
+    }
+  },
+  "deployment_timestamp": 1756183728.210653
+}
