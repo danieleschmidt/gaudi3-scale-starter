@@ -1,28 +1,28 @@
 {
   "overall_success": false,
-  "execution_time": 0.09747147560119629,
+  "execution_time": 0.1028752326965332,
   "gate_results": [
     {
       "gate_name": "quantum_code_analysis",
       "passed": false,
       "metrics": {
         "gate_id": "quantum_code_analysis",
-        "execution_time": 0.019872665405273438,
+        "execution_time": 0.02261066436767578,
         "success_rate": 0.0,
-        "performance_score": 0.9990242194521486,
+        "performance_score": 0.9992794225267984,
         "security_score": 0.85,
-        "reliability_score": 0.14457831325301204,
-        "quantum_coherence": 0.12768579068809077,
+        "reliability_score": 0.11162790697674418,
+        "quantum_coherence": 0.17616669798249696,
         "autonomous_intelligence": 0.8,
         "global_compliance": 0.85,
-        "timestamp": "2025-08-16T18:55:56.189703+00:00"
+        "timestamp": "2025-08-27T15:30:19.544368+00:00"
       },
       "details": {
-        "total_python_files": 166,
+        "total_python_files": 215,
         "total_test_files": 24,
-        "average_complexity": 0.009757805478514615,
-        "coverage_estimate": 0.14457831325301204,
-        "total_lines": 5892
+        "average_complexity": 0.00720577473201656,
+        "coverage_estimate": 0.11162790697674418,
+        "total_lines": 7507
       },
       "recommendations": [
         "Code complexity is optimal",
@@ -38,20 +38,20 @@
       "passed": false,
       "metrics": {
         "gate_id": "autonomous_testing",
-        "execution_time": 0.023792028427124023,
+        "execution_time": 0.025472402572631836,
         "success_rate": 0.85,
-        "performance_score": 0.14457831325301204,
+        "performance_score": 0.11162790697674418,
         "security_score": 0.9,
         "reliability_score": 0.85,
         "quantum_coherence": 0.8,
         "autonomous_intelligence": 0.9,
         "global_compliance": 0.85,
-        "timestamp": "2025-08-16T18:55:56.214049+00:00"
+        "timestamp": "2025-08-27T15:30:19.570303+00:00"
       },
       "details": {
         "tests_run": 120,
         "tests_passed": 102,
-        "test_effectiveness": 0.14457831325301204,
+        "test_effectiveness": 0.11162790697674418,
         "auto_recommendations": [
           "Increase test coverage - add more unit tests",
           "Implement automated test generation for edge cases"
@@ -69,22 +69,22 @@
     },
     {
       "gate_name": "security_hardening",
-      "passed": true,
+      "passed": false,
       "metrics": {
         "gate_id": "security_hardening",
-        "execution_time": 0.038774728775024414,
-        "success_rate": 1.0,
+        "execution_time": 0.04147458076477051,
+        "success_rate": 0.0,
         "performance_score": 0.8,
-        "security_score": 0.82,
+        "security_score": 0.78,
         "reliability_score": 0.9,
         "quantum_coherence": 0.8,
         "autonomous_intelligence": 0.85,
         "global_compliance": 0.9,
-        "timestamp": "2025-08-16T18:55:56.253214+00:00"
+        "timestamp": "2025-08-27T15:30:19.612021+00:00"
       },
       "details": {
         "dependency_scan": 0.9,
-        "code_security": 0.4,
+        "code_security": 0.2,
         "secrets_scan": 1.0,
         "access_control": 0.9,
         "encryption": 0.9
@@ -105,7 +105,7 @@
       "passed": true,
       "metrics": {
         "gate_id": "performance_optimization",
-        "execution_time": 0.00019860267639160156,
+        "execution_time": 0.0001666545867919922,
         "success_rate": 1.0,
         "performance_score": 0.82,
         "security_score": 0.85,
@@ -113,7 +113,7 @@
         "quantum_coherence": 0.8,
         "autonomous_intelligence": 0.9,
         "global_compliance": 0.85,
-        "timestamp": "2025-08-16T18:55:56.254048+00:00"
+        "timestamp": "2025-08-27T15:30:19.612673+00:00"
       },
       "details": {
         "memory_efficiency": 0.85,
@@ -138,7 +138,7 @@
       "passed": true,
       "metrics": {
         "gate_id": "global_compliance",
-        "execution_time": 0.00017952919006347656,
+        "execution_time": 0.0005013942718505859,
         "success_rate": 1.0,
         "performance_score": 0.8,
         "security_score": 0.9,
@@ -146,7 +146,7 @@
         "quantum_coherence": 0.8,
         "autonomous_intelligence": 0.85,
         "global_compliance": 1.0,
-        "timestamp": "2025-08-16T18:55:56.254571+00:00"
+        "timestamp": "2025-08-27T15:30:19.613102+00:00"
       },
       "details": {
         "compliance_score": 1.0,
@@ -194,7 +194,7 @@
       "passed": true,
       "metrics": {
         "gate_id": "reliability_validation",
-        "execution_time": 0.0005326271057128906,
+        "execution_time": 0.00012421607971191406,
         "success_rate": 1.0,
         "performance_score": 0.85,
         "security_score": 0.85,
@@ -202,7 +202,7 @@
         "quantum_coherence": 0.8,
         "autonomous_intelligence": 0.85,
         "global_compliance": 0.85,
-        "timestamp": "2025-08-16T18:55:56.255123+00:00"
+        "timestamp": "2025-08-27T15:30:19.613623+00:00"
       },
       "details": {
         "error_handling": 0.85,
@@ -227,7 +227,7 @@
       "passed": true,
       "metrics": {
         "gate_id": "scalability_assessment",
-        "execution_time": 0.0002689361572265625,
+        "execution_time": 0.0001862049102783203,
         "success_rate": 1.0,
         "performance_score": 0.8,
         "security_score": 0.85,
@@ -235,7 +235,7 @@
         "quantum_coherence": 0.8,
         "autonomous_intelligence": 0.9,
         "global_compliance": 0.85,
-        "timestamp": "2025-08-16T18:55:56.255788+00:00"
+        "timestamp": "2025-08-27T15:30:19.613836+00:00"
       },
       "details": {
         "horizontal_scaling": 0.8,
@@ -260,7 +260,7 @@
       "passed": true,
       "metrics": {
         "gate_id": "deployment_readiness",
-        "execution_time": 0.011331319808959961,
+        "execution_time": 0.010525703430175781,
         "success_rate": 1.0,
         "performance_score": 0.85,
         "security_score": 0.85,
@@ -268,7 +268,7 @@
         "quantum_coherence": 0.8,
         "autonomous_intelligence": 0.85,
         "global_compliance": 0.85,
-        "timestamp": "2025-08-16T18:55:56.267209+00:00"
+        "timestamp": "2025-08-27T15:30:19.624567+00:00"
       },
       "details": {
         "containerization": 0.95,
@@ -291,15 +291,15 @@
   ],
   "overall_metrics": {
     "gate_id": "overall",
-    "execution_time": 0.09495043754577637,
-    "success_rate": 0.75,
-    "performance_score": 0.757950316588145,
-    "security_score": 0.85875,
-    "reliability_score": 0.7778222891566265,
-    "quantum_coherence": 0.7159607238360114,
+    "execution_time": 0.10106182098388672,
+    "success_rate": 0.625,
+    "performance_score": 0.7538634161879428,
+    "security_score": 0.85375,
+    "reliability_score": 0.773703488372093,
+    "quantum_coherence": 0.7220208372478122,
     "autonomous_intelligence": 0.8625,
     "global_compliance": 0.875,
-    "timestamp": "2025-08-16T18:55:56.267851+00:00"
+    "timestamp": "2025-08-27T15:30:19.625041+00:00"
   },
   "autonomous_recommendations": [
     "Enhance quantum_code_analysis security: implement additional validation layers",
@@ -321,7 +321,7 @@
     "Deploy advanced observability with AI insights",
     "Implement autonomous performance optimization"
   ],
-  "timestamp": "2025-08-16T18:55:56.267952+00:00",
-  "gates_passed": 6,
+  "timestamp": "2025-08-27T15:30:19.625159+00:00",
+  "gates_passed": 5,
   "total_gates": 8
 }
