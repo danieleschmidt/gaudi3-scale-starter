@@ -1,1 +1,0 @@
-"""Test package for Gaudi 3 Scale Starter."""

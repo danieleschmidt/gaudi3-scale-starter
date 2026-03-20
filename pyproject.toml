@@ -1,259 +1,47 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
 
 [project]
-name = "gaudi3-scale-starter"
-version = "0.4.0"
-description = "Production Infrastructure for Intel Gaudi 3 HPU Clusters"
+name = "gaudi3-scale"
+version = "0.1.0"
+description = "Training utilities for Intel Gaudi 3 HPU at scale — trainer, batch sampler, and LR scaler"
 readme = "README.md"
-license = {file = "LICENSE"}
-authors = [
-    {name = "Daniel Schmidt", email = "daniel@example.com"}
-]
+license = { text = "MIT" }
+requires-python = ">=3.9"
+keywords = ["gaudi", "hpu", "intel", "training", "deep-learning", "large-scale"]
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
-    "Topic :: System :: Distributed Computing"
 ]
-requires-python = ">=3.10"
-dependencies = [
-    "torch>=2.3.0",
-    "pytorch-lightning>=2.2.0",
-    "transformers>=4.36.0",
-    "datasets>=2.15.0",
-    "wandb>=0.16.0",
-    "tensorboard>=2.16.0",
-    "click>=8.1.0",
-    "pydantic>=2.5.0",
-    "pyyaml>=6.0.1",
-    "rich>=13.7.0",
-    "typer>=0.9.0",
-    # Performance optimization dependencies (Generation 3)
-    "redis>=5.0.0",
-    "aiohttp>=3.9.0",
-    "aiofiles>=23.2.0",
-    "psutil>=5.9.6"
-]
+
+# No hard runtime dependencies — pure Python
+dependencies = []
 
 [project.optional-dependencies]
-# Development dependencies
 dev = [
-    "pytest>=7.4.0",
-    "pytest-cov>=4.1.0",
-    "pytest-mock>=3.12.0",
-    "pytest-asyncio>=0.21.0",
-    "black>=23.11.0",
-    "isort>=5.12.0",
-    "flake8>=6.1.0",
-    "mypy>=1.7.0",
-    "pre-commit>=3.6.0",
-    "bandit>=1.7.5",
-    "safety>=2.3.0"
-]
-
-# API and web server functionality
-api = [
-    "fastapi>=0.104.0",
-    "uvicorn>=0.24.0",
-    "starlette>=0.27.0",
-    "pydantic>=2.5.0",
-    "python-multipart>=0.0.6"
-]
-
-# Database functionality
-database = [
-    "sqlalchemy>=2.0.0",
-    "asyncpg>=0.29.0",
-    "psycopg2-binary>=2.9.0",
-    "alembic>=1.13.0"
-]
-
-# Caching functionality
-caching = [
-    "redis>=5.0.0",
-    "memcached>=1.59",
-    "pymemcache>=4.0.0"
-]
-
-# Intel Habana HPU support
-habana = [
-    "habana-torch-plugin>=1.16.0",
-    "habana-torch-dataloader>=1.16.0"
-]
-
-# Infrastructure deployment
-terraform = [
-    "python-terraform>=0.10.1",
-    "boto3>=1.34.0",
-    "azure-mgmt-compute>=30.4.0"
-]
-
-# Monitoring and metrics
-monitoring = [
-    "prometheus-client>=0.19.0",
-    "grafana-api>=1.0.3",
-    "psutil>=5.9.6",
-    "structlog>=24.1.0"
-]
-
-# Performance optimization
-performance = [
-    "redis>=5.0.0",
-    "aiohttp>=3.9.0",
-    "aiofiles>=23.2.0",
-    "memory-profiler>=0.61.0",
-    "line-profiler>=4.1.0",
-    "py-spy>=0.3.14"
-]
-
-# Async functionality
-async = [
-    "aiohttp>=3.9.0",
-    "aiofiles>=23.2.0",
-    "asyncpg>=0.29.0",
-    "uvloop>=0.19.0; sys_platform != 'win32'"
-]
-
-# Benchmarking and testing
-benchmarking = [
-    "pytest-benchmark>=4.0.0",
-    "memory-profiler>=0.61.0",
-    "py-spy>=0.3.14",
-    "locust>=2.17.0"
-]
-
-# Security features
-security = [
-    "cryptography>=41.0.0",
-    "pyjwt>=2.8.0",
-    "passlib>=1.7.4",
-    "python-jose>=3.3.0"
-]
-
-# Notifications and integrations
-notifications = [
-    "requests>=2.31.0",
-    "aiohttp>=3.9.0",
-    "smtplib-ssl>=1.0.0",
-    "slack-sdk>=3.26.0"
-]
-
-# All optional features (convenience meta-package)
-all = [
-    "fastapi>=0.104.0",
-    "uvicorn>=0.24.0",
-    "sqlalchemy>=2.0.0",
-    "asyncpg>=0.29.0",
-    "psycopg2-binary>=2.9.0",
-    "redis>=5.0.0",
-    "aiohttp>=3.9.0",
-    "aiofiles>=23.2.0",
-    "prometheus-client>=0.19.0",
-    "cryptography>=41.0.0",
-    "structlog>=24.1.0",
-    "requests>=2.31.0"
+    "pytest>=7.0",
+    "pytest-cov",
 ]
 
 [project.scripts]
-gaudi3-train = "gaudi3_scale.cli:train"
-gaudi3-deploy = "gaudi3_scale.cli:deploy"
-gaudi3-benchmark = "gaudi3_scale.cli:benchmark"
-
-[project.urls]
-Homepage = "https://github.com/yourusername/gaudi3-scale-starter"
-Documentation = "https://gaudi3-scale.readthedocs.io"
-Repository = "https://github.com/yourusername/gaudi3-scale-starter"
-Issues = "https://github.com/yourusername/gaudi3-scale-starter/issues"
+gaudi3-demo = "demo:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-dir]
-"" = "src"
-
-[tool.black]
-line-length = 88
-target-version = ['py310']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | dist
-)/
-'''
-
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-line_length = 88
-known_first_party = ["gaudi3_scale"]
-
-[tool.mypy]
-python_version = "3.10"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-check_untyped_defs = true
-disallow_untyped_decorators = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-warn_unreachable = true
-strict_equality = true
+where = ["."]
+include = ["gaudi3_scale*"]
 
 [tool.pytest.ini_options]
-minversion = "7.0"
-addopts = [
-    "-ra",
-    "--strict-markers",
-    "--strict-config",
-    "--cov=gaudi3_scale",
-    "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-report=xml"
-]
 testpaths = ["tests"]
-filterwarnings = [
-    "error",
-    "ignore::UserWarning",
-    "ignore::DeprecationWarning"
-]
+addopts = "-v --tb=short"
 
-[tool.coverage.run]
-source = ["src"]
-omit = [
-    "*/tests/*",
-    "*/test_*"
-]
-
-[tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if self.debug:",
-    "if settings.DEBUG",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if 0:",
-    "if __name__ == .__main__.:"
-]
-
-[tool.bandit]
-exclude_dirs = ["tests"]
-skips = ["B101", "B601"]
+[tool.ruff]
+line-length = 100
+target-version = "py39"
